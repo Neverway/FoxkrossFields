@@ -92,8 +92,10 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ReflectionUtils/ReflectionUtils.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/Quake1/MapVector2.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/IDeepCopyable.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/Debug_TileEditTool.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/ValveMapFormat2006/VmfPlane.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/_Depreciated/Particle_DataExposer.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/GI_TileChunkManager.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/ShapeEditor/Bezier.cs" />
      <Compile Include="Assets/Resources/Scripts/Integratable/Graphics/Graphics_AnimatorSetBool.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/UI_Image_EntityHealth.cs" />
@@ -138,6 +140,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/WidgetNavigator/WidgetSelectable.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/CSGBuildSettings.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/UI/SabreMouse.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/GI_TileDataManager.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/Pawn_LookAt.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/UI_Text_EntityName.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/WidgetNavigator/WidgetNavigator.cs" />
@@ -202,6 +205,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/CoreAttributes/ButtonAttribute.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/ValveMapFormat2006/VmfImporter.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/UnrealGold/T3dActor.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/ChunkData.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/MonoTask/EveryUpdate.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/WB_NetKillFeed.cs" />
      <Compile Include="Assets/Packages/DynamicBone/Scripts/DynamicBonePlaneCollider.cs" />
@@ -275,6 +279,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/WB_NetConnect_ServerEntry.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ModifierSystem/ModifierSystem/Modifier.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/PrimitiveBrush.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/GI_TileWorldGenerator.cs" />
      <Compile Include="Assets/Packages/DOTween/Modules/DOTweenModuleUnityVersion.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/WB_ConnectionMessage.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/BuildEngine/TriangulationNode.cs" />
@@ -291,6 +296,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/CrushDetector.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/ValveMapFormat2006/VmfEntity.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/DestroyAnimation.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/GI_SaveManager.cs" />
      <Compile Include="Assets/Packages/DOTween/Modules/DOTweenModuleUI.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/Volumes/TriggerVolume/TriggerVolumeTriggerType.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/Utilities/Vertex Weld Ops/VertexWeldToleranceOperation.cs" />
@@ -403,10 +409,12 @@
      <Folder Include="Assets/Resources/Materials/Shaders/Unsorted" />
      <None Include="Assets/Packages/SabreCSG-master/Internal/Shaders/BrushPreview.shader" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/_Animated" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/PS Move" />
      <None Include="Assets/Packages/SabreCSG-master/Shaders/SeeExcluded.shader" />
      <Folder Include="Assets/Packages/SabreCSG-master/Example Materials/Textures/Utility" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Sprites" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Dev/DevGround" />
      <None Include="Assets/Resources/Materials/Shaders/SX_Fizzler.shader" />
      <None Include="Assets/RivenFramework/Other/80-C# NeverwayTemplates__Standard-New Standard Script.cs.txt" />
      <None Include="Assets/Packages/QuickOutline/Resources/Shaders/OutlineMask.shader" />
@@ -451,10 +459,12 @@
      <None Include="Assets/Resources/Materials/Shaders/SX_Lava.shader" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Tools/Utilities/Vertex Weld Ops" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Importers/UnrealGold" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles" />
      <None Include="Assets/Resources/Materials/Shaders/PostProcessing/ColorQuantizationFilter.shader" />
      <Folder Include="Assets/Resources/Sprites/Characters" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Core/BuildEngine" />
      <Folder Include="Assets/Packages/SabreCSG-master/Example Materials" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Dev/DevShadows" />
      <Folder Include="Assets/Packages/BzKovSoft" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Objects/Animations" />
      <Folder Include="Assets/Packages/SabreCSG-master/Gizmos" />
@@ -476,6 +486,7 @@
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader" />
      <Folder Include="Assets/Packages/SabreCSG-master/Shaders" />
      <Folder Include="Assets/Packages/DynamicBone" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Dev/DevStairs" />
      <Folder Include="Assets/RivenFramework" />
      <Folder Include="Assets/Resources/Sprites/Ambience" />
      <Folder Include="Assets/RivenFramework-Revamp/EasyInspector" />
@@ -487,6 +498,8 @@
      <Folder Include="Assets/TextMesh Pro/Resources/Fonts &amp; Materials" />
      <Folder Include="Assets/Packages/SabreCSG-master/Internal/Shaders" />
      <Folder Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ModifierSystem/ModifierSystem" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/DevWalls" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/AutumnForest" />
      <None Include="Assets/Resources/Materials/Shaders/SX_StandardSurface_NoFog.shader" />
      <None Include="Assets/TextMesh Pro/Sprites/EmojiOne.json" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Keyboard &amp; Mouse" />
@@ -499,6 +512,7 @@
      <Folder Include="Assets/Resources/Materials/Effects" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/ShapeEditor" />
      <Folder Include="Assets/_REMOVE_/Integratables" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/DevShadows" />
      <Folder Include="Assets/Resources/Sprites/Level" />
      <Folder Include="Assets/TextMesh Pro/Resources" />
      <None Include="Assets/Resources/Materials/Shaders/ScreenCutoutShader.shader" />
@@ -539,6 +553,7 @@
      <None Include="Assets/Packages/SabreCSG-master/Shaders/ShapeEditorLine.shader" />
      <Folder Include="Assets/TextMesh Pro/Fonts" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Core/Dictionaries" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/DevStairs" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Keyboard &amp; Mouse/Light" />
      <Folder Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0" />
      <Folder Include="Assets/Resources/Other/IntegratableSystems/PixelSpriteUtils" />
@@ -559,6 +574,7 @@
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Materials/Developer" />
      <None Include="Assets/Resources/Other/IntegratableSystems/PixelSpriteUtils/PixelatorShader/TrimSheet.shader" />
      <None Include="Assets/Packages/Xelu_Prompts/Readme.txt" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old" />
      <None Include="Assets/Resources/Materials/Shaders/SX_FogSkybox.shader" />
      <Folder Include="Assets/RivenFramework/Objects" />
      <Folder Include="Assets/AddressableAssetsData" />
@@ -587,6 +603,8 @@
      <Folder Include="Assets/Resources/Other/IntegratableSystems/PixelSpriteUtils/PixelatorShader" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Input" />
      <Folder Include="Assets/Resources/Other/IntegratableSystems/WidgetNavigator" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/AutumnForest_Leaves" />
+     <Folder Include="Assets/Resources/Objects/TopDown" />
      <Folder Include="Assets/RivenFramework-Revamp" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/VR/Vive" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/PS Vita" />
@@ -594,6 +612,7 @@
      <Folder Include="Assets/Resources/Other/IntegratableSystems/Assorted" />
      <Folder Include="Assets/Resources/Sound/Music" />
      <Folder Include="Assets/Packages/QuickOutline/Scripts" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Dev/DevWalls" />
      <Folder Include="Assets/RivenFramework/Objects/_OLD" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/Positional Prompts" />
      <Folder Include="Assets/Resources/Scripts/FirstPersonExample" />
@@ -603,12 +622,14 @@
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/VR/Oculus" />
      <Folder Include="Assets/AddressableAssetsData/AssetGroupTemplates" />
      <Folder Include="Assets/Resources/Sprites/Level/Effects" />
+     <Folder Include="Assets/Resources/Scripts/TileGenSys" />
      <Folder Include="Assets/Packages/SabreCSG-master" />
      <Folder Include="Assets/Packages/SabreCSG-master/Resources" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Keyboard &amp; Mouse/Dark" />
      <None Include="Assets/Packages/SabreCSG-master/Shaders/Diffuse-VertexColoredLit.shader" />
      <Folder Include="Assets/Packages/SabreCSG-master/Internal" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Dev" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Extensions" />
      <None Include="Assets/Resources/Materials/Shaders/Blur.shader" />
      <None Include="Assets/Packages/QuickOutline/Resources/Shaders/OutlineFill.shader" />
@@ -622,6 +643,8 @@
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Objects/Generated" />
      <None Include="Assets/Resources/Materials/Shaders/SX_Oil.shader" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Levels" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Developer" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/_Rules" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Sprites/VeryImportantDoNotDelete/Materials" />
      <Folder Include="Assets/Resources/Sound/Effects" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader" />

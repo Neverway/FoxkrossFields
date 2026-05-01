@@ -1,0 +1,208 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using RivenFramework;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class GI_TileChunkManager : MonoBehaviour
+{
+    [Header("Settings")] 
+    public int chunkSize = 16;
+    public int viewDistance = 3;
+    public float updateInterval = 0.25f;
+
+    private Dictionary<Vector2Int, ChunkData> loadedChunks = new();
+    private Vector2Int lastPlayerChunk = new(int.MaxValue, 0);
+    private GI_TileWorldGenerator generator;
+    private GI_SaveManager saveManager;
+    private GI_TileDataManager tileDataManager;
+    private Transform playerTransform;
+
+    private Queue<Vector2Int> chunkLoadQueue = new();
+    private bool isLoadingChunk = false;
+
+    private void Start()
+    {
+        generator = GameInstance.Get<GI_TileWorldGenerator>();
+        saveManager = GameInstance.Get<GI_SaveManager>();
+        tileDataManager = GameInstance.Get<GI_TileDataManager>();
+
+        var player = FindObjectOfType<TDPawn_Player>();
+        if (player) playerTransform = player.transform;
+
+        StartCoroutine(ChunkUpdateLoop());
+    }
+
+    private IEnumerator ChunkUpdateLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(updateInterval);
+            if (!playerTransform)
+            {
+                var player = FindObjectOfType<TDPawn_Player>();
+                if (player) playerTransform = player.transform;
+                yield return null;
+            }
+
+            Vector2Int playerChunk = WorldToChunk(playerTransform.position);
+            if (playerChunk == lastPlayerChunk) continue;
+            lastPlayerChunk = playerChunk;
+            
+            UpdateChunks(playerChunk);
+        }
+    }
+
+    private void UpdateChunks(Vector2Int center)
+    {
+        var needed = new HashSet<Vector2Int>();
+
+        for (int x = -viewDistance; x <= viewDistance; x++)
+        {
+            for (int y = -viewDistance; y <= viewDistance; y++)
+            {
+                needed.Add(new Vector2Int(center.x + x, center.y + y));
+            }
+        }
+
+        var toUnload = new List<Vector2Int>();
+        foreach (var coord in loadedChunks.Keys)
+        {
+            if (!needed.Contains(coord)) toUnload.Add(coord);
+        }
+
+        foreach (var coord in toUnload)
+        {
+            UnloadChunk(coord);
+        }
+
+        foreach (var coord in needed)
+        {
+            if (!loadedChunks.ContainsKey(coord) && !chunkLoadQueue.Contains(coord)) chunkLoadQueue.Enqueue(coord);
+        }
+
+        if (!isLoadingChunk)
+        {
+            isLoadingChunk = true; 
+            StartCoroutine(ProcessLoadQueue());
+        }
+    }
+
+    private IEnumerator ProcessLoadQueue()
+    {
+        while (chunkLoadQueue.Count > 0)
+        {
+            LoadChunk(chunkLoadQueue.Dequeue());
+            yield return null;
+        }
+
+        isLoadingChunk = false;
+    }
+
+    private void LoadChunk(Vector2Int coord)
+    {
+        ChunkData data = saveManager.LoadChunk(coord) ?? generator.GenerateChunk(coord, chunkSize);
+
+        loadedChunks[coord] = data;
+        ApplyChunkToTilemap(data);
+    }
+
+    private void UnloadChunk(Vector2Int coord)
+    {
+        if (!loadedChunks.TryGetValue(coord, out var data)) return;
+        if (data.isDirty) saveManager.SaveChunk(data);
+        ClearChunkFromTilemap(data);
+        loadedChunks.Remove(coord);
+    }
+
+    private void ApplyChunkToTilemap(ChunkData data)
+    {
+        if (data?.layers == null) return;
+        int area = data.size * data.size;
+        var positions = new Vector3Int[area];
+        var tiles = new TileBase[area];
+        
+        for (int layer = 0; layer < data.layers.Length; layer++)
+        {
+            var tilemap = tileDataManager.GetTilemapFromLayer(layer);
+            if (tilemap == null) continue;
+
+            int count = 0;
+            for (int x = 0; x < data.size; x++)
+            {
+                for (int y = 0; y < data.size; y++)
+                {
+                    int worldX = data.chunkCoord.x * data.size + x;
+                    int worldY = data.chunkCoord.y * data.size + y;
+                    positions[count] = new Vector3Int(worldX, worldY, 0);
+                    string tileID = data.GetTile(layer, x, y);
+                    tiles[count] = string.IsNullOrEmpty(tileID) ? null : tileDataManager.GetTileBaseFromID(tileID);
+                    count++;
+                }
+            }
+            tilemap.SetTiles(positions, tiles);
+        }
+    }
+
+    private void ClearChunkFromTilemap(ChunkData data)
+    {
+        if (data?.layers == null) return;
+        int area = data.size * data.size;
+        var positions = new Vector3Int[area];
+        var nullTiles = new TileBase[area];
+        
+        for (int layer = 0; layer < data.layers.Length; layer++)
+        {
+            var tilemap = tileDataManager.GetTilemapFromLayer(layer);
+            if (tilemap == null) continue;
+
+            int count = 0;
+            for (int x = 0; x < data.size; x++)
+            {
+                for (int y = 0; y < data.size; y++)
+                {
+                    int worldX = data.chunkCoord.x * data.size + x;
+                    int worldY = data.chunkCoord.y * data.size + y;
+                    positions[count++] = new Vector3Int(worldX, worldY, 0);
+                }
+            }
+            tilemap.SetTiles(positions, nullTiles);
+        }
+    }
+
+    public void MarkTileDirty(Vector3Int worldCell, int layer, string newTileId)
+    {
+        Vector2Int chunkCoord = WorldCellToChunk(worldCell);
+        if (!loadedChunks.TryGetValue(chunkCoord, out var data)) return;
+
+        int localX = worldCell.x - chunkCoord.x * chunkSize;
+        int localY = worldCell.y - chunkCoord.y * chunkSize;
+        data.SetTile(layer, localX, localY, newTileId);
+        data.isDirty = true;
+    }
+
+    public Vector2Int WorldToChunk(Vector3 worldPos)
+    {
+        Vector3 cellSize = tileDataManager.tileGrid.cellSize;
+        return new Vector2Int(Mathf.FloorToInt(worldPos.x / (chunkSize * cellSize.x)), Mathf.FloorToInt(worldPos.y / (chunkSize * cellSize.y)));
+    }
+
+    public Vector2Int WorldCellToChunk(Vector3Int cell)
+    {
+        return new Vector2Int(Mathf.FloorToInt((float)cell.x / chunkSize), Mathf.FloorToInt((float)cell.y / chunkSize));
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveAllDirty();
+    }
+
+    public void SaveAllDirty()
+    {
+        foreach (var data in loadedChunks.Values)
+        {
+            if (data.isDirty) saveManager.SaveChunk(data);
+        }
+    }
+}

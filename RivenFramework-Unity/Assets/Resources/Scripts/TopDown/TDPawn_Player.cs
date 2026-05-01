@@ -10,6 +10,7 @@
 using System;
 using Neverway.Framework;
 using RivenFramework;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TDPawn_Player : TDPawn
@@ -29,6 +30,7 @@ public class TDPawn_Player : TDPawn
     private Vector2 lookRotation;
     private float currentMoveSpeed;
     private Vector2 faceDirection;
+    private Grid grid;
     
     /*-----[ Reference Variables ]------------------------------------------------------------------------------------*/
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -107,17 +109,23 @@ public class TDPawn_Player : TDPawn
         
         // Kill bind
         if (Input.GetKeyDown(KeyCode.Delete)) Kill();
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            var saveManager = GameInstance.Get<GI_SaveManager>();
+            saveManager.SavePlayer(gameObject.transform.position);
+            GameInstance.Get<GI_TileChunkManager>().SaveAllDirty();
+        }
         
         // Interact 
         if (inputActions.Interact.WasPressedThisFrame())
         {
             if (physObjectAttachmentPoint.attachedObject)
             {
-                action.DropPhysProp(this);
+                //action.DropPhysProp(this);
             }
             else
             {
-                action.Interact(this, interactionPrefab, viewPoint.transform);
+                //action.Interact(this, interactionPrefab, viewPoint.transform);
             }
         }
         
@@ -180,47 +188,15 @@ public class TDPawn_Player : TDPawn
     private void UpdateAttachmentPoint()
     {
         physObjectAttachmentPoint.transform.localPosition = new Vector3(faceDirection.x, faceDirection.y, 0);
+        if (grid.IsUnityNull()) grid = GameInstance.Get<GI_TileDataManager>().tileGrid;
+        Vector3Int cell = grid.WorldToCell(physObjectAttachmentPoint.transform.position);
+        physObjectAttachmentPoint.transform.position = grid.GetCellCenterLocal(cell);
     }
     
     private void ApplyMovement()
     {
         action.Move(this, moveDirection, currentMoveSpeed);
     }
-
-    /*private void UpdateRotation()
-    {
-        if (applicationSettings == null) applicationSettings = GameInstance.Get<ApplicationSettings>();
-        
-        // Get the look speed
-        float horizontalLookSpeed = applicationSettings.currentSettingsData.horizontalLookSpeed;
-        float verticalLookSpeed = applicationSettings.currentSettingsData.verticalLookSpeed;
-        
-        // Separate multipliers for mouse and joystick
-        float mouseMultiplier = applicationSettings.currentSettingsData.mouseLookSensitivity;
-        float joystickMultiplier = applicationSettings.currentSettingsData.joystickLookSensitivity;
-
-        // Determine the input method (mouse or joystick)
-        bool isUsingMouse = false;
-        if (inputActions.LookAxis.IsInProgress())
-        {
-            if (inputActions.LookAxis.activeControl.device.name == "Mouse")
-            {
-                isUsingMouse = true;
-            }
-        }
-
-        // Apply the appropriate multiplier
-        var multiplier = isUsingMouse ? mouseMultiplier : joystickMultiplier;
-        
-        // Store the rotation values
-        lookRotation.x -= inputActions.LookAxis.ReadValue<Vector2>().y * (10 * verticalLookSpeed) * (multiplier/10);
-        lookRotation.y += inputActions.LookAxis.ReadValue<Vector2>().x * (10 * horizontalLookSpeed) * (multiplier/10);
-        lookRotation.x = Mathf.Clamp(lookRotation.x, -90f, 90f);
-    }*/
-    /*private void ApplyRotation()
-    {
-        action.FaceTowardsDirection(this, viewPoint, lookRotation);
-    }*/
 
 
     private void OnDeath(DamageInfo _damageInfo)

@@ -7,6 +7,8 @@
 //
 //====================================================================================================================//
 
+using System;
+using RivenFramework;
 using UnityEngine;
 
 /// <summary>
@@ -31,6 +33,9 @@ public class LB_World : MonoBehaviour
     // TODO: This may be better changed from GameObject to reference a parent WB_HUD class
     [Tooltip("A reference to the HUD widget prefab to draw to the UI")]
     [SerializeField] private GameObject HUDWidgetPrefab;
+
+    private TDPawn_Player player;
+    private bool hasLoaded;
     
     #endregion
     
@@ -43,7 +48,25 @@ public class LB_World : MonoBehaviour
         widgetManager = FindObjectOfType<GI_WidgetManager>();
         widgetManager.AddWidget(HUDWidgetPrefab);
     }
-    
+
+    private void Update()
+    {
+        if (hasLoaded) return;
+        if (!player)
+        {
+            player = FindObjectOfType<TDPawn_Player>();
+            return;
+        }
+
+        var saveManager = GameInstance.Get<GI_SaveManager>();
+        if (saveManager.HasSave())
+        {
+            player.transform.position = (Vector3)saveManager.LoadPlayer();
+        }
+
+        hasLoaded = true;
+    }
+
     /*-----[ Internal Functions ]-------------------------------------------------------------------------------------*/
     
     
