@@ -23,7 +23,7 @@ public class ParticleGenerator : MonoBehaviour
     public void OnEnable() => playerTooFar = true; //This will preload particles on first step
     public void OnDisable() => DestroyAllParticles();
     public void Update()
-    {
+    {/*
         if (GameInstance.Playerbody != null)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, GameInstance.Playerbody.transform.position) - (area.magnitude * 0.5f);
@@ -49,7 +49,7 @@ public class ParticleGenerator : MonoBehaviour
         {
             SpawnParticleInArea();
             particlesToSpawn -= 1f;
-        }
+        }*/
 
     }
     public void PreSpawn()

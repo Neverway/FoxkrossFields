@@ -8,7 +8,6 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
-  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -78,7 +77,6 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 0
     generateAnimationClips: 0
@@ -91,7 +89,6 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 0
     generateAnimationClips: 0
@@ -122,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Frame_0
+  - name: AttackSpark_Frame_0
     originalName: 
     pivot: {x: 0.53846157, y: 0.5}
     alignment: 9
@@ -133,7 +130,7 @@ ScriptedImporter:
       y: 142
       width: 39
       height: 42
-    spriteID: bec5f294fa5582044beca0cd84b6583e
+    spriteID: a784f4f95adbf81c6b1bc02fc633e40e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 71, y: 142}
-  - name: Frame_1
+  - name: AttackSpark_Frame_1
     originalName: 
     pivot: {x: 0.53999996, y: 0.4791667}
     alignment: 9
@@ -153,7 +150,7 @@ ScriptedImporter:
       y: 75
       width: 50
       height: 48
-    spriteID: 9c15d590bfe055148bd70f8ecaae2e41
+    spriteID: 78bb7a5030c4979bb9dd96e29ae5d2fb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -162,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 75}
-  - name: Frame_2
+  - name: AttackSpark_Frame_2
     originalName: 
     pivot: {x: 0.5166667, y: 0.5084746}
     alignment: 9
@@ -173,7 +170,7 @@ ScriptedImporter:
       y: 75
       width: 60
       height: 59
-    spriteID: 09f299dbb671a0e40a25ab3ef568b139
+    spriteID: 841be6782fce404fca477e49f08aae14
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -182,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 75}
-  - name: Frame_3
+  - name: AttackSpark_Frame_3
     originalName: 
     pivot: {x: 0.50793654, y: 0.50793654}
     alignment: 9
@@ -193,7 +190,7 @@ ScriptedImporter:
       y: 4
       width: 63
       height: 63
-    spriteID: 1f41cc01f73e9f14689b971f6a135ea0
+    spriteID: b85bcf3ba7cbc406b82e5afc0618b1bd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -202,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Frame_4
+  - name: AttackSpark_Frame_4
     originalName: 
     pivot: {x: 0.5084746, y: 0.5166667}
     alignment: 9
@@ -213,7 +210,7 @@ ScriptedImporter:
       y: 142
       width: 59
       height: 60
-    spriteID: fe1b8a41a5d50334397370ca037b16ec
+    spriteID: 5672d1d80d5f7b887b9e0e86ac577ff6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -225,62 +222,52 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    uuid:
-      value0: 2519442087
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
+    guid: -508871429
     name: AttackSpark
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Frame_0
+    - name: AttackSpark_Frame_0
       frameIndex: 0
-      additiveSortOrder: 0
       cellRect:
         x: 11
         y: 11
         width: 39
         height: 42
-      spriteId: bec5f294fa5582044beca0cd84b6583e
-    - name: Frame_1
+      spriteId: a784f4f95adbf81c6b1bc02fc633e40e
+    - name: AttackSpark_Frame_1
       frameIndex: 1
-      additiveSortOrder: 0
       cellRect:
         x: 5
         y: 9
         width: 50
         height: 48
-      spriteId: 9c15d590bfe055148bd70f8ecaae2e41
-    - name: Frame_2
+      spriteId: 78bb7a5030c4979bb9dd96e29ae5d2fb
+    - name: AttackSpark_Frame_2
       frameIndex: 2
-      additiveSortOrder: 0
       cellRect:
         x: 1
         y: 2
         width: 60
         height: 59
-      spriteId: 09f299dbb671a0e40a25ab3ef568b139
-    - name: Frame_3
+      spriteId: 841be6782fce404fca477e49f08aae14
+    - name: AttackSpark_Frame_3
       frameIndex: 3
-      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
         width: 63
         height: 63
-      spriteId: 1f41cc01f73e9f14689b971f6a135ea0
-    - name: Frame_4
+      spriteId: b85bcf3ba7cbc406b82e5afc0618b1bd
+    - name: AttackSpark_Frame_4
       frameIndex: 4
-      additiveSortOrder: 0
       cellRect:
         x: 2
         y: 1
         width: 59
         height: 60
-      spriteId: fe1b8a41a5d50334397370ca037b16ec
+      spriteId: 5672d1d80d5f7b887b9e0e86ac577ff6
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -332,8 +319,6 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
-  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 64, y: 64}
-  previousTextureSize: {x: 128, y: 256}

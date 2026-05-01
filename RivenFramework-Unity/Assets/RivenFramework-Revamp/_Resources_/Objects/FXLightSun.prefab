@@ -74,7 +74,8 @@ PrefabInstance:
       propertyPath: displayName
       value: FX Light Sun
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1335220689860242614, guid: af916707fd7b43c85a571e1f53d42590, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
