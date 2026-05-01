@@ -4746,7 +4746,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4767,7 +4767,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4775,6 +4775,69 @@ TextureImporter:
       bones: []
       spriteID: 0db053f909ff7e6f988d72357ae73904
       internalID: -1925712686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AutumnForest_202
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5230e37d44cd42fee962a14f6b1f6996
+      internalID: -49880123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AutumnForest_203
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a80f69e40e3c9978b9d2492ae33615c7
+      internalID: 365544915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AutumnForest_204
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9edab58a0b857ccaaf9e8fc6bd51383
+      internalID: -613838584
       vertices: []
       indices: 
       edges: []
@@ -4906,6 +4969,9 @@ TextureImporter:
       AutumnForest_20: -2076829099
       AutumnForest_200: 1421863623
       AutumnForest_201: -1925712686
+      AutumnForest_202: -49880123
+      AutumnForest_203: 365544915
+      AutumnForest_204: -613838584
       AutumnForest_21: -1688901521
       AutumnForest_22: -394332781
       AutumnForest_23: -969504308
