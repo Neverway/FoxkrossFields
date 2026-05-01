@@ -11,7 +11,7 @@ public class ChunkData
     public LayerData[] layers;
     [NonSerialized] public bool isDirty;
 
-    private const int LAYER_COUNT = 4;
+    private const int LAYER_COUNT = 5;
     public const string EMPTY_TILE = "__empty__";
 
     public void PostLoadValidate()

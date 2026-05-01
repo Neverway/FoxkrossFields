@@ -29,6 +29,7 @@ public class Debug_TileEditTool : MonoBehaviour
             Vector3Int cell = tilemap.WorldToCell(transform.position);
             if (tilemap.GetTile(cell) == null)
             {
+                GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
                 tilemap.SetTile(cell, heldTileData.tile);
                 GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, heldTileData.tileLayer, selectedTile);
             }
@@ -49,8 +50,17 @@ public class Debug_TileEditTool : MonoBehaviour
                     holdTimer += Time.deltaTime;
                     if (holdTimer >= destroyHoldTime)
                     {
+                        bool removingTrunk = heldTileData.tileLayer == 3;
+                        Vector3Int removedCell = cell;
+                        
                         tilemap.SetTile(cell, null);
                         GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, heldTileData.tileLayer, null);
+
+                        if (removingTrunk)
+                        {
+                            GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(removedCell);
+                        }
+                        
                         holdTimer = 0f;
                     }
                 //}

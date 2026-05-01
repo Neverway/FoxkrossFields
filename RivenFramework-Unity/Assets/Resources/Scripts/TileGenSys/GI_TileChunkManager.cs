@@ -205,4 +205,52 @@ public class GI_TileChunkManager : MonoBehaviour
             if (data.isDirty) saveManager.SaveChunk(data);
         }
     }
+
+    public void RecalculateLeaves(Vector3Int removedTrunk)
+    {
+        var tileDataManager = GameInstance.Get<GI_TileDataManager>();
+        var generator = GameInstance.Get<GI_TileWorldGenerator>();
+        var trunkTilemap = tileDataManager.GetTilemapFromLayer(3);
+        var leafTilemap = tileDataManager.GetTilemapFromLayer(4);
+        if (trunkTilemap == null || leafTilemap == null) return;
+
+        int worldX = removedTrunk.x;
+        int worldY = removedTrunk.y;
+        
+        for (int lx = worldX - 2; lx <= worldX + 2; lx++)
+        {
+            for (int ly = worldY + 1; ly <= worldY + 3; ly++)
+            {
+                var leafCell = new Vector3Int(lx, ly, 0);
+                bool shouldHaveLeaf = AnyLivingTrunkCoversLeaf(lx, ly, trunkTilemap);
+
+                TileBase currentLeaf = leafTilemap.GetTile(leafCell);
+                TileBase desiredLeaf = shouldHaveLeaf ? tileDataManager.GetTileBaseFromID(generator.leafTileID) : null;
+
+                if (currentLeaf == desiredLeaf) continue;
+
+                leafTilemap.SetTile(leafCell, desiredLeaf);
+                MarkTileDirty(leafCell, 4, shouldHaveLeaf ? generator.leafTileID : null);
+            }
+        }
+    }
+    
+    private bool AnyLivingTrunkCoversLeaf(int worldX, int worldY, Tilemap trunkTilemap)
+    {
+        var generator = GameInstance.Get<GI_TileWorldGenerator>();
+        TileBase trunkTile = GameInstance.Get<GI_TileDataManager>().GetTileBaseFromID(generator.treeTileID);
+
+        for (int tx = worldX - 1; tx <= worldX + 1; tx++)
+        {
+            for (int ty = worldY - 3; ty <= worldY - 1; ty++)
+            {
+                var trunkCell = new Vector3Int(tx, ty, 0);
+                var aboveCell = new Vector3Int(tx, ty + 1, 0);
+                bool hasTrunk = trunkTilemap.GetTile(trunkCell) == trunkTile;
+                bool hasAbove = trunkTilemap.GetTile(aboveCell) == trunkTile;
+                if (hasTrunk && hasAbove) return true;
+            }
+        }
+        return false;
+    }
 }

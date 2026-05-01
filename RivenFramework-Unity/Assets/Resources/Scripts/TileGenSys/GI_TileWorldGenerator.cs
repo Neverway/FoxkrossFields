@@ -22,6 +22,7 @@ public class GI_TileWorldGenerator : MonoBehaviour
     public string grassPathTileID = "grass_path";
     public string dirtPathTileID = "dirt_path";
     public string treeTileID = "tree";
+    public string leafTileID = "leaf";
 
     private Vector2 groundOffset, pathOffset, treeOffset;
 
@@ -62,15 +63,41 @@ public class GI_TileWorldGenerator : MonoBehaviour
                 // Layer 2 - rivers and lakes
 
                 // Layer 3 - trees
-                if (pathNoise <= pathThreshold)
-                {
-                    float treeNoise = Mathf.PerlinNoise((worldX+treeOffset.x)*treeNoiseScale,(worldY+treeOffset.y)*treeNoiseScale);
-                    if (treeNoise > treeThreshold) 
-                        data.SetTile(3, x, y, treeTileID);
-                }
+                if (IsTrunk(worldX, worldY, pathNoise))
+                    data.SetTile(3, x, y, treeTileID);
+                
+                // Layer 4 - leaves
+                if (ShouldHaveLeaf(worldX, worldY))
+                    data.SetTile(4, x, y, leafTileID);
             }
         }
 
         return data;
+    }
+    
+    private bool IsTrunk(int worldX, int worldY, float pathNoiseAtCell = -1f)
+    {
+        float pNoise = pathNoiseAtCell >= 0 ? pathNoiseAtCell : Mathf.PerlinNoise((worldX + pathOffset.x) * pathNoiseScale, (worldY + pathOffset.y) * pathNoiseScale);
+        if (pNoise > pathThreshold) return false;
+        float tNoise = Mathf.PerlinNoise((worldX + treeOffset.x) * treeNoiseScale, (worldY + treeOffset.y) * treeNoiseScale);
+        return tNoise > treeThreshold;
+    }
+    
+    private bool TrunkHasLeaves(int tx, int ty)
+    {
+        return IsTrunk(tx, ty + 1);
+    }
+    
+    private bool ShouldHaveLeaf(int worldX, int worldY)
+    {
+        for (int tx = worldX - 1; tx <= worldX + 1; tx++)
+        {
+            for (int ty = worldY - 3; ty <= worldY - 1; ty++)
+            {
+                if (IsTrunk(tx, ty) && TrunkHasLeaves(tx, ty))
+                    return true;
+            }
+        }
+        return false;
     }
 }

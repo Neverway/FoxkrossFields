@@ -533,7 +533,7 @@ MonoBehaviour:
     tileDurability: 2
     tileMaterialType: 1
   - tileID: dirt_path
-    tile: {fileID: 11400000, guid: c8ad0b10aed755f4ab7044e38c56cbab, type: 2}
+    tile: {fileID: 11400000, guid: 482e2d7902b8163de9234880cca25229, type: 2}
     tileLayer: 1
     tileDurability: 2
     tileMaterialType: 1
@@ -552,6 +552,11 @@ MonoBehaviour:
     tileLayer: 2
     tileDurability: 0
     tileMaterialType: 7
+  - tileID: leaves
+    tile: {fileID: 11400000, guid: d50400d1ca9cb06478e6fdeca1afd2da, type: 2}
+    tileLayer: 4
+    tileDurability: 0
+    tileMaterialType: 5
   tileGrid: {fileID: 0}
 --- !u!114 &630826835
 MonoBehaviour:
@@ -595,15 +600,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 1997
   groundNoiseScale: 0.04
-  pathNoiseScale: 0.1
+  pathNoiseScale: 0.08
   treeNoiseScale: 0.15
-  treeThreshold: 0.6
-  pathThreshold: 0.55
+  treeThreshold: 0.3
+  pathThreshold: 0.5
   grassTileID: grass
-  dirtTileID: dirt
+  dirtTileID: grass
   grassPathTileID: grass_path
   dirtPathTileID: grass_path
   treeTileID: tree
+  leafTileID: leaves
 --- !u!1001 &660662666
 PrefabInstance:
   m_ObjectHideFlags: 0

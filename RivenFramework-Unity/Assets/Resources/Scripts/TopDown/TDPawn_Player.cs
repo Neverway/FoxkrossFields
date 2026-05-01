@@ -187,7 +187,7 @@ public class TDPawn_Player : TDPawn
 
     private void UpdateAttachmentPoint()
     {
-        physObjectAttachmentPoint.transform.localPosition = new Vector3(faceDirection.x, faceDirection.y, 0);
+        physObjectAttachmentPoint.transform.localPosition = new Vector3(faceDirection.x*1.5f, faceDirection.y*1.5f, 0);
         if (grid.IsUnityNull()) grid = GameInstance.Get<GI_TileDataManager>().tileGrid;
         Vector3Int cell = grid.WorldToCell(physObjectAttachmentPoint.transform.position);
         physObjectAttachmentPoint.transform.position = grid.GetCellCenterLocal(cell);
