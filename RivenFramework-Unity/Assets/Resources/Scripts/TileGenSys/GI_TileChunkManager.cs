@@ -210,8 +210,8 @@ public class GI_TileChunkManager : MonoBehaviour
     {
         var tileDataManager = GameInstance.Get<GI_TileDataManager>();
         var generator = GameInstance.Get<GI_TileWorldGenerator>();
-        var trunkTilemap = tileDataManager.GetTilemapFromLayer(3);
-        var leafTilemap = tileDataManager.GetTilemapFromLayer(4);
+        var trunkTilemap = tileDataManager.GetTilemapFromLayer((int)TileLayers.ObjectsSolid);
+        var leafTilemap = tileDataManager.GetTilemapFromLayer((int)TileLayers.Overlay);
         if (trunkTilemap == null || leafTilemap == null) return;
 
         int worldX = removedTrunk.x;
@@ -230,7 +230,7 @@ public class GI_TileChunkManager : MonoBehaviour
                 if (currentLeaf == desiredLeaf) continue;
 
                 leafTilemap.SetTile(leafCell, desiredLeaf);
-                MarkTileDirty(leafCell, 4, shouldHaveLeaf ? generator.leafTileID : null);
+                MarkTileDirty(leafCell, (int)TileLayers.Overlay, shouldHaveLeaf ? generator.leafTileID : null);
             }
         }
     }

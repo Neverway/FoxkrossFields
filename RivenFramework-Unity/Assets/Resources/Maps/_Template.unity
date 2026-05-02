@@ -493,135 +493,6 @@ Transform:
   - {fileID: 251946412}
   m_Father: {fileID: 1901443181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &630826817 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4298151654670827244, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1899628987}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &630826834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630826817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30b6fbe9f0209c8daa6e7e75dab72f59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileDatabase:
-  - tileID: null
-    tile: {fileID: 11400000, guid: dbe9bbb873d937f34992344bddab0582, type: 2}
-    tileLayer: 0
-    tileDurability: 0
-    tileMaterialType: 0
-    itemGivenOnTileBreak: {fileID: 0}
-  - tileID: grass
-    tile: {fileID: 11400000, guid: 653d9f4822452a2bb8985c05460281c3, type: 2}
-    tileLayer: 0
-    tileDurability: 9999
-    tileMaterialType: 1
-    itemGivenOnTileBreak: {fileID: 11400000, guid: 103d1e09486c26b58bebe67b9f860a2e,
-      type: 2}
-  - tileID: grass_path
-    tile: {fileID: 11400000, guid: 689a615658cdb4327837ef42150ffed6, type: 2}
-    tileLayer: 1
-    tileDurability: 1
-    tileMaterialType: 1
-    itemGivenOnTileBreak: {fileID: 11400000, guid: 00ebbeab2d53c42c680212b33c785ddf,
-      type: 2}
-  - tileID: dirt
-    tile: {fileID: 11400000, guid: f76c8caa63b87365095eabc0097090f0, type: 2}
-    tileLayer: 0
-    tileDurability: 9999
-    tileMaterialType: 1
-    itemGivenOnTileBreak: {fileID: 0}
-  - tileID: dirt_path
-    tile: {fileID: 11400000, guid: 482e2d7902b8163de9234880cca25229, type: 2}
-    tileLayer: 1
-    tileDurability: 1
-    tileMaterialType: 1
-    itemGivenOnTileBreak: {fileID: 0}
-  - tileID: tree
-    tile: {fileID: 11400000, guid: 601619d717b1b4ce88a62ea276fb3ac0, type: 2}
-    tileLayer: 3
-    tileDurability: 3
-    tileMaterialType: 3
-    itemGivenOnTileBreak: {fileID: 11400000, guid: 6749250f2b04bc7d3bebfcaac3a37bb7,
-      type: 2}
-  - tileID: rock
-    tile: {fileID: 11400000, guid: db72764bfd7d1281fb94f74fe2033d7f, type: 2}
-    tileLayer: 3
-    tileDurability: 3
-    tileMaterialType: 2
-    itemGivenOnTileBreak: {fileID: 0}
-  - tileID: water
-    tile: {fileID: 11400000, guid: e77d75ea1b638e065b3cace8f39873fc, type: 2}
-    tileLayer: 2
-    tileDurability: 0
-    tileMaterialType: 7
-    itemGivenOnTileBreak: {fileID: 0}
-  - tileID: leaves
-    tile: {fileID: 11400000, guid: d50400d1ca9cb06478e6fdeca1afd2da, type: 2}
-    tileLayer: 4
-    tileDurability: 0
-    tileMaterialType: 5
-    itemGivenOnTileBreak: {fileID: 0}
-  tileGrid: {fileID: 0}
---- !u!114 &630826835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630826817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fb81b98fce98c85e8db227dc9e9c288, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveSlot: slot_0
---- !u!114 &630826836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630826817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f88bafcfa6e4c19798d64de478b115e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chunkSize: 8
-  viewDistance: 1
-  updateInterval: 0.25
---- !u!114 &630826837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630826817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aba0da0f8b2bf252abbd03f98fc29d31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seed: 1997
-  groundNoiseScale: 0.04
-  pathNoiseScale: 0.08
-  treeNoiseScale: 0.15
-  treeThreshold: 0.3
-  pathThreshold: 0.5
-  grassTileID: grass
-  dirtTileID: grass
-  grassPathTileID: grass_path
-  dirtPathTileID: grass_path
-  treeTileID: tree
-  leafTileID: leaves
 --- !u!1001 &660662666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -897,6 +768,146 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameInstance
       objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].ruleName
+      value: Trees
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[3].ruleName
+      value: Leaves
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].ruleName
+      value: Junk
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].noiseType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].threshold
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[3].noiseType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].noiseType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].threshold
+      value: 0.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].noiseScale
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].noiseScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].targetLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[3].targetLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].targetLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].requireLayerEmpty
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[3].requireLayerEmpty
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].requireLayerEmpty
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].tileIDs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].tileIDs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].generationProcedure
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[3].generationProcedure
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].generationProcedure
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[2].tileIDs.Array.data[0]
+      value: tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[3].tileIDs.Array.data[0]
+      value: leaves
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].tileIDs.Array.data[0]
+      value: rock
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].tileIDs.Array.data[1]
+      value: sticks
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].tileIDs.Array.data[2]
+      value: short_grass
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].tileIDs.Array.data[3]
+      value: bush
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: generationRules.Array.data[4].tileIDs.Array.data[4]
+      value: vines
+      objectReference: {fileID: 0}
     - target: {fileID: 8250020033609799064, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -950,23 +961,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4298151654670827244, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 630826834}
-    - targetCorrespondingSourceObject: {fileID: 4298151654670827244, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 630826837}
-    - targetCorrespondingSourceObject: {fileID: 4298151654670827244, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 630826836}
-    - targetCorrespondingSourceObject: {fileID: 4298151654670827244, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 630826835}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49441bef8d2256233a0f4f3fed7dfb2f, type: 3}
 --- !u!1 &1901443180
 GameObject:

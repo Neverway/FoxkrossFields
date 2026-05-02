@@ -74,10 +74,10 @@ public struct TileData
 {
     public string tileID;
     public TileBase tile;
-    public int tileLayer;
+    public TileLayers tileLayer;
     public float tileDurability;
     public TileMaterialType tileMaterialType;
-    public ScriptableItem itemGivenOnTileBreak;
+    public ScriptableItemLootTable[] drops;
 }
 
 public enum TileMaterialType
@@ -90,4 +90,16 @@ public enum TileMaterialType
     leaves,
     glass,
     fluid
+}
+
+// DONT FORGET TO UPDATE LAYER_COUNT in CHUNK DATA YOU DUMMY
+public enum TileLayers
+{
+    Ground = 0,
+    Path = 1,
+    Objects = 2,
+    ObjectsSolid = 3,
+    Fluids = 4,
+    Overlay = 5,
+    None = -1
 }

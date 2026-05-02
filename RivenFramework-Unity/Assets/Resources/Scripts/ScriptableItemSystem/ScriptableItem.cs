@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,4 +31,11 @@ public abstract class ScriptableItem : ScriptableObject
     public abstract void OnItemUseSecondary(TDPawn_Player _owner);
     public abstract void OnItemReleasePrimary(TDPawn_Player _owner);
     public abstract void OnItemReleaseSecondary(TDPawn_Player _owner);
+}
+
+[Serializable]
+public class ScriptableItemLootTable
+{
+    public float chanceToDrop = 0.5f;
+    public ScriptableItem[] items;
 }

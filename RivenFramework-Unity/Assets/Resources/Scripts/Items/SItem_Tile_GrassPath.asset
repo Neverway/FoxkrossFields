@@ -17,7 +17,7 @@ MonoBehaviour:
   icon: {fileID: -1688901521, guid: 2cbcc55e285c1afe092b26ff3c5c0db7, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 100
-  currentStackSize: 1
+  currentStackSize: 0
   description: 
   isDiscardable: 1
   tilemap: {fileID: 0}

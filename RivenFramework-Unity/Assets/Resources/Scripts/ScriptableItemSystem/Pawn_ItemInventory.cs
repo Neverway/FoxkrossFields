@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using RivenFramework;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class Pawn_ItemInventory : MonoBehaviour
 {
@@ -157,7 +158,7 @@ public class Pawn_ItemInventory : MonoBehaviour
     }
 
     
-    public HashSet<int> unbreakableLayers = new HashSet<int> { 0, 2, 4 };
+    public HashSet<int> unbreakableLayers = new HashSet<int> { 0, 1, 4, 5 };
     public void DefaultPrimaryAction()
     {
         var tileDataManager = owner.tileDataManager;
@@ -190,8 +191,20 @@ public class Pawn_ItemInventory : MonoBehaviour
                 if (removingTrunk)
                     GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
 
-                if (tileData.itemGivenOnTileBreak != null)
-                    TryAddItem(tileData.itemGivenOnTileBreak);
+                if (tileData.drops != null)
+                {
+                    foreach (var drop in tileData.drops)
+                    {
+                        var randomChance = Random.Range(0f, 1f);
+                        if (drop.chanceToDrop >= randomChance)
+                        {
+                            foreach (var item in drop.items)
+                            {
+                                TryAddItem(item);
+                            }
+                        }
+                    }
+                }
 
                 holdTimer = 0f;
             }

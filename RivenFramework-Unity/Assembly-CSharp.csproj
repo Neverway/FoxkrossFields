@@ -92,7 +92,6 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ReflectionUtils/ReflectionUtils.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/Quake1/MapVector2.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/IDeepCopyable.cs" />
-     <Compile Include="Assets/Resources/Scripts/TileGenSys/Debug_TileEditTool.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/ValveMapFormat2006/VmfPlane.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/_Depreciated/Particle_DataExposer.cs" />
      <Compile Include="Assets/Resources/Scripts/TileGenSys/GI_TileChunkManager.cs" />
@@ -221,6 +220,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/NetVariableOwner.cs" />
      <Compile Include="Assets/Packages/DOTween/Modules/DOTweenModulePhysics2D.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/ValveMapFormat2006/VmfWorldConverter.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/TileGenerationRule.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/Volumes/PhysicsVolume/PhysicsVolumeForceSpace.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/CorGeo/Pawn_FallDamage.cs" />
      <Compile Include="Assets/RivenFramework-Revamp/__ERRYNEI/FetchComponentAttribute.cs" />
@@ -383,6 +383,7 @@
      <Folder Include="Assets/Resources/Other/IntegratableSystems/ErryLib/CoreAttributes" />
      <Folder Include="Assets/Packages/SabreCSG-master/Example Materials/Textures" />
      <Folder Include="Assets/Packages/SabreCSG-master/Example Materials/Textures/Concrete" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/AutumnForest_Foliage/AutumnForestFoliage" />
      <Folder Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ExtensionMethods" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/Xbox 360" />
@@ -512,6 +513,7 @@
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Sprites/System/NeverwayLogo/Materials" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/PS4" />
      <Folder Include="Assets/RivenFramework/Scripts/_Unknown" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Old/Tiles/AutumnForest_Foliage" />
      <None Include="Assets/Resources/Materials/Shaders/SX_StandardSurface.shader" />
      <Folder Include="Assets/RivenFramework/Objects/Customizables" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Sprites/LocalizationFlags" />

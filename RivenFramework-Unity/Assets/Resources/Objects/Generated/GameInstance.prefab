@@ -24,6 +24,10 @@ GameObject:
   - component: {fileID: 1249841930750964347}
   - component: {fileID: 4662360372656819566}
   - component: {fileID: 5663611723246624689}
+  - component: {fileID: 5327597042671669389}
+  - component: {fileID: 6717124914261965946}
+  - component: {fileID: 1140813127721084818}
+  - component: {fileID: 7087915854720444564}
   m_Layer: 0
   m_Name: GameInstance
   m_TagString: Untagged
@@ -989,3 +993,229 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5327597042671669389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298151654670827244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b6fbe9f0209c8daa6e7e75dab72f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileDatabase:
+  - tileID: null
+    tile: {fileID: 11400000, guid: dbe9bbb873d937f34992344bddab0582, type: 2}
+    tileLayer: 0
+    tileDurability: 0
+    tileMaterialType: 0
+    drops: []
+  - tileID: grass
+    tile: {fileID: 11400000, guid: 653d9f4822452a2bb8985c05460281c3, type: 2}
+    tileLayer: 0
+    tileDurability: 9999
+    tileMaterialType: 1
+    drops: []
+  - tileID: grass_path
+    tile: {fileID: 11400000, guid: 689a615658cdb4327837ef42150ffed6, type: 2}
+    tileLayer: 1
+    tileDurability: 1
+    tileMaterialType: 1
+    drops: []
+  - tileID: dirt
+    tile: {fileID: 11400000, guid: f76c8caa63b87365095eabc0097090f0, type: 2}
+    tileLayer: 0
+    tileDurability: 9999
+    tileMaterialType: 1
+    drops: []
+  - tileID: dirt_path
+    tile: {fileID: 11400000, guid: 482e2d7902b8163de9234880cca25229, type: 2}
+    tileLayer: 1
+    tileDurability: 1
+    tileMaterialType: 1
+    drops: []
+  - tileID: tree
+    tile: {fileID: 11400000, guid: 601619d717b1b4ce88a62ea276fb3ac0, type: 2}
+    tileLayer: 3
+    tileDurability: 3
+    tileMaterialType: 3
+    drops: []
+  - tileID: water
+    tile: {fileID: 11400000, guid: e77d75ea1b638e065b3cace8f39873fc, type: 2}
+    tileLayer: 2
+    tileDurability: 0
+    tileMaterialType: 7
+    drops: []
+  - tileID: leaves
+    tile: {fileID: 11400000, guid: d50400d1ca9cb06478e6fdeca1afd2da, type: 2}
+    tileLayer: 4
+    tileDurability: 0
+    tileMaterialType: 5
+    drops: []
+  - tileID: rock
+    tile: {fileID: 11400000, guid: db72764bfd7d1281fb94f74fe2033d7f, type: 2}
+    tileLayer: 2
+    tileDurability: 3
+    tileMaterialType: 2
+    drops:
+    - chanceToDrop: 1
+      items:
+      - {fileID: 11400000, guid: 1050dbed57784f578a4b435a0dac08fd, type: 2}
+  - tileID: sticks
+    tile: {fileID: 11400000, guid: e99ce9d51d01c3f0783e4201516c09a2, type: 2}
+    tileLayer: 2
+    tileDurability: 3
+    tileMaterialType: 3
+    drops:
+    - chanceToDrop: 0.5
+      items:
+      - {fileID: 11400000, guid: f272bd27010fb232d91682a6e683b550, type: 2}
+    - chanceToDrop: 0.2
+      items:
+      - {fileID: 11400000, guid: f272bd27010fb232d91682a6e683b550, type: 2}
+      - {fileID: 11400000, guid: f272bd27010fb232d91682a6e683b550, type: 2}
+  - tileID: short_grass
+    tile: {fileID: 11400000, guid: 612772ac1606b7c9fa27bcd27a27af94, type: 2}
+    tileLayer: 2
+    tileDurability: 3
+    tileMaterialType: 5
+    drops: []
+  - tileID: bush
+    tile: {fileID: 11400000, guid: f31b45a0b988300f9bf6485677f684dc, type: 2}
+    tileLayer: 2
+    tileDurability: 3
+    tileMaterialType: 5
+    drops: []
+  - tileID: vines
+    tile: {fileID: 11400000, guid: 4712dde6d551c7873a28a41bd8b20e9e, type: 2}
+    tileLayer: 2
+    tileDurability: 3
+    tileMaterialType: 5
+    drops: []
+  tileGrid: {fileID: 0}
+--- !u!114 &6717124914261965946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298151654670827244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba0da0f8b2bf252abbd03f98fc29d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 1997
+  generationRules:
+  - ruleName: Ground
+    generationRuleDisabled: 0
+    targetLayer: 0
+    tileIDs:
+    - grass
+    - grass
+    noiseType: 0
+    noiseScale: 0.04
+    threshold: 0.5
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 1
+    generationProcedure: 0
+    requireLayerFilled: -1
+    requireLayerEmpty: -1
+  - ruleName: Path
+    generationRuleDisabled: 0
+    targetLayer: 1
+    tileIDs:
+    - grass_path
+    - grass_path
+    noiseType: 0
+    noiseScale: 0.08
+    threshold: 0.5
+    blendMode: 1
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    generationProcedure: 3
+    requireLayerFilled: 0
+    requireLayerEmpty: -1
+  - ruleName: Junk
+    generationRuleDisabled: 0
+    targetLayer: 2
+    tileIDs:
+    - rock
+    - sticks
+    - short_grass
+    - bush
+    - vines
+    noiseType: 3
+    noiseScale: 1
+    threshold: 0.5
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    generationProcedure: 0
+    requireLayerFilled: -1
+    requireLayerEmpty: -1
+  - ruleName: Trees
+    generationRuleDisabled: 0
+    targetLayer: 3
+    tileIDs:
+    - tree
+    noiseType: 0
+    noiseScale: 0.15
+    threshold: 0.6
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    generationProcedure: 1
+    requireLayerFilled: -1
+    requireLayerEmpty: 2
+  - ruleName: Leaves
+    generationRuleDisabled: 0
+    targetLayer: 5
+    tileIDs:
+    - leaves
+    noiseType: 1
+    noiseScale: 0.15
+    threshold: 0.6
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    generationProcedure: 2
+    requireLayerFilled: -1
+    requireLayerEmpty: -1
+  treeTileID: tree
+  leafTileID: leaves
+  treeNoiseScale: 0.15
+  treeThreshold: 0.3
+  pathNoiseScale: 0.08
+  pathThreshold: 0.5
+--- !u!114 &1140813127721084818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298151654670827244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f88bafcfa6e4c19798d64de478b115e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chunkSize: 8
+  viewDistance: 1
+  updateInterval: 0.25
+--- !u!114 &7087915854720444564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298151654670827244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb81b98fce98c85e8db227dc9e9c288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveSlot: slot_0

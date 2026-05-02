@@ -13,14 +13,14 @@ public class SItem_Tile : ScriptableItem
     private void PlaceTile(TDPawn_Player _owner)
     {
         var heldTileData = GameInstance.Get<GI_TileDataManager>().GetTileDataFromID(id);
-        tilemap = GameInstance.Get<GI_TileDataManager>().GetTilemapFromLayer(heldTileData.tileLayer);
+        tilemap = GameInstance.Get<GI_TileDataManager>().GetTilemapFromLayer((int)heldTileData.tileLayer);
 
         Vector3Int cell = tilemap.WorldToCell(_owner.physObjectAttachmentPoint.transform.position);
         if (tilemap.GetTile(cell) == null)
         {
             GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
             tilemap.SetTile(cell, heldTileData.tile);
-            GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, heldTileData.tileLayer, id);
+            GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, (int)heldTileData.tileLayer, id);
 
             // Consume one from stack
             _owner.playerInventory.TryRemoveItem(_owner.playerInventory.currentItemIndex);
