@@ -38,7 +38,7 @@ public class TDPawn_Player : TDPawn
     private new TDPawnActions action = new TDPawnActions();
     private InputActions.TopDownActions inputActions;
     [SerializeField] private GameObject DeathScreenWidget, InventoryWidget;
-    [SerializeField] private Pawn_Inventory playerInventory;
+    [SerializeField] public Pawn_ItemInventory playerInventory;
     private ApplicationSettings applicationSettings;
     [SerializeField] private Animator animator;
     
@@ -130,15 +130,15 @@ public class TDPawn_Player : TDPawn
         }
         
         // Switch item
-        if (inputActions.LeftAction.WasPressedThisFrame()) action.ItemSwapNext(this);
-        if (inputActions.RightAction.WasPressedThisFrame()) action.ItemSwapPrevious(this);
+        if (inputActions.LeftAction.WasPressedThisFrame()) playerInventory.PreviousItem();
+        if (inputActions.RightAction.WasPressedThisFrame()) playerInventory.NextItem();
         
         // Use Item
         if (!playerInventory)
         {
             throw new Exception("playerInventory reference has not been set in the inspector! The inventory should be on one of the child objects under the player prefab, please manually assign it!");
         }
-        if (inputActions.Interact.WasPressedThisFrame())
+        if (inputActions.Interact.IsPressed())
         {
             // Throw held object, or Item Use Action 0
             if (physObjectAttachmentPoint.attachedObject)
@@ -147,12 +147,25 @@ public class TDPawn_Player : TDPawn
             }
             else
             {
-                action.ItemUseAction(playerInventory, 0);
+                playerInventory.ItemUsePrimary();
+                //action.ItemUseAction(playerInventory, 0);
             }
         }
-        if (inputActions.Action.WasPressedThisFrame()) action.ItemUseAction(playerInventory, 1);
-        if (inputActions.Interact.WasReleasedThisFrame()) action.ItemUseAction(playerInventory, 0, "release");
-        if (inputActions.Action.WasReleasedThisFrame()) action.ItemUseAction(playerInventory, 1, "release");
+
+        if (inputActions.Action.IsPressed())
+        {
+            playerInventory.ItemUseSecondary();
+        }
+
+        if (inputActions.Interact.WasReleasedThisFrame())
+        {
+            playerInventory.ItemReleasePrimary();
+        }
+
+        if (inputActions.Action.WasReleasedThisFrame())
+        {
+            playerInventory.ItemReleaseSecondary();
+        }
     }
 
     public void FixedUpdate()

@@ -224,9 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3441110353203947326}
   - component: {fileID: 439413332500417788}
-  - component: {fileID: 3236478480345890879}
   - component: {fileID: 2884051365686028932}
-  - component: {fileID: 8614034724329066163}
   m_Layer: 11
   m_Name: PhysHoldAttachment
   m_TagString: Untagged
@@ -268,22 +266,6 @@ MonoBehaviour:
   pickupJoint: {fileID: 0}
   dragJoint: {fileID: 0}
   dragLineRenderer: {fileID: 0}
---- !u!114 &3236478480345890879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231387648458441970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ce41d9ae971577b1b7381fbc3cca07c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentIndex: 0
-  allowDuplicateItems: 0
-  items: []
-  owner: {fileID: 4648902567217906586}
 --- !u!212 &2884051365686028932
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -336,21 +318,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8614034724329066163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231387648458441970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba854e10f3222774a639f83c8a38309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
-  selectedTile: tree
-  destroyHoldTime: 0.5
 --- !u!1 &4648902567217906586
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +330,7 @@ GameObject:
   - component: {fileID: 632130954136237393}
   - component: {fileID: 7874951878297205986}
   - component: {fileID: 3994150549702595138}
+  - component: {fileID: 7331217779091573683}
   m_Layer: 11
   m_Name: TDPawn
   m_TagString: Player
@@ -477,6 +445,7 @@ MonoBehaviour:
     lookRange: 20
     listenRange: 30
     comfortableAllyDistance: 5
+    destroyHoldTime: 0.5
     movementSpeed: 25
     maxMovementSpeed: 12
     airMovementMultiplier: 0.25
@@ -500,7 +469,33 @@ MonoBehaviour:
     crouchDistance: 0.5
     crouchColliderOffset: {x: 0, y: 0.25, z: 0}
   physicsbody: {fileID: 0}
+  tileDataManager: {fileID: 0}
   interactionPrefab: {fileID: 0}
+--- !u!114 &7331217779091573683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648902567217906586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c151e38349ea7257bb181ce6193afc83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentItemIndex: 0
+  owner: {fileID: 0}
 --- !u!1 &6456840232429724686
 GameObject:
   m_ObjectHideFlags: 0

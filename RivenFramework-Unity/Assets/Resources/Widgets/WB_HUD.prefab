@@ -1516,6 +1516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 808234700641752513}
   - component: {fileID: 8160658741167776190}
+  - component: {fileID: 8059291636039454984}
   m_Layer: 0
   m_Name: Item Wheel
   m_TagString: Untagged
@@ -1567,6 +1568,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8059291636039454984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881006947917066816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2305a4221bc5dd0da81d09513f6a298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  itemInventory: {fileID: 0}
+  itemRotator: {fileID: 1929177143650254447}
+  slotIcons:
+  - {fileID: 4337367718233084512}
+  - {fileID: 4670201305646943831}
+  - {fileID: 1679049425643759470}
+  - {fileID: 3717566922483374461}
+  - {fileID: 7561242343474084351}
+  - {fileID: 8727654131368493750}
+  - {fileID: 7370888387403319031}
+  - {fileID: 6751551033765964694}
+  - {fileID: 7748086784007040620}
+  - {fileID: 8161726456791790364}
 --- !u!1 &3930752545870289559
 GameObject:
   m_ObjectHideFlags: 0

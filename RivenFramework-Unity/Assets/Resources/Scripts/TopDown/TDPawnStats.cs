@@ -35,6 +35,8 @@ public class TDPawnStats : PawnStats
     public float listenRange = 30f;
     [Tooltip("The distance an entity would be considered to be 'protected' by their allies")]
     public float comfortableAllyDistance = 5f;
+
+    public float destroyHoldTime = 0.5f;
     
     [Header("Movement Speeds")]
     public float movementSpeed = 10;

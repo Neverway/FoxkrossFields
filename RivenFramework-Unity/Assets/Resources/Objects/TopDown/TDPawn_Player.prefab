@@ -73,6 +73,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 921629697058824728}
   m_SourcePrefab: {fileID: 100100000, guid: b128a0d0221a47b2b846c8b98cf25d98, type: 3}
+--- !u!114 &1414135582672670503 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7331217779091573683, guid: b128a0d0221a47b2b846c8b98cf25d98,
+    type: 3}
+  m_PrefabInstance: {fileID: 8511156145773724820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3934328764855813902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c151e38349ea7257bb181ce6193afc83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1969410495237257334 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7874951878297205986, guid: b128a0d0221a47b2b846c8b98cf25d98,
@@ -124,6 +136,7 @@ MonoBehaviour:
     lookRange: 20
     listenRange: 30
     comfortableAllyDistance: 5
+    destroyHoldTime: 0.5
     movementSpeed: 6
     maxMovementSpeed: 1
     airMovementMultiplier: 0.25
@@ -147,11 +160,12 @@ MonoBehaviour:
     crouchDistance: 0.5
     crouchColliderOffset: {x: 0, y: 0.25, z: 0}
   physicsbody: {fileID: 0}
+  tileDataManager: {fileID: 0}
   interactionPrefab: {fileID: 0}
   DeathScreenWidget: {fileID: 5675289539813747590, guid: f951f1626e8a081628c8e41d018c0094,
     type: 3}
   InventoryWidget: {fileID: 0}
-  playerInventory: {fileID: 6554984225690305707}
+  playerInventory: {fileID: 1414135582672670503}
   animator: {fileID: 1969410495237257334}
 --- !u!4 &6270587521482247043 stripped
 Transform:
@@ -159,18 +173,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8511156145773724820}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6554984225690305707 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3236478480345890879, guid: b128a0d0221a47b2b846c8b98cf25d98,
-    type: 3}
-  m_PrefabInstance: {fileID: 8511156145773724820}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ce41d9ae971577b1b7381fbc3cca07c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8071769339033536616 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 439413332500417788, guid: b128a0d0221a47b2b846c8b98cf25d98,

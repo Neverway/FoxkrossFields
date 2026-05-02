@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using RivenFramework;
 using UnityEngine;
     
 public class TDPawn : Pawn
@@ -33,6 +34,7 @@ public class TDPawn : Pawn
     public TDPawnActions TDaction => (TDPawnActions)action;
     
     [HideInInspector] public Rigidbody physicsbody;
+    [HideInInspector] public GI_TileDataManager tileDataManager;
     [SerializeField] public GameObject interactionPrefab;
 
 
@@ -44,6 +46,7 @@ public class TDPawn : Pawn
         // Get references
         physicsbody = GetComponent<Rigidbody>();
         viewPoint = transform.Find("ViewPoint");
+        tileDataManager = GameInstance.Get<GI_TileDataManager>();
 
         defaultStats = TDDefaultStats;
         currentStats = (TDPawnStats)TDDefaultStats.Clone(); // Don't forget to clone so that you don't overwrite the pawns default values! ~Liz

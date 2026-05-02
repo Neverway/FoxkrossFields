@@ -8,7 +8,7 @@ public class GI_TileDataManager : MonoBehaviour
 {
     public TileData[] tileDatabase;
     public Grid tileGrid;
-    private Dictionary<string, TileBase> tileCache;
+    private Dictionary<string, TileData> tileDataCache;
     private Tilemap[] tilemapCache;
 
     public void Update()
@@ -19,11 +19,9 @@ public class GI_TileDataManager : MonoBehaviour
 
     private void Awake()
     {
-        tileCache = new Dictionary<string, TileBase>();
+        tileDataCache = new Dictionary<string, TileData>();
         foreach (var tile in tileDatabase)
-        {
-            tileCache[tile.tileID] = tile.tile;
-        }
+            tileDataCache[tile.tileID] = tile;
     }
 
     private void Start()
@@ -38,26 +36,22 @@ public class GI_TileDataManager : MonoBehaviour
 
     public TileData GetTileDataFromID(string _tileID)
     {
-        foreach (var tile in tileDatabase)
-        {
-            if (tile.tileID == _tileID)
-            {
-                return tile;
-            }
-        }
+        if (tileDataCache.TryGetValue(_tileID, out var data)) return data;
+        return tileDatabase[0];
+    }
 
+    public TileData GetTileDataFromTileBase(TileBase _tile)
+    {
+        foreach (var data in tileDatabase)
+        {
+            if (data.tile == _tile) return data;
+        }
         return tileDatabase[0];
     }
     
     public TileBase GetTileBaseFromID(string _tileID)
     {
-        foreach (var tile in tileDatabase)
-        {
-            if (tile.tileID == _tileID)
-            {
-                return tile.tile;
-            }
-        }
+        if (tileDataCache.TryGetValue(_tileID, out var data)) return data.tile;
         return tileDatabase[0].tile;
     }
 
@@ -66,6 +60,12 @@ public class GI_TileDataManager : MonoBehaviour
         if (tilemapCache == null) RebuildTilemapCache();
         if (_tileLayer < 0 || _tileLayer >= tilemapCache.Length) return null;
         return tilemapCache[_tileLayer];
+    }
+    
+    public int GetTilemapCount()
+    {
+        if (tilemapCache == null) RebuildTilemapCache();
+        return tilemapCache?.Length ?? 0;
     }
 }
 
@@ -77,6 +77,7 @@ public struct TileData
     public int tileLayer;
     public float tileDurability;
     public TileMaterialType tileMaterialType;
+    public ScriptableItem itemGivenOnTileBreak;
 }
 
 public enum TileMaterialType
