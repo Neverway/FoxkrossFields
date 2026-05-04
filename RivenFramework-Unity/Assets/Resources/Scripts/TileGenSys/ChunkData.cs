@@ -9,6 +9,7 @@ public class ChunkData
     public Vector2Int chunkCoord;
     public int size;
     public LayerData[] layers;
+    public List<TileObjectData> tileObjects = new List<TileObjectData>();
     [NonSerialized] public bool isDirty;
 
     private const int LAYER_COUNT = 6; // DONT FORGET TO UPDATE TileLayers IN TILEDATAMANAGER YOU DUMMY
@@ -38,6 +39,25 @@ public class ChunkData
     public void SetTile(int layer, int x, int y, string tileID)
     {
         layers[layer].tiles[x + y * size] = tileID;
+    }
+
+    public TileObjectData GetTileObject(int worldX, int worldY)
+    {
+        return tileObjects.Find(t => t.worldX == worldX && t.worldY == worldY);
+    }
+
+    public void SetTileObject(TileObjectData data)
+    {
+        var existing = GetTileObject(data.worldX, data.worldY);
+        if (existing != null) tileObjects.Remove(existing);
+        tileObjects.Add(data);
+        isDirty = true;
+    }
+
+    public void RemoveTileObject(int worldX, int worldY)
+    {
+        tileObjects.RemoveAll(t => t.worldX == worldX && t.worldY == worldY);
+        isDirty = true;
     }
 }
 

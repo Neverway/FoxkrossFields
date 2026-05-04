@@ -483,19 +483,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c151e38349ea7257bb181ce6193afc83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  startingItems:
+  - {fileID: 11400000, guid: 0ca0e667646fa54b7b7b0694ab91a511, type: 2}
+  - {fileID: 11400000, guid: 950bd77823d8a9dd689890425b213a42, type: 2}
+  - {fileID: 11400000, guid: 6f988658fe059a1b48af25c3e1b32c7f, type: 2}
+  - {fileID: 11400000, guid: 22aaeb2442ccc5351ade422457c5be61, type: 2}
+  - {fileID: 11400000, guid: 62f920bafbf958db4b334954ff3e76f6, type: 2}
   currentItemIndex: 0
   owner: {fileID: 0}
+  holdTimer: 0
+  inventorySize: 10
 --- !u!1 &6456840232429724686
 GameObject:
   m_ObjectHideFlags: 0

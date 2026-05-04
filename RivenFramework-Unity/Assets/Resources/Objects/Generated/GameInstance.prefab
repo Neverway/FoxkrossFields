@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 6717124914261965946}
   - component: {fileID: 1140813127721084818}
   - component: {fileID: 7087915854720444564}
+  - component: {fileID: 6741664602644886109}
   m_Layer: 0
   m_Name: GameInstance
   m_TagString: Untagged
@@ -1057,42 +1058,60 @@ MonoBehaviour:
   - tileID: rock
     tile: {fileID: 11400000, guid: db72764bfd7d1281fb94f74fe2033d7f, type: 2}
     tileLayer: 2
-    tileDurability: 3
+    tileDurability: 2
     tileMaterialType: 2
     drops:
     - chanceToDrop: 1
       items:
-      - {fileID: 11400000, guid: 1050dbed57784f578a4b435a0dac08fd, type: 2}
+      - {fileID: 0}
   - tileID: sticks
     tile: {fileID: 11400000, guid: e99ce9d51d01c3f0783e4201516c09a2, type: 2}
     tileLayer: 2
-    tileDurability: 3
+    tileDurability: 1
     tileMaterialType: 3
     drops:
     - chanceToDrop: 0.5
       items:
-      - {fileID: 11400000, guid: f272bd27010fb232d91682a6e683b550, type: 2}
+      - {fileID: 0}
     - chanceToDrop: 0.2
       items:
-      - {fileID: 11400000, guid: f272bd27010fb232d91682a6e683b550, type: 2}
-      - {fileID: 11400000, guid: f272bd27010fb232d91682a6e683b550, type: 2}
+      - {fileID: 0}
+      - {fileID: 0}
   - tileID: short_grass
     tile: {fileID: 11400000, guid: 612772ac1606b7c9fa27bcd27a27af94, type: 2}
     tileLayer: 2
-    tileDurability: 3
+    tileDurability: 1
     tileMaterialType: 5
-    drops: []
+    drops:
+    - chanceToDrop: 0.2
+      items:
+      - {fileID: 0}
   - tileID: bush
     tile: {fileID: 11400000, guid: f31b45a0b988300f9bf6485677f684dc, type: 2}
     tileLayer: 2
-    tileDurability: 3
+    tileDurability: 1
     tileMaterialType: 5
     drops: []
   - tileID: vines
     tile: {fileID: 11400000, guid: 4712dde6d551c7873a28a41bd8b20e9e, type: 2}
     tileLayer: 2
-    tileDurability: 3
+    tileDurability: 1
     tileMaterialType: 5
+    drops: []
+  - tileID: pumpkin_sprout
+    tile: {fileID: 11400000, guid: e99ce9d51d01c3f0783e4201516c09a2, type: 2}
+    tileLayer: 2
+    tileDurability: 1
+    tileMaterialType: 5
+    drops:
+    - chanceToDrop: 0.5
+      items:
+      - {fileID: 0}
+  - tileID: farmland
+    tile: {fileID: 11400000, guid: c8ad0b10aed755f4ab7044e38c56cbab, type: 2}
+    tileLayer: 1
+    tileDurability: 1
+    tileMaterialType: 1
     drops: []
   tileGrid: {fileID: 0}
 --- !u!114 &6717124914261965946
@@ -1219,3 +1238,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveSlot: slot_0
+--- !u!114 &6741664602644886109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298151654670827244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e22e535015fe33469ae4e20c4392517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: ab03568bfaac96adcbdf542b245b91da, type: 2}
+  - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+  - {fileID: 11400000, guid: e267f873e8c7d481990bae100e58d803, type: 2}
+  - {fileID: 11400000, guid: 660efa118a450eef3a1e05ed4008d2e0, type: 2}
+  - {fileID: 11400000, guid: a2d91e2e4c131463c99ce2483f76ab95, type: 2}

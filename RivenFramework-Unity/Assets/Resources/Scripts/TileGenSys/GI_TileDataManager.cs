@@ -78,6 +78,7 @@ public struct TileData
     public float tileDurability;
     public TileMaterialType tileMaterialType;
     public ScriptableItemLootTable[] drops;
+    public GameObject associatedPrefab;
 }
 
 public enum TileMaterialType

@@ -47,11 +47,13 @@ public class WidgetNavigator : MonoBehaviour
     [Tooltip("If this is enabled, navigation inputs are disabled")]
     private bool initialInputDelay;
 
+    private bool inputXHeld, inputYHeld;
+
 
     /*-----[ Reference Variables ]------------------------------------------------------------------------------------*/
     public List<WidgetSelectable> selectableElements;
     public UnityEvent OnNavigatable, OnBack;
-    private InputActions.Menu3DActions inputActions;
+    private InputActions.Menu2DActions inputActions;
 
 
     #endregion
@@ -62,7 +64,7 @@ public class WidgetNavigator : MonoBehaviour
     private void Start()
     {
         // Setup inputs
-        inputActions = new InputActions().Menu3D;
+        inputActions = new InputActions().Menu2D;
         inputActions.Enable();
     }
 
@@ -114,21 +116,27 @@ public class WidgetNavigator : MonoBehaviour
     private void GetIndexingInputs()
     {
         if (initialInputDelay) return;
+        
         switch (navigationMode)
         {
             case NavigationMode.Vertical:
-                MoveIndexSelection(inputActions.Move.ReadValue<Vector2>().y>0.1, -1);
-                MoveIndexSelection(inputActions.Move.ReadValue<Vector2>().y<-0.1, 1);
-                if (inputActions.Move.ReadValue<Vector2>().x<-0.1) AdjacentNavigation(true);
-                if (inputActions.Move.ReadValue<Vector2>().x>0.1) AdjacentNavigation(false);
+                if (!inputYHeld) MoveIndexSelection(inputActions.Move.ReadValue<Vector2>().y>0.1, -1);
+                if (!inputYHeld) MoveIndexSelection(inputActions.Move.ReadValue<Vector2>().y<-0.1, 1);
+                if (!inputXHeld) if (inputActions.Move.ReadValue<Vector2>().x<-0.1) AdjacentNavigation(true);
+                if (!inputXHeld) if (inputActions.Move.ReadValue<Vector2>().x>0.1) AdjacentNavigation(false);
                 break;
             case NavigationMode.Horizontal:
-                MoveIndexSelection(inputActions.Move.ReadValue<Vector2>().x<-0.1, -1);
-                MoveIndexSelection(inputActions.Move.ReadValue<Vector2>().x>0.1, 1);
-                if (inputActions.Move.ReadValue<Vector2>().y>0.1) AdjacentNavigation(true);
-                if (inputActions.Move.ReadValue<Vector2>().y<-0.1) AdjacentNavigation(false);
+                if (!inputXHeld) MoveIndexSelection(inputActions.Move.ReadValue<Vector2>().x<-0.1, -1);
+                if (!inputXHeld) MoveIndexSelection(inputActions.Move.ReadValue<Vector2>().x>0.1, 1);
+                if (!inputYHeld) if (inputActions.Move.ReadValue<Vector2>().y>0.1) AdjacentNavigation(true);
+                if (!inputYHeld) if (inputActions.Move.ReadValue<Vector2>().y<-0.1) AdjacentNavigation(false);
                 break;
         }
+        
+        if (inputActions.Move.ReadValue<Vector2>().y < 0.1 && inputActions.Move.ReadValue<Vector2>().y > -0.1) inputYHeld = false;
+        else inputYHeld = true;
+        if (inputActions.Move.ReadValue<Vector2>().x < 0.1 && inputActions.Move.ReadValue<Vector2>().x > -0.1) inputXHeld = false;
+        else inputXHeld = true;
 
         if (inputActions.Interact.WasPressedThisFrame() || 
             ((!pressingRightDoesNotTryNavigate) && inputActions.Move.ReadValue<Vector2>().x>0.1))
@@ -196,6 +204,13 @@ public class WidgetNavigator : MonoBehaviour
     {
         initialInputDelay = true;
         yield return new WaitForSeconds(0.2f);
+        initialInputDelay = false;
+    }
+
+    private IEnumerator InputDelay()
+    {
+        initialInputDelay = true;
+        yield return new WaitForSeconds(0.15f);
         initialInputDelay = false;
     }
 

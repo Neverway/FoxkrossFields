@@ -61,7 +61,8 @@ public class LB_World : MonoBehaviour
         var saveManager = GameInstance.Get<GI_SaveManager>();
         if (saveManager.HasSave())
         {
-            player.transform.position = (Vector3)saveManager.LoadPlayer();
+            player.transform.position = (Vector3)saveManager.LoadPlayerPosition();
+            player.playerInventory.items = saveManager.LoadPlayerInventory(10);
         }
 
         hasLoaded = true;

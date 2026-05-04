@@ -18,6 +18,7 @@ public class GI_TileChunkManager : MonoBehaviour
     private GI_SaveManager saveManager;
     private GI_TileDataManager tileDataManager;
     private Transform playerTransform;
+    private Dictionary<Vector2Int, GameObject> liveObjects = new();
 
     private Queue<Vector2Int> chunkLoadQueue = new();
     private bool isLoadingChunk = false;
@@ -111,8 +112,10 @@ public class GI_TileChunkManager : MonoBehaviour
     private void UnloadChunk(Vector2Int coord)
     {
         if (!loadedChunks.TryGetValue(coord, out var data)) return;
+        SaveLiveObjects(coord);
         if (data.isDirty) saveManager.SaveChunk(data);
         ClearChunkFromTilemap(data);
+        DespawnTileObjects(coord);
         loadedChunks.Remove(coord);
     }
 
@@ -143,6 +146,7 @@ public class GI_TileChunkManager : MonoBehaviour
             }
             tilemap.SetTiles(positions, tiles);
         }
+        SpawnTileObjects(data);
     }
 
     private void ClearChunkFromTilemap(ChunkData data)
@@ -253,4 +257,103 @@ public class GI_TileChunkManager : MonoBehaviour
         }
         return false;
     }
+
+    private void SpawnTileObjects(ChunkData data)
+    {
+        foreach (var objData in data.tileObjects)
+        {
+            var worldCell = new Vector3Int(objData.worldX, objData.worldY, 0);
+            SpawnTileObject(objData, worldCell);
+        }
+    }
+    
+    private void SpawnTileObject(TileObjectData objData, Vector3Int worldCell)
+    {
+        var key = new Vector2Int(worldCell.x, worldCell.y);
+        if (liveObjects.ContainsKey(key)) return;
+
+        var tileData = tileDataManager.GetTileDataFromID(objData.tileID);
+        if (tileData.associatedPrefab == null) return;
+
+        var worldPos = tileDataManager.tileGrid.CellToWorld(worldCell) + tileDataManager.tileGrid.cellSize * 0.5f;
+        var tileObject = Instantiate(tileData.associatedPrefab, worldPos, Quaternion.identity);
+
+        var receiver = tileObject.GetComponent<ITileObjectReceiver>();
+        receiver?.ReceiveData(objData);
+
+        liveObjects[key] = tileObject;
+    }
+    
+    private void SaveLiveObjects(Vector2Int chunkCoord)
+    {
+        if (!loadedChunks.TryGetValue(chunkCoord, out var data)) return;
+
+        for (int x = 0; x < chunkSize; x++)
+        {
+            for (int y = 0; y < chunkSize; y++)
+            {
+                int worldX = chunkCoord.x * chunkSize + x;
+                int worldY = chunkCoord.y * chunkSize + y;
+                var key = new Vector2Int(worldX, worldY);
+
+                if (!liveObjects.TryGetValue(key, out var go)) continue;
+                var provider = go.GetComponent<ITileObjectReceiver>();
+                if (provider == null) continue;
+
+                var savedData = provider.ProvideData();
+                if (savedData != null) data.SetTileObject(savedData);
+            }
+        }
+    }
+    
+    private void DespawnTileObjects(Vector2Int chunkCoord)
+    {
+        var toRemove = new List<Vector2Int>();
+        foreach (var kvp in liveObjects)
+        {
+            var key = kvp.Key;
+            int cx = Mathf.FloorToInt((float)key.x / chunkSize);
+            int cy = Mathf.FloorToInt((float)key.y / chunkSize);
+            if (cx == chunkCoord.x && cy == chunkCoord.y)
+            {
+                Destroy(kvp.Value);
+                toRemove.Add(key);
+            }
+        }
+        foreach (var key in toRemove) liveObjects.Remove(key);
+    }
+
+    public void TrySpawnTileObject(Vector3Int worldCell, string tileID)
+    {
+        var tileData = tileDataManager.GetTileDataFromID(tileID);
+        if (tileData.associatedPrefab == null) return;
+
+        var objData = new TileObjectData
+        {
+            tileID = tileID,
+            worldX = worldCell.x,
+            worldY = worldCell.y
+        };
+
+        var chunkCoord = WorldCellToChunk(worldCell);
+        if (loadedChunks.TryGetValue(chunkCoord, out var chunk))
+            chunk.SetTileObject(objData);
+
+        SpawnTileObject(objData, worldCell);
+    }
+
+    public void TryDespawnTileObject(Vector3Int worldCell)
+    {
+        var key = new Vector2Int(worldCell.x, worldCell.y);
+        if (liveObjects.TryGetValue(key, out var tileObject))
+        {
+            Destroy(tileObject);
+            liveObjects.Remove(key);
+        }
+
+        var chunkCoord = WorldCellToChunk(worldCell);
+        if (loadedChunks.TryGetValue(chunkCoord, out var chunk))
+            chunk.RemoveTileObject(worldCell.x, worldCell.y);
+    }
+
 }

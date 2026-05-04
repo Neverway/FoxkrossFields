@@ -8,15 +8,25 @@ using Random = UnityEngine.Random;
 
 public class Pawn_ItemInventory : MonoBehaviour
 {
-    [Tooltip("")]
-    public List<ScriptableItem> items;
+    public List<ScriptableItem> startingItems;
+    [NonSerialized] public List<ItemInstance> items = new List<ItemInstance>();
     public int currentItemIndex;
     public TDPawn_Player owner;
     public float holdTimer = 0f;
+    public int inventorySize = 10;
 
     private void Start()
     {
         owner = GetComponent<TDPawn_Player>();
+        for (int i = 0; i < inventorySize; i++) items.Add(null);
+        if (!GameInstance.Get<GI_SaveManager>().HasSave())
+        {
+            foreach (var item in startingItems)
+            {
+                if (item != null) TryAddItem(item);
+            }
+        }
+        
     }
 
     /// <summary>
@@ -26,8 +36,8 @@ public class Pawn_ItemInventory : MonoBehaviour
     {
         for (int i = 0; i < items.Count; i++)
         {
-            if (!items[i]) continue;
-            if (items[i].id == _item.id && items[i].currentStackSize < items[i].maxStackSize) return i;
+            if (items[i] == null) continue;
+            if (items[i].id == _item.id && items[i].stackSize < items[i].maxStackSize) return i;
         }
         return -1;
     }
@@ -39,7 +49,7 @@ public class Pawn_ItemInventory : MonoBehaviour
     {
         for (int i = 0; i < items.Count; i++)
         {
-            if (!items[i]) return i;
+            if (items[i] == null) return i;
         }
         return -1;
     }
@@ -49,19 +59,38 @@ public class Pawn_ItemInventory : MonoBehaviour
     /// </summary>
     public bool TryAddItem(ScriptableItem _item)
     {
+        if (_item == null) return false;
         var existingStack = GetExistingStack(_item);
         var nextFreeSlot = GetNextFreeSlot();
         if (existingStack != -1)
         {
-            items[existingStack].currentStackSize++;
+            items[existingStack].stackSize++;
             return true;
         }
         else if (nextFreeSlot != -1)
         {
-            items[nextFreeSlot] = _item;
+            items[nextFreeSlot] = new ItemInstance(_item, 1);
             return true;
         }
         
+        return false;
+    }
+    
+    public bool TryAddItem(ItemInstance _instance)
+    {
+        if (_instance == null || _instance.asset == null) return false;
+        var existingStack = GetExistingStack(_instance.asset);
+        var nextFreeSlot = GetNextFreeSlot();
+        if (existingStack != -1)
+        {
+            items[existingStack].stackSize++;
+            return true;
+        }
+        else if (nextFreeSlot != -1)
+        {
+            items[nextFreeSlot] = _instance;
+            return true;
+        }
         return false;
     }
 
@@ -79,26 +108,33 @@ public class Pawn_ItemInventory : MonoBehaviour
     public bool TryRemoveItem(int _itemIndex)
     {
         // If there is an item at the index
-        if (items[_itemIndex])
+        if (items[_itemIndex] == null) return false;
+        if (items[_itemIndex].isDiscardable == false) return false;
+        
+        // It's a stack
+        if (items[_itemIndex].maxStackSize > 1)
         {
-            if (items[_itemIndex].isDiscardable == false) return false;
-            
-            // It's a stack
-            if (items[_itemIndex].maxStackSize != 0)
-            {
-                // Remove 1 from stack
-                items[_itemIndex].currentStackSize--;
-                // If stack is empty, remove item
-                if (items[_itemIndex].currentStackSize == 0) items[_itemIndex] = null;
-                return true;
-            }
-            // It's not a stack
-            else
-            {
-                // Remove item
-                items[_itemIndex] = null;
-                return true;
-            }
+            // Remove 1 from stack
+            items[_itemIndex].stackSize--;
+            // If stack is empty, remove item
+            if (items[_itemIndex].stackSize == 0) items[_itemIndex] = null;
+        }
+        // It's not a stack
+        else
+        {
+            // Remove item
+            items[_itemIndex] = null;
+        }
+        return true;
+    }
+    
+    public bool TryRemoveItemInstance(ItemInstance _instance)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] == null) continue;
+            if (items[i] != _instance && items[i].id != _instance.id) continue;
+            return TryRemoveItem(i);
         }
         return false;
     }
@@ -126,115 +162,52 @@ public class Pawn_ItemInventory : MonoBehaviour
             currentItemIndex--;
         }
     }
-
-    
     
     public void ItemUsePrimary()
     {
-        ScriptableItem heldItem = GetCurrentItem();
-        if (heldItem == null) { DefaultPrimaryAction(); return; }
+        var heldItem = GetCurrentItem();
+        if (heldItem == null)
+        {
+            ItemBehaviorResolver.DefaultPrimaryAction(null, owner);
+            return;
+        }
         heldItem.OnItemUsePrimary(owner);
     }
 
     public void ItemUseSecondary()
     {
-        ScriptableItem heldItem = GetCurrentItem();
-        if (heldItem == null) { DefaultSecondaryAction(); return; }
+        var heldItem = GetCurrentItem();
+        if (heldItem == null)
+        {
+            ItemBehaviorResolver.DefaultSecondaryAction(null, owner);
+            return;
+        }
         heldItem.OnItemUseSecondary(owner);
     }
 
     public void ItemReleasePrimary()
     {
-        ScriptableItem heldItem = GetCurrentItem();
-        if (heldItem == null) { DefaultReleasePrimary(); return; }
+        var heldItem = GetCurrentItem();
+        if (heldItem == null)
+        {
+            ItemBehaviorResolver.DefaultPrimaryRelease(null, owner);
+            return;
+        }
         heldItem.OnItemReleasePrimary(owner);
     }
 
     public void ItemReleaseSecondary()
     {
-        ScriptableItem heldItem = GetCurrentItem();
-        if (heldItem == null) { DefaultReleaseSecondary(); return; }
-        heldItem.OnItemReleaseSecondary(owner);
-    }
-
-    
-    public HashSet<int> unbreakableLayers = new HashSet<int> { 0, 1, 4, 5 };
-    public void DefaultPrimaryAction()
-    {
-        var tileDataManager = owner.tileDataManager;
-        Vector3 attachPos = owner.physObjectAttachmentPoint.transform.position;
-        
-
-        for (int layer = tileDataManager.GetTilemapCount() - 1; layer >= 0; layer--)
+        var heldItem = GetCurrentItem();
+        if (heldItem == null)
         {
-            if (unbreakableLayers.Contains(layer)) continue;
-            Tilemap tilemap = tileDataManager.GetTilemapFromLayer(layer);
-            if (tilemap == null) continue;
-
-            Vector3Int cell = tilemap.WorldToCell(attachPos);
-            TileBase tile = tilemap.GetTile(cell);
-            if (tile == null) continue;
-
-            TileData tileData = tileDataManager.GetTileDataFromTileBase(tile);
-
-            float durability = tileData.tileDurability > 0 ? tileData.tileDurability : 1f;
-            float breakTime = owner.TDCurrentStats.destroyHoldTime * durability;
-
-            holdTimer += Time.deltaTime;
-
-            if (holdTimer >= breakTime)
-            {
-                bool removingTrunk = layer == 3;
-                tilemap.SetTile(cell, null);
-                GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, layer, null);
-
-                if (removingTrunk)
-                    GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
-
-                if (tileData.drops != null)
-                {
-                    foreach (var drop in tileData.drops)
-                    {
-                        var randomChance = Random.Range(0f, 1f);
-                        if (drop.chanceToDrop >= randomChance)
-                        {
-                            foreach (var item in drop.items)
-                            {
-                                TryAddItem(item);
-                            }
-                        }
-                    }
-                }
-
-                holdTimer = 0f;
-            }
+            ItemBehaviorResolver.DefaultSecondaryRelease(null, owner);
             return;
         }
-
-        holdTimer = 0f;
-    }
-
-    public void DefaultSecondaryAction()
-    {
-        ScriptableItem heldItem = GetCurrentItem();
-        if (heldItem != null) heldItem.OnDefaultAction(owner);
+        heldItem.OnItemReleaseSecondary(owner);
     }
     
-    public void DefaultReleasePrimary()
-    {
-        holdTimer = 0f;
-        ScriptableItem heldItem = GetCurrentItem();
-        if (heldItem != null) heldItem.OnDefaultReleaseInteract(owner);
-    }
-
-    public void DefaultReleaseSecondary()
-    {
-        ScriptableItem heldItem = GetCurrentItem();
-        if (heldItem != null) heldItem.OnDefaultReleaseAction(owner);
-    }
-    
-    
-    public ScriptableItem GetCurrentItem()
+    public ItemInstance GetCurrentItem()
     {
         if (items == null || items.Count == 0) return null;
         if (currentItemIndex < 0 || currentItemIndex >= items.Count) return null;

@@ -55,7 +55,7 @@ public class TDPawn_Player : TDPawn
             widgetManager = GameInstance.Get<GI_WidgetManager>();
             if (!widgetManager) return;
         }
-        isPaused = widgetManager.GetExistingWidget("WB_Pause");
+        isPaused = widgetManager.GetExistingWidget("WB_Pause") || widgetManager.GetExistingWidget("WB_Altertable");
         
         // Pause Game
         if (inputActions.Menu.WasPressedThisFrame())
@@ -102,6 +102,11 @@ public class TDPawn_Player : TDPawn
         UpdatePauseMenu();
         
         
+        // Switch item
+        if (inputActions.LeftAction.WasPressedThisFrame()) playerInventory.PreviousItem();
+        if (inputActions.RightAction.WasPressedThisFrame()) playerInventory.NextItem();
+        
+        
         if (isPaused || isDead) return;
         UpdateMovement();
         UpdateAttachmentPoint();
@@ -112,7 +117,7 @@ public class TDPawn_Player : TDPawn
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             var saveManager = GameInstance.Get<GI_SaveManager>();
-            saveManager.SavePlayer(gameObject.transform.position);
+            saveManager.SavePlayer(gameObject.transform.position, playerInventory.items);
             GameInstance.Get<GI_TileChunkManager>().SaveAllDirty();
         }
         
@@ -128,10 +133,6 @@ public class TDPawn_Player : TDPawn
                 //action.Interact(this, interactionPrefab, viewPoint.transform);
             }
         }
-        
-        // Switch item
-        if (inputActions.LeftAction.WasPressedThisFrame()) playerInventory.PreviousItem();
-        if (inputActions.RightAction.WasPressedThisFrame()) playerInventory.NextItem();
         
         // Use Item
         if (!playerInventory)
@@ -200,7 +201,7 @@ public class TDPawn_Player : TDPawn
 
     private void UpdateAttachmentPoint()
     {
-        physObjectAttachmentPoint.transform.localPosition = new Vector3(faceDirection.x*1.5f, faceDirection.y*1.5f, 0);
+        physObjectAttachmentPoint.transform.localPosition = new Vector3(faceDirection.x*1f, faceDirection.y*1f, 0);
         if (grid.IsUnityNull()) grid = GameInstance.Get<GI_TileDataManager>().tileGrid;
         Vector3Int cell = grid.WorldToCell(physObjectAttachmentPoint.transform.position);
         physObjectAttachmentPoint.transform.position = grid.GetCellCenterLocal(cell);

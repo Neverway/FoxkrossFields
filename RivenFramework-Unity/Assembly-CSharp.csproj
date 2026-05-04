@@ -115,7 +115,6 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Extensions/MathHelper.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/NetImageRegistry.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/StairBrush.cs" />
-     <Compile Include="Assets/Resources/Scripts/ScriptableItemSystem/SItem_Tool.cs" />
      <Compile Include="Assets/Packages/DOTween/Modules/DOTweenModuleSprite.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/Utilities/Vertex Weld Ops/VertexWeldOperation.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/Volumes/AudioVolume/VolumetricAudioVolume.cs" />
@@ -131,6 +130,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/CSG/Polygon.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/CorGeo/SplashScreenPlayer.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/IPostBuildListener.cs" />
+     <Compile Include="Assets/Resources/Widgets/WB_Altertable.cs" />
      <Compile Include="Assets/Packages/DynamicBone/Scripts/DynamicBone.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ErryRoutine/TESTROUTINE.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/EdgeEditor.cs" />
@@ -143,6 +143,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/UI/SabreMouse.cs" />
      <Compile Include="Assets/Resources/Scripts/TileGenSys/GI_TileDataManager.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/Pawn_LookAt.cs" />
+     <Compile Include="Assets/Resources/Scripts/ScriptableItemSystem/ItemInstance.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/UI_Text_EntityName.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/WidgetNavigator/WidgetNavigator.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/Opt_Lifetime.cs" />
@@ -158,6 +159,7 @@
      <Compile Include="Assets/Resources/Sprites/Ambience/ParticleEffect.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/EditorTools/CSG_HotFix_Settings.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/Prop_Destructable.cs" />
+     <Compile Include="Assets/Resources/Scripts/ScriptableItemSystem/ItemBehaviorResolver.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/UI/SabreGUIHelper.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/CSG/Edge.cs" />
      <Compile Include="Assets/Packages/DOTween/Modules/DOTweenModuleUtils.cs" />
@@ -175,6 +177,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ModifierSystem/ModifierSystem/GameEvent.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/HollowBoxBrush.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Extensions/TransformHelper.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/IInteractable.cs" />
      <Compile Include="Assets/Resources/Widgets/WB_Pause.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/UnrealGold/T3dMapConverter.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/CSG/Vertex.cs" />
@@ -197,10 +200,11 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Geometry/GeometryHelper.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/GI_NetworkManager.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/TextboxSystem/GI_TextboxManager.cs" />
-     <Compile Include="Assets/Resources/Scripts/ScriptableItemSystem/SItem_Tile.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/WorldObjects/AltertableData.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ModifierSystem/ModifierSystem/ModifiableValue.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Geometry/AdjacencyFilters.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/Quake1/MapBrush.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/WorldObjects/WorldObject_Altertable.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Extensions/EditorHelper.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Input/EditorKeyMappings.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/UI/SabreCSGResources.cs" />
@@ -240,6 +244,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/Prop_Respawner.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Geometry/AdjacencyHelper.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/ShapeEditor/ISelectable.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/ITileObjectReceiver.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/UI/SabreEditorGUI.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/ShapeEditor/Project.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/PolygonFactory.cs" />
@@ -252,6 +257,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/PaintEditor.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Geometry/UVUtility.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/MapGenerator.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/TileObjectData.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/EditorTools/KeepAsUnselectable.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/ShapeEditor/SegmentType.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/TrimBrush.cs" />
@@ -267,11 +273,13 @@
      <Compile Include="Assets/Resources/Scripts/FirstPersonExample/FPPawn_Player.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/ValveMapFormat2006/VmfAxis.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/ValveMapFormat2006/VmfVector3.cs" />
+     <Compile Include="Assets/Resources/Scripts/ScriptableItemSystem/AlchemySystem.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/CorGeo/SignalEventPlayer.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/_Depreciated/UI_Image_EntityEquippedItems.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/BuildEngine/MeshGroupManager.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/Utilities/Vertex Weld Ops/VertexWeldCentroidOperation.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrush.cs" />
+     <Compile Include="Assets/Resources/Scripts/ScriptableItemSystem/ItemEnums.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/TextboxSystem/Char_ChatterVoice.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/WB_NetConnect.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/CSGModel.cs" />
@@ -286,6 +294,7 @@
      <Compile Include="Assets/Resources/Scripts/TileGenSys/GI_TileWorldGenerator.cs" />
      <Compile Include="Assets/Packages/DOTween/Modules/DOTweenModuleUnityVersion.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/WB_ConnectionMessage.cs" />
+     <Compile Include="Assets/Resources/Scripts/ScriptableItemSystem/GI_ItemDatabase.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/BuildEngine/TriangulationNode.cs" />
      <Compile Include="Assets/Resources/Scripts/FirstPersonExample/FPPawn.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/Utilities/BrushUtility.cs" />
@@ -426,7 +435,6 @@
      <None Include="Assets/Packages/QuickOutline/Resources/Shaders/OutlineMask.shader" />
      <Folder Include="Assets/AddressableAssetsData/AssetGroups/Schemas" />
      <None Include="Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" />
-     <Folder Include="Assets/Resources/Scripts/Items" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Core" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Extensions/Matrices" />
      <None Include="Assets/Packages/SabreCSG-master/Shaders/LineDashed.shader" />
@@ -527,6 +535,7 @@
      <Folder Include="Assets/Resources/Materials/Textures/RenderTextures" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/Volumes/PhysicsVolume" />
+     <Folder Include="Assets/Resources/Scripts/AlchemicalItemSystem/Essences" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Materials/Developer/DevMats" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <Folder Include="Assets/Resources/Materials/PhysicsMaterials" />
@@ -557,6 +566,7 @@
      <Folder Include="Assets/Resources/Sprites/Widgets" />
      <Folder Include="Assets/RivenFramework-Revamp/EasyEditorGUI" />
      <Folder Include="Assets/Resources/Sprites/Ambience/WispyWoosh" />
+     <Folder Include="Assets/Resources/Scripts/AlchemicalItemSystem/Tools" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Sound/Effects" />
      <None Include="Assets/Packages/SabreCSG-master/Shaders/ShapeEditorLine.shader" />
      <Folder Include="Assets/TextMesh Pro/Fonts" />
@@ -577,12 +587,14 @@
      <Folder Include="Assets/Resources/Sprites" />
      <Folder Include="Assets/Resources/Sprites/Level/Tilesets" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/WiiU" />
+     <Folder Include="Assets/Resources/Scripts/AlchemicalItemSystem/Resources" />
      <Folder Include="Assets/Resources/Materials" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Textures/Developer" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/Materials/Developer" />
      <None Include="Assets/Resources/Other/IntegratableSystems/PixelSpriteUtils/PixelatorShader/TrimSheet.shader" />
      <None Include="Assets/Packages/Xelu_Prompts/Readme.txt" />
      <Folder Include="Assets/Resources/Sprites/Tilesets/Old" />
+     <Folder Include="Assets/Resources/Scripts/AlchemicalItemSystem" />
      <None Include="Assets/Resources/Materials/Shaders/SX_FogSkybox.shader" />
      <Folder Include="Assets/RivenFramework/Objects" />
      <Folder Include="Assets/AddressableAssetsData" />
@@ -618,6 +630,7 @@
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/PS Vita" />
      <Folder Include="Assets/Resources/Scripts/Integratable/Graphics" />
      <Folder Include="Assets/Resources/Other/IntegratableSystems/Assorted" />
+     <Folder Include="Assets/Resources/Scripts/TileGenSys/WorldObjects" />
      <Folder Include="Assets/Resources/Sound/Music" />
      <Folder Include="Assets/Packages/QuickOutline/Scripts" />
      <Folder Include="Assets/Resources/Sprites/Tilesets/Dev/DevWalls" />
