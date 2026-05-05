@@ -12,6 +12,8 @@ public static class ItemBehaviorResolver
     public static void ExecutePrimary(ScriptableItem item, TDPawn_Player owner)
     {
         bool handledByForm = false;
+        
+        if (DefaultPrimaryAction(item, owner)) return;
 
         foreach (var form in item.forms)
         {
@@ -55,6 +57,8 @@ public static class ItemBehaviorResolver
     {
         
         bool handledByForm = false;
+        
+        if (DefaultSecondaryAction(item, owner)) return;
 
         foreach (var form in item.forms)
         {
@@ -107,7 +111,7 @@ public static class ItemBehaviorResolver
     // --------------------------------
     // FORM BEHAVIOURS
     // --------------------------------
-    public static void DefaultPrimaryAction(ScriptableItem item, TDPawn_Player owner)
+    public static bool DefaultPrimaryAction(ScriptableItem item, TDPawn_Player owner)
     {
         HashSet<int> unbreakableLayers = new HashSet<int> { 0, 1, 4, 5 };
         var tileDataManager = owner.tileDataManager;
@@ -136,6 +140,7 @@ public static class ItemBehaviorResolver
                 bool removingTrunk = layer == 3;
                 tilemap.SetTile(cell, null);
                 GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, layer, null);
+                GameInstance.Get<GI_TileChunkManager>().TryDespawnTileObject(cell);
 
                 if (removingTrunk)
                     GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
@@ -157,12 +162,13 @@ public static class ItemBehaviorResolver
 
                 owner.playerInventory.holdTimer = 0f;
             }
-            return;
+            return true;
         }
 
         owner.playerInventory.holdTimer = 0f;
+        return false;
     }
-    public static void DefaultSecondaryAction(ScriptableItem item, TDPawn_Player owner)
+    public static bool DefaultSecondaryAction(ScriptableItem item, TDPawn_Player owner)
     {
         Vector3 attachPos = owner.physObjectAttachmentPoint.transform.position;
         var tileDataManager = owner.tileDataManager;
@@ -175,15 +181,16 @@ public static class ItemBehaviorResolver
             Vector3Int cell = tilemap.WorldToCell(attachPos);
             if (tilemap.GetTile(cell) == null) continue;
 
-            var tileData = tileDataManager.GetTileDataFromTileBase(tilemap.GetTile(cell));
-            if (tileData.associatedPrefab == null) continue;
-
-            var interactable = tileData.associatedPrefab.GetComponent<IInteractable>();
-            if (interactable == null) continue;
-
+            var liveObject = GameInstance.Get<GI_TileChunkManager>().GetLiveObject(cell);
+            if (liveObject == null) return false;
+            var interactable = liveObject.GetComponent<IInteractable>();
+            if (interactable == null) return false;
             interactable.OnInteract(owner);
-            return;
+            
+            return true;
         }
+
+        return false;
     }
     public static void DefaultPrimaryRelease(ScriptableItem item, TDPawn_Player owner)
     {
@@ -207,6 +214,7 @@ public static class ItemBehaviorResolver
             GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
             tilemap.SetTile(cell, heldTileData.tile);
             GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, (int)heldTileData.tileLayer, item.id);
+            if (heldTileData.associatedPrefab != null) GameInstance.Get<GI_TileChunkManager>().TrySpawnTileObject(cell, item.id);
             owner.playerInventory.TryRemoveItem(owner.playerInventory.currentItemIndex);
         }
     }
@@ -226,13 +234,63 @@ public static class ItemBehaviorResolver
             GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
             tilemap.SetTile(cell, heldTileData.tile);
             GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, (int)heldTileData.tileLayer, item.id);
+            if (heldTileData.associatedPrefab != null) GameInstance.Get<GI_TileChunkManager>().TrySpawnTileObject(cell, item.id);
             owner.playerInventory.TryRemoveItem(owner.playerInventory.currentItemIndex);
         }
     }
 
     private static void TillTile(ScriptableItem item, TDPawn_Player owner)
     {
-        
+        var tileDataManager = GameInstance.Get<GI_TileDataManager>();
+        var heldTileData = tileDataManager.GetTileDataFromID("farmland");
+        var tilemap = tileDataManager.GetTilemapFromLayer((int)TileLayers.Path);
+        var objectTilemap = tileDataManager.GetTilemapFromLayer((int)TileLayers.Objects);
+        var objectSolidTilemap = tileDataManager.GetTilemapFromLayer((int)TileLayers.ObjectsSolid);
+
+        Vector3Int cell = tilemap.WorldToCell(owner.physObjectAttachmentPoint.transform.position);
+        var pathTileData = tileDataManager.GetTileDataFromTileBase(tilemap.GetTile(cell));
+        // Make sure there are no objects in the way
+
+        float durability = pathTileData.tileDurability > 1 ? pathTileData.tileDurability : 1f;
+        float breakTime = owner.TDCurrentStats.destroyHoldTime * 1;
+
+        owner.playerInventory.holdTimer += Time.deltaTime;
+
+        if (owner.playerInventory.holdTimer >= breakTime)
+        {
+            if (objectTilemap.GetTile(cell) == null && objectSolidTilemap.GetTile(cell) == null)
+            {
+                // Choose if farmland, path or cleared
+                if (pathTileData.tileID == "")
+                {
+                    heldTileData = tileDataManager.GetTileDataFromID("farmland");
+                }
+
+                if (pathTileData.tileID == "farmland")
+                {
+                    heldTileData = tileDataManager.GetTileDataFromID("grass_path");
+                }
+
+                if (pathTileData.tileID == "grass_path")
+                {
+                    tilemap.SetTile(cell, null);
+                    GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, (int)TileLayers.Path, null);
+                    GameInstance.Get<GI_TileChunkManager>().TryDespawnTileObject(cell);
+                    owner.playerInventory.holdTimer = 0f;
+                    return;
+                }
+
+
+                GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
+                tilemap.SetTile(cell, heldTileData.tile);
+                GameInstance.Get<GI_TileChunkManager>()
+                    .MarkTileDirty(cell, (int)heldTileData.tileLayer, heldTileData.tileID);
+                if (heldTileData.associatedPrefab != null)
+                    GameInstance.Get<GI_TileChunkManager>().TrySpawnTileObject(cell, heldTileData.tileID);
+            }
+            
+            owner.playerInventory.holdTimer = 0f;
+        }
     }
 
     private static void MineTile(ScriptableItem item, TDPawn_Player owner)

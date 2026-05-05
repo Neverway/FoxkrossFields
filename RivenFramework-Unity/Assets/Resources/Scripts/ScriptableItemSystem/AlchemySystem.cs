@@ -313,10 +313,11 @@ public class AlchemySystem
     /// </summary>
     private static ItemInstance TryGetMaterialDrop(ItemMaterial material)
     {
+        Debug.Log($"Get material {material}");
         string id = material switch
         {
             ItemMaterial.Bone => "bone",
-            ItemMaterial.Wood => "wood",
+            ItemMaterial.Wood => "tree",
             ItemMaterial.Flint => "flint",
             ItemMaterial.Copper => "copper_ingot",
             ItemMaterial.Bronze => "bronze_ingot",

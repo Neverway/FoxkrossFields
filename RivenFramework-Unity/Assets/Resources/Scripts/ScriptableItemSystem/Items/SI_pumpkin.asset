@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c9176aefc3d4fd4bd7eedb7ad19f922, type: 3}
-  m_Name: SI_iron_ore
+  m_Name: SI_pumpkin
   m_EditorClassIdentifier: 
-  id: iron_ore
-  displayName: Iron Ore
-  icon: {fileID: 21300000, guid: 6557c4572c10cca909fd0c5446993926, type: 3}
+  id: pumpkin
+  displayName: Pumpkin
+  icon: {fileID: 1841614369, guid: 2441afc1a47705fd7b8d3be5bab3a771, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 100
   currentStackSize: 1
@@ -22,5 +22,5 @@ MonoBehaviour:
   isDiscardable: 1
   material: 0
   subType: 
-  forms: 01000000
+  forms: 02000000
   tags: 00000000

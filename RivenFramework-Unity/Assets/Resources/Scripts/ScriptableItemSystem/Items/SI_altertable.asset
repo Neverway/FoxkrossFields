@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: altertable
   displayName: Altertable
-  icon: {fileID: 6802640947922868115, guid: dc05cb70f4b255a5ca742ae7665792bc, type: 3}
+  icon: {fileID: 21300000, guid: 0e1ab095f54e866cfba4c9e2cd77830f, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 100
   currentStackSize: 1

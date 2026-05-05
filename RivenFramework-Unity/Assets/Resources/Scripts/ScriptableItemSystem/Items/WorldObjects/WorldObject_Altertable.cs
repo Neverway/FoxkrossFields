@@ -1,4 +1,6 @@
+using System;
 using RivenFramework;
+using TMPro;
 using UnityEngine;
 
 public class WorldObject_Altertable : MonoBehaviour, IInteractable, ITileObjectReceiver
@@ -6,6 +8,12 @@ public class WorldObject_Altertable : MonoBehaviour, IInteractable, ITileObjectR
     private int tier = 2;
     private int worldX, worldY;
     public GameObject altertableWidget;
+    public TMP_Text debugStats;
+
+    public void Update()
+    {
+        debugStats.text = $"[{worldX},{worldY}] {tier}";
+    }
 
     public void ReceiveData(TileObjectData data)
     {
@@ -16,13 +24,15 @@ public class WorldObject_Altertable : MonoBehaviour, IInteractable, ITileObjectR
 
     public TileObjectData ProvideData()
     {
-        return new TileObjectData
+        TileObjectData objectData = new TileObjectData
         {
             tileID = "altertable",
             worldX = worldX,
             worldY = worldY,
             altertableTier = tier
         };
+        
+        return objectData;
     }
 
     public void OnInteract(TDPawn_Player interactor)

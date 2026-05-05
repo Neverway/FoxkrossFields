@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: copper_ingot
   displayName: Copper Ingot
-  icon: {fileID: 1820680124, guid: 2cbcc55e285c1afe092b26ff3c5c0db7, type: 3}
+  icon: {fileID: 21300000, guid: ebc5674a86a8cdd559ba11f9fac37b26, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 100
   currentStackSize: 1

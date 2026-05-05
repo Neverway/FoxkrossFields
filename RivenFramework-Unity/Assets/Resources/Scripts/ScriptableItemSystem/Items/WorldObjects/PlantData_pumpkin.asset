@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542ae5178a3e1a451a201a4109e88b4e, type: 3}
+  m_Name: PlantData_pumpkin
+  m_EditorClassIdentifier: 
+  stages:
+  - tileID: pumpkin_sprout
+    duration: 15
+  - tileID: pumpkin_plant
+    duration: 15
+  - tileID: pumpkin_grown
+    duration: 15
+  seedItemID: pumpkin_sprout
+  harvestItemID: pumpkin
+  harvestCount: 1

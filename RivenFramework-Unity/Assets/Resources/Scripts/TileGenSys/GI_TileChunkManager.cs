@@ -238,6 +238,18 @@ public class GI_TileChunkManager : MonoBehaviour
             }
         }
     }
+
+    public void UpdatePlantTileID(Vector3Int worldCell, string newTileID)
+    {
+        var chunkCoord = WorldCellToChunk(worldCell);
+        if (!loadedChunks.TryGetValue(chunkCoord, out var chunk)) return;
+
+        var existing = chunk.GetTileObject(worldCell.x, worldCell.y);
+        if (existing == null) return;
+
+        existing.tileID = newTileID;
+        chunk.isDirty = true;
+    }
     
     private bool AnyLivingTrunkCoversLeaf(int worldX, int worldY, Tilemap trunkTilemap)
     {
@@ -354,6 +366,13 @@ public class GI_TileChunkManager : MonoBehaviour
         var chunkCoord = WorldCellToChunk(worldCell);
         if (loadedChunks.TryGetValue(chunkCoord, out var chunk))
             chunk.RemoveTileObject(worldCell.x, worldCell.y);
+    }
+
+    public GameObject GetLiveObject(Vector3Int worldCell)
+    {
+        var key = new Vector2Int(worldCell.x, worldCell.y);
+        liveObjects.TryGetValue(key, out var liveObject);
+        return liveObject;
     }
 
 }
