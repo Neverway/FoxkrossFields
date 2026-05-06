@@ -132,6 +132,8 @@ public static class ItemBehaviorResolver
 
             float durability = tileData.tileDurability > 0 ? tileData.tileDurability : 1f;
             float breakTime = owner.TDCurrentStats.destroyHoldTime * durability;
+            
+            FXHelper.SpawnTileBreakParticles(attachPos, tile, tilemap, cell);
 
             owner.playerInventory.holdTimer += Time.deltaTime;
 
@@ -253,6 +255,7 @@ public static class ItemBehaviorResolver
 
         float durability = pathTileData.tileDurability > 1 ? pathTileData.tileDurability : 1f;
         float breakTime = owner.TDCurrentStats.destroyHoldTime * 1;
+        FXHelper.SpawnTileBreakParticles(owner.physObjectAttachmentPoint.transform.position, heldTileData.tile, tilemap, cell);
 
         owner.playerInventory.holdTimer += Time.deltaTime;
 
