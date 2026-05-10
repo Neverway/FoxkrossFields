@@ -1350,11 +1350,11 @@ MonoBehaviour:
   pathThreshold: 0.5
   waterTileID: water
   groundEdgeTileID: ground_edge
-  waterNoiseScale: 0.06
+  waterNoiseScale: 0.03
   waterThreshold: 0.8
   riverNoiseScale: 0.01
   riverThreshold: 0.52
-  riverBandwidth: 0.03
+  riverBandwidth: 0.02
   riverWarpScale: 0.06
   riverWarpStrength: 4
 --- !u!114 &1140813127721084818

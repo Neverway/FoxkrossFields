@@ -236,7 +236,7 @@ public class TDPawn_Player : TDPawn
         }
 
         // Remove the HUD
-        Destroy(widgetManager.GetExistingWidget("WB_HUD"));
+        //Destroy(widgetManager.GetExistingWidget("WB_HUD"));
         // Add the respawn HUD
         widgetManager.AddWidget(DeathScreenWidget);
 
@@ -253,4 +253,11 @@ public class TDPawn_Player : TDPawn
 
 
     #endregion
+
+    public void Respawn()
+    {
+        transform.position = Vector3.zero;
+        TDCurrentStats.health = TDDefaultStats.health;
+        isDead = false;
+    }
 }

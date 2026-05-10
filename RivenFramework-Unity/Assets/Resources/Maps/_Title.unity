@@ -667,16 +667,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameInstance
       objectReference: {fileID: 0}
-    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
-        type: 3}
-      propertyPath: riverBandwidth
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6717124914261965946, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
-        type: 3}
-      propertyPath: waterNoiseScale
-      value: 0.03
-      objectReference: {fileID: 0}
     - target: {fileID: 8250020033609799064, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
         type: 3}
       propertyPath: m_LocalPosition.x

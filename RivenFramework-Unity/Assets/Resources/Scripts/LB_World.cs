@@ -61,6 +61,7 @@ public class LB_World : MonoBehaviour
         {
             player.transform.position = (Vector3)saveManager.LoadPlayerPosition();
             player.playerInventory.items = saveManager.LoadPlayerInventory(FindObjectOfType<Pawn_ItemInventory>().inventorySize);
+            player.playerInventory.gold = saveManager.LoadPlayerGold();
         }
         widgetManager = FindObjectOfType<GI_WidgetManager>();
         widgetManager.AddWidget(HUDWidgetPrefab);

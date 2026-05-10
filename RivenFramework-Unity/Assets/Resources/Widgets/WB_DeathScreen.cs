@@ -43,8 +43,8 @@ public class WB_DeathScreen : MonoBehaviour
         if (!acceptingInputs) return;
         if (Input.anyKeyDown)
         {
-            worldLoader = FindObjectOfType<GI_WorldLoader>();
-            worldLoader.ForceLoadWorld(SceneManager.GetActiveScene().name);
+            Destroy(gameObject);
+            FindObjectOfType<TDPawn_Player>().Respawn();
         }
     }
 
