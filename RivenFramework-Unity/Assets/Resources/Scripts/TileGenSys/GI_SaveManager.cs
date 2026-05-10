@@ -7,8 +7,10 @@ using UnityEngine;
 
 public class GI_SaveManager : MonoBehaviour
 {
+    private float sessionStartTime;
+    
     [Header("Save Settings")] 
-    public string saveSlot = "slot_0";
+    public string saveSlot;
 
     private string SaveRoot => Path.Combine(Application.persistentDataPath, "saves", saveSlot);
     private string ChunkDir => Path.Combine(SaveRoot, "chunks");
@@ -52,17 +54,56 @@ public class GI_SaveManager : MonoBehaviour
     {
         saveSlot = slot;
         Directory.CreateDirectory(ChunkDir);
+        sessionStartTime = Time.realtimeSinceStartup;
         //GameInstance.Get<GI_TileChunkManager>().OnSaveFileLoaded();
         Debug.Log($"[SaveManager] Loaded save slot '{slot}'");
     }
     
     public void UnloadSaveFile()
     {
-        var inv = FindObjectOfType<Pawn_ItemInventory>();
-        SavePlayer(FindObjectOfType<TDPawn_Player>().transform.position, inv.items, inv.gold);
+        var player = FindObjectOfType<TDPawn_Player>();
+        var inv = player.playerInventory;
+        var cycle = GameInstance.Get<CycleManager>();
+        cycle.SaveCycle(out float cycleTimer, out bool cycleIsNight);
+        var (_, _, _, existingPlaytime) = LoadFileInfo(saveSlot);
+        SavePlayer(player.transform.position, inv.items, inv.gold, cycleTimer, cycleIsNight, existingPlaytime);
         GameInstance.Get<GI_TileChunkManager>().OnSaveFileUnloaded();
         saveSlot = null;
         Debug.Log("[SaveManager] Save file unloaded");
+    }
+
+    public void DeleteSaveFile(string slot)
+    {
+        string playerFile = Path.Combine(GetSaveRoot(slot));
+        File.Delete(playerFile);
+    }
+    
+    public static (string displayName, string playtime, string lastLogin, float rawPlaytime) LoadFileInfo(string slot)
+    {
+        string playerFile = Path.Combine(GetSaveRoot(slot), "player.json");
+        if (!File.Exists(playerFile))
+            return ("", "", "", 0f);
+
+        try
+        {
+            var data = JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(playerFile));
+
+            int totalSecs = Mathf.FloorToInt(data.totalPlaytimeSeconds);
+            string playtime = $"{totalSecs / 3600:D2}:{(totalSecs % 3600) / 60:D2}:{totalSecs % 60:D2}";
+
+            string lastLogin = "";
+            if (data.lastLoginTimestamp > 0)
+            {
+                var dt = new System.DateTime(data.lastLoginTimestamp, System.DateTimeKind.Utc).ToLocalTime();
+                lastLogin = dt.ToString("MM/dd/yy");
+            }
+
+            return ($"File", $"{playtime}  [{lastLogin}]", lastLogin, data.totalPlaytimeSeconds);
+        }
+        catch
+        {
+            return ("", "", "", 0f);
+        }
     }
 
     
@@ -100,7 +141,7 @@ public class GI_SaveManager : MonoBehaviour
     // ---------------------------------------------
     // PLAYER DATA
     // ---------------------------------------------
-    public void SavePlayer(Vector3 position, List<ItemInstance> inventory, int gold = 0)
+    public void SavePlayer(Vector3 position, List<ItemInstance> inventory, int gold = 0, float cycleTimer = 0f, bool cycleIsNight = false, float existingPlaytime = 0f)
     {
         var inventorySaveData = new List<InventoryItemSaveData>();
         foreach (var itemInstance in inventory)
@@ -130,12 +171,18 @@ public class GI_SaveManager : MonoBehaviour
 
             inventorySaveData.Add(entry);
         }
-
+        
+        float sessionTime = Time.realtimeSinceStartup - sessionStartTime;
         var data = new PlayerSaveData
         {
             posX = position.x,
             posY = position.y,
             gold = gold,
+            cycleTimer = cycleTimer,
+            cycleIsNight = cycleIsNight,
+            cycleTimestamp = System.DateTime.UtcNow.Ticks,
+            lastLoginTimestamp = System.DateTime.UtcNow.Ticks,
+            totalPlaytimeSeconds = existingPlaytime + sessionTime,
             inventory = inventorySaveData
         };
         File.WriteAllText(PlayerFile, JsonUtility.ToJson(data));
@@ -196,6 +243,13 @@ public class GI_SaveManager : MonoBehaviour
         var data = JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(PlayerFile));
         return data.gold;
     }
+    
+    public (float timer, bool isNight, long timestamp) LoadCycleState()
+    {
+        if (!File.Exists(PlayerFile)) return (0f, false, 0);
+        var data = JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(PlayerFile));
+        return (data.cycleTimer, data.cycleIsNight, data.cycleTimestamp);
+    }
 
     public bool HasPlayerSave() => File.Exists(PlayerFile);
 
@@ -207,6 +261,11 @@ public class GI_SaveManager : MonoBehaviour
     {
         public float posX, posY;
         public int gold;
+        public float cycleTimer;
+        public bool cycleIsNight;
+        public long cycleTimestamp;
+        public long lastLoginTimestamp;
+        public float totalPlaytimeSeconds;
         public List<InventoryItemSaveData> inventory;
     }
     

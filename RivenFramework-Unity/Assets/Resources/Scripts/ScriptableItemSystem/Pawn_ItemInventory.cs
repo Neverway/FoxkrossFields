@@ -31,6 +31,16 @@ public class Pawn_ItemInventory : MonoBehaviour
         
     }
 
+    [ContextMenu("List All Items In Inventory")]
+    public void ListAllItemsInInventory()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] == null) continue;
+            print(items[i].displayName);
+        }
+    }
+
     /// <summary>
     /// Tries to find an existing stack for an item type that's not full and returns the inventory index if found, otherwise returns -1
     /// </summary>
@@ -109,7 +119,7 @@ public class Pawn_ItemInventory : MonoBehaviour
     /// </summary>
     public bool TryRemoveItem(int _itemIndex)
     {
-        // If there is an item at the index
+        // If there is not an item at the index
         if (items[_itemIndex] == null) return false;
         if (items[_itemIndex].isDiscardable == false) return false;
         

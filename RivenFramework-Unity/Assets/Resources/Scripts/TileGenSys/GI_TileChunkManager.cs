@@ -277,10 +277,10 @@ public class GI_TileChunkManager : MonoBehaviour
 
     private void SpawnTileObjects(ChunkData data)
     {
-        Debug.Log($"[ChunkManager] SpawnTileObjects: {data.tileObjects.Count} objects in chunk {data.chunkCoord}");
+        //Debug.Log($"[ChunkManager] SpawnTileObjects: {data.tileObjects.Count} objects in chunk {data.chunkCoord}");
         foreach (var objData in data.tileObjects)
         {
-            Debug.Log($"[ChunkManager] Trying to spawn: tileID={objData.tileID} prefabTileID={objData.prefabTileID} at {objData.worldX},{objData.worldY}");
+            //Debug.Log($"[ChunkManager] Trying to spawn: tileID={objData.tileID} prefabTileID={objData.prefabTileID} at {objData.worldX},{objData.worldY}");
             var worldCell = new Vector3Int(objData.worldX, objData.worldY, 0);
             SpawnTileObject(objData, worldCell);
         }
@@ -289,11 +289,15 @@ public class GI_TileChunkManager : MonoBehaviour
     private void SpawnTileObject(TileObjectData objData, Vector3Int worldCell)
     {
         var key = new Vector2Int(worldCell.x, worldCell.y);
-        if (liveObjects.ContainsKey(key)) { Debug.Log($"[ChunkManager] Skipped {key} - already live"); return; }
+        if (liveObjects.ContainsKey(key)) 
+        { 
+            //Debug.Log($"[ChunkManager] Skipped {key} - already live");
+            return; 
+        }
 
         string lookupID = !string.IsNullOrEmpty(objData.prefabTileID) ? objData.prefabTileID : objData.tileID;
         var prefab = tileDataManager.GetPrefabForTile(lookupID);
-        Debug.Log($"[ChunkManager] Prefab for '{lookupID}': {(prefab == null ? "NULL" : prefab.name)}");
+        //Debug.Log($"[ChunkManager] Prefab for '{lookupID}': {(prefab == null ? "NULL" : prefab.name)}");
         if (prefab == null) return;
 
         var worldPos = tileDataManager.tileGrid.CellToWorld(worldCell) + tileDataManager.tileGrid.cellSize * 0.5f;

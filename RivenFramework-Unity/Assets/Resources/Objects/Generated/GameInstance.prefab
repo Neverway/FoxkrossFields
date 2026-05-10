@@ -30,6 +30,7 @@ GameObject:
   - component: {fileID: 7087915854720444564}
   - component: {fileID: 6741664602644886109}
   - component: {fileID: 4537035659013517636}
+  - component: {fileID: 3059152785630636206}
   m_Layer: 0
   m_Name: GameInstance
   m_TagString: Untagged
@@ -1448,6 +1449,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileBreakParticlePrefab: {fileID: 4271985638965806992, guid: c682f4fcb3741b241a25ad3afab7e230,
     type: 3}
-  particleBaseMaterial: {fileID: 2100000, guid: 599ba8d1545dd1fe48ceb5a140020489,
+  particleBaseMaterial: {fileID: 2100000, guid: 69a67f2ebe952e641a03c2c6dc630dc5,
     type: 2}
   poolSize: 8
+--- !u!114 &3059152785630636206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298151654670827244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b62a3e955fdbc2918e45f882f3fec49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cycleDuration: 300
+  directionalLight: {fileID: 0}
+  fogSystemPrefab: {fileID: 5001721661559637151, guid: 0528f52fae370584ca68e50074d49e5b,
+    type: 3}
+  mysteriousMerchantPrefab: {fileID: 4648902567217906586, guid: e2a612fbd46b6abd09b30c2b1b31e63e,
+    type: 3}
+  merchantSpawnRange: {x: 3, y: 6}
+  lightTweenDuration: 5
+  dayLightColor: {r: 1, g: 1, b: 1, a: 1}
+  nightLightColor: {r: 0.35256332, g: 0.3419811, b: 0.5, a: 1}
+  cycleTimer: 0

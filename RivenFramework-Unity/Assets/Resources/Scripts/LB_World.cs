@@ -35,6 +35,7 @@ public class LB_World : MonoBehaviour
     [SerializeField] private GameObject HUDWidgetPrefab;
 
     private TDPawn_Player player;
+    private Pawn_ItemInventory itemInventory;
     private bool hasLoaded;
     
     #endregion
@@ -50,6 +51,7 @@ public class LB_World : MonoBehaviour
     private void Update()
     {
         if (hasLoaded) return;
+        if (string.IsNullOrEmpty(GameInstance.Get<GI_SaveManager>().saveSlot)) return;
         if (!player)
         {
             player = FindObjectOfType<TDPawn_Player>();
@@ -60,12 +62,14 @@ public class LB_World : MonoBehaviour
         if (saveManager.HasPlayerSave())
         {
             player.transform.position = (Vector3)saveManager.LoadPlayerPosition();
-            player.playerInventory.items = saveManager.LoadPlayerInventory(FindObjectOfType<Pawn_ItemInventory>().inventorySize);
+            player.playerInventory.items = saveManager.LoadPlayerInventory(player.playerInventory.inventorySize);
             player.playerInventory.gold = saveManager.LoadPlayerGold();
         }
-        widgetManager = FindObjectOfType<GI_WidgetManager>();
+        widgetManager = GameInstance.Get<GI_WidgetManager>();
         widgetManager.AddWidget(HUDWidgetPrefab);
         GameInstance.Get<GI_TileChunkManager>().OnSaveFileLoaded();
+        var (cycleTimer, cycleIsNight, cycleTimestamp) = saveManager.LoadCycleState();
+        GameInstance.Get<CycleManager>().LoadCycle(cycleTimer, cycleIsNight, cycleTimestamp);
 
         hasLoaded = true;
     }

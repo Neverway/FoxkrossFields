@@ -124,9 +124,6 @@ public class TDPawn_Player : TDPawn
         if (Input.GetKeyDown(KeyCode.Delete)) Kill();
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            var saveManager = GameInstance.Get<GI_SaveManager>();
-            saveManager.SavePlayer(gameObject.transform.position, playerInventory.items);
-            GameInstance.Get<GI_TileChunkManager>().SaveAllDirty();
         }
         
         // Interact 

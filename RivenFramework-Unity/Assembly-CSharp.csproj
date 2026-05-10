@@ -73,6 +73,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/CoreAttributes/DebugDisplayListAsStringsAttribute.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ReflectionUtils/InvokeOnReflectionCacheLoadAttribute.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/CorGeo/Actor_StepUp.cs" />
+     <Compile Include="Assets/Resources/Scripts/CycleManager.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Extensions/Matrices/Matrix3x2.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/_Depreciated/UI_Image_EntityPortrait.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/UpdateUtility.cs" />
@@ -117,6 +118,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Extensions/MathHelper.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/NetImageRegistry.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/StairBrush.cs" />
+     <Compile Include="Assets/Resources/Scripts/C.cs" />
      <Compile Include="Assets/Packages/DOTween/Modules/DOTweenModuleSprite.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/Utilities/Vertex Weld Ops/VertexWeldOperation.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/Volumes/AudioVolume/VolumetricAudioVolume.cs" />
