@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: PlantData_pumpkin
   m_EditorClassIdentifier: 
   stages:
+  - tileID: pumpkin_seeds
+    duration: 150
   - tileID: pumpkin_sprout
-    duration: 15
+    duration: 150
   - tileID: pumpkin_plant
-    duration: 15
+    duration: 150
   - tileID: pumpkin_grown
-    duration: 15
+    duration: 150
   seedItemID: pumpkin_sprout
   harvestItemID: pumpkin
   harvestCount: 1

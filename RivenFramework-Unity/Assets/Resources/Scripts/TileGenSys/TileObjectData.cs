@@ -7,7 +7,9 @@ using UnityEngine;
 public class TileObjectData
 {
     public string tileID;
+    public string prefabTileID;
     public int worldX, worldY;
+    public long unloadTimestamp;
     
     public int altertableTier = 2;
 

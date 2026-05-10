@@ -15,7 +15,7 @@ public class WorldObject_Altertable : MonoBehaviour, IInteractable, ITileObjectR
         debugStats.text = $"[{worldX},{worldY}] {tier}";
     }
 
-    public void ReceiveData(TileObjectData data)
+    public void ReceiveData(TileObjectData data, float elapsedSeconds = 0f)
     {
         tier = data.altertableTier > 0 ? data.altertableTier : tier;
         worldX = data.worldX;

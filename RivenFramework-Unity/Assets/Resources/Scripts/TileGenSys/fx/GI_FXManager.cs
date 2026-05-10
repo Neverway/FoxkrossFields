@@ -30,8 +30,8 @@ public class GI_FXManager : MonoBehaviour
         }
         else
         {
-            return null;
-            //go = Instantiate(tileBreakParticlePrefab);
+            //return null;
+            go = Instantiate(tileBreakParticlePrefab);
         }
         go.SetActive(true);
         return go;

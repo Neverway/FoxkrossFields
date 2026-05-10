@@ -17,10 +17,10 @@ MonoBehaviour:
   icon: {fileID: -2050191312, guid: cad5a33d558900b9cbe35acb0db4c624, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 0
-  currentStackSize: 0
+  sellAmount: 50
   description: 
   isDiscardable: 1
-  material: 2
+  material: 0
   subType: hoe
   forms: 04000000
   tags: 

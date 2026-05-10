@@ -17,7 +17,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: ffa08670d62a4b6428bf5bdb87e7ee48, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 100
-  currentStackSize: 1
+  sellAmount: 2
   description: 
   isDiscardable: 1
   material: 3

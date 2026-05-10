@@ -251,6 +251,19 @@ public class WidgetNavigator : MonoBehaviour
         }
     }
 
+    public void SetSelectedIndex(int index)
+    {
+        currentIndex = index;
+        SetElementStates();
+    }
+    
+    public void AddToSelectedIndex(int amount)
+    {
+        currentIndex = (currentIndex + amount) % selectableElements.Count;
+        if (currentIndex < 0) currentIndex += selectableElements.Count;
+        SetElementStates();
+    }
+
 
     #endregion
 }

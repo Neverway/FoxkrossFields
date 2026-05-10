@@ -71,6 +71,7 @@ public class WB_Pause : MonoBehaviour
                 //GameInstance.GetWidget("WB_Settings").GetComponent<WB_Settings>().Init();
                 break;
             case "buttonTitle":
+                GameInstance.Get<GI_SaveManager>().UnloadSaveFile();
                 worldLoader.LoadWorld("_Title");
                 break;
             case "buttonQuit":

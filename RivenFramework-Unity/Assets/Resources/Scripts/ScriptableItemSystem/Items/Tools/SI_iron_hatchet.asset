@@ -17,10 +17,10 @@ MonoBehaviour:
   icon: {fileID: -1853485316, guid: cad5a33d558900b9cbe35acb0db4c624, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 0
-  currentStackSize: 0
+  sellAmount: 450
   description: 
   isDiscardable: 1
-  material: 6
+  material: 0
   subType: hatchet
   forms: 06000000
   tags: 

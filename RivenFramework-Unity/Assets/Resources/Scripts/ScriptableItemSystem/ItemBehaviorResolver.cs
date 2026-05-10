@@ -6,51 +6,67 @@ using UnityEngine.Tilemaps;
 
 public static class ItemBehaviorResolver
 {
+    /// <summary>
+    /// Returns which TileMaterialTypes a given form can break
+    /// Null means the form has no special tile-breaking permission
+    /// </summary>
+    private static HashSet<TileMaterialType> GetBreakableMaterials(ItemForm form)
+    {
+        return form switch
+        {
+            ItemForm.Pickaxe => new HashSet<TileMaterialType> { TileMaterialType.stone, TileMaterialType.metal },
+            ItemForm.Hatchet => new HashSet<TileMaterialType> { TileMaterialType.wood },
+            _ => null
+        };
+    }
+
+    /// <summary>
+    /// Material types that require a specific tool
+    /// </summary>
+    private static readonly HashSet<TileMaterialType> ToolRestrictedMaterials = new()
+    {
+        TileMaterialType.stone,
+        TileMaterialType.metal,
+        TileMaterialType.wood,
+    };
+    
+    
+    /// <summary>
+    /// Returns a break-time multiplier based on item material
+    /// The lower the value, the faster it breaks
+    /// </summary>
+    private static float GetMaterialSpeedMultiplier(ItemMaterial material)
+    {
+        return material switch
+        {
+            ItemMaterial.None   => 1.00f,
+            ItemMaterial.Bone   => 0.90f,
+            ItemMaterial.Wood   => 0.80f,
+            ItemMaterial.Flint  => 0.70f,
+            ItemMaterial.Copper => 0.55f,
+            ItemMaterial.Bronze => 0.45f,
+            ItemMaterial.Iron   => 0.35f,
+            ItemMaterial.Steel  => 0.25f,
+            _ => 1.00f
+        };
+    }
+    
     // --------------------------------
     // ITEM ACTIONS
     // --------------------------------
     public static void ExecutePrimary(ScriptableItem item, TDPawn_Player owner)
     {
-        bool handledByForm = false;
-        
-        if (DefaultPrimaryAction(item, owner)) return;
-
+        var breakable = new HashSet<TileMaterialType>();
         foreach (var form in item.forms)
         {
-            switch (form)
-            {
-                case ItemForm.None:
-                    break;
-                case ItemForm.Tile:
-                    break;
-                case ItemForm.Seed:
-                    break;
-                case ItemForm.Consumable:
-                    break;
-                case ItemForm.Hoe:
-                    break;
-                case ItemForm.Pickaxe:
-                    MineTile(item, owner);
-                    handledByForm = true;
-                    break;
-                case ItemForm.Hatchet:
-                    ChopTile(item, owner);
-                    handledByForm = true;
-                    break;
-                case ItemForm.Blade:
-                    SwingBlade(item, owner);
-                    handledByForm = true;
-                    break;
-                case ItemForm.Polearm:
-                    break;
-                case ItemForm.Bludgeon:
-                    break;
-                case ItemForm.Projectile:
-                    break;
-            }
+            var permitted = GetBreakableMaterials(form);
+            if (permitted != null) breakable.UnionWith(permitted);
         }
         
-        if (!handledByForm) DefaultPrimaryAction(item, owner);
+        if (breakable.Count > 0)
+            BreakTileWithTool(item, owner, breakable);
+        else
+            DefaultPrimaryAction(item, owner);
     }
 
     public static void ExecuteSecondary(ScriptableItem item, TDPawn_Player owner)
@@ -129,41 +145,14 @@ public static class ItemBehaviorResolver
             if (tile == null) continue;
 
             TileData tileData = tileDataManager.GetTileDataFromTileBase(tile);
-
-            float durability = tileData.tileDurability > 0 ? tileData.tileDurability : 1f;
-            float breakTime = owner.TDCurrentStats.destroyHoldTime * durability;
             
-            FXHelper.SpawnTileBreakParticles(attachPos, tile, tilemap, cell);
-
-            owner.playerInventory.holdTimer += Time.deltaTime;
-
-            if (owner.playerInventory.holdTimer >= breakTime)
+            if (ToolRestrictedMaterials.Contains(tileData.tileMaterialType))
             {
-                bool removingTrunk = layer == 3;
-                tilemap.SetTile(cell, null);
-                GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, layer, null);
-                GameInstance.Get<GI_TileChunkManager>().TryDespawnTileObject(cell);
-
-                if (removingTrunk)
-                    GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
-
-                if (tileData.drops != null)
-                {
-                    foreach (var drop in tileData.drops)
-                    {
-                        var randomChance = Random.Range(0f, 1f);
-                        if (drop.chanceToDrop >= randomChance)
-                        {
-                            foreach (var _item in drop.items)
-                            {
-                                owner.playerInventory.TryAddItem(_item);
-                            }
-                        }
-                    }
-                }
-
                 owner.playerInventory.holdTimer = 0f;
+                return false;
             }
+
+            BreakTile(item, owner, tilemap, tileDataManager, cell, tileData, layer);
             return true;
         }
 
@@ -184,12 +173,30 @@ public static class ItemBehaviorResolver
             if (tilemap.GetTile(cell) == null) continue;
 
             var liveObject = GameInstance.Get<GI_TileChunkManager>().GetLiveObject(cell);
-            if (liveObject == null) return false;
-            var interactable = liveObject.GetComponent<IInteractable>();
-            if (interactable == null) return false;
-            interactable.OnInteract(owner);
-            
-            return true;
+            if (liveObject != null)
+            {
+                var interactable = liveObject.GetComponent<IInteractable>();
+                if (interactable == null) return false;
+                interactable.OnInteract(owner);
+                return true;
+            }
+        }
+        
+        var hit = Physics2D.OverlapCircleAll(attachPos, 2f);
+        if (hit != null)
+        {
+            foreach (var collider in hit)
+            {
+                if (collider != null)
+                {
+                    var sceneInteractable = collider.GetComponent<IInteractable>();
+                    if (sceneInteractable != null)
+                    {
+                        sceneInteractable.OnInteract(owner);
+                        return true;
+                    }
+                }
+            }
         }
 
         return false;
@@ -203,7 +210,78 @@ public static class ItemBehaviorResolver
         
     }
 
+    private static void BreakTileWithTool(ScriptableItem item, TDPawn_Player owner, HashSet<TileMaterialType> permitted)
+    {
+        HashSet<int> unbreakableLayers = new HashSet<int> { 0, 1, 4, 5 };
+        var tileDataManager = owner.tileDataManager;
+        Vector3 attachPos = owner.physObjectAttachmentPoint.transform.position;
 
+        for (int layer = tileDataManager.GetTilemapCount() - 1; layer >= 0; layer--)
+        {
+            if (unbreakableLayers.Contains(layer)) continue;
+
+            Tilemap tilemap = tileDataManager.GetTilemapFromLayer(layer);
+            if (tilemap == null) continue;
+
+            Vector3Int cell = tilemap.WorldToCell(attachPos);
+            TileBase tile = tilemap.GetTile(cell);
+            if (tile == null) continue;
+
+            TileData tileData = tileDataManager.GetTileDataFromTileBase(tile);
+
+            // Only break tiles this tool is allowed to break
+            if (!permitted.Contains(tileData.tileMaterialType))
+            {
+                owner.playerInventory.holdTimer = 0f;
+                return;
+            }
+
+            BreakTile(item, owner, tilemap, tileDataManager, cell, tileData, layer);
+            return;
+        }
+
+        // No valid tile found for this tool
+        owner.playerInventory.holdTimer = 0f;
+    }
+    
+    private static void BreakTile(ScriptableItem item, TDPawn_Player owner, Tilemap tilemap, GI_TileDataManager tileDataManager, Vector3Int cell, TileData tileData, int layer)
+    {
+        float materialMultiplier = item != null ? GetMaterialSpeedMultiplier(item.material) : 1.0f;
+        float durability = tileData.tileDurability > 0 ? tileData.tileDurability : 1f;
+        float breakTime = owner.TDCurrentStats.destroyHoldTime * durability * materialMultiplier;
+
+        Vector3 attachPos = owner.physObjectAttachmentPoint.transform.position;
+        FXHelper.SpawnTileBreakParticles(attachPos, tilemap.GetTile(cell), tilemap, cell);
+
+        owner.playerInventory.holdTimer += Time.deltaTime;
+
+        if (owner.playerInventory.holdTimer >= breakTime)
+        {
+            bool removingTrunk = layer == (int)TileLayers.ObjectsSolid;
+            tilemap.SetTile(cell, null);
+            GameInstance.Get<GI_TileChunkManager>().MarkTileDirty(cell, layer, null);
+            GameInstance.Get<GI_TileChunkManager>().TryDespawnTileObject(cell);
+
+            if (removingTrunk)
+                GameInstance.Get<GI_TileChunkManager>().RecalculateLeaves(cell);
+
+            if (tileData.drops != null)
+            {
+                foreach (var drop in tileData.drops)
+                {
+                    if (drop.chanceToDrop >= Random.Range(0f, 1f))
+                    {
+                        foreach (var _item in drop.items)
+                            owner.playerInventory.TryAddItem(_item);
+                    }
+                }
+            }
+
+            owner.playerInventory.holdTimer = 0f;
+        }
+    }
+    
+    
     private static void PlaceTile(ScriptableItem item, TDPawn_Player owner)
     {
         var tileDataManager = GameInstance.Get<GI_TileDataManager>();

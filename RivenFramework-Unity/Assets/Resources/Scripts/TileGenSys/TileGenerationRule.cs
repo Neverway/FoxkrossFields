@@ -36,9 +36,9 @@ public class TileGenerationRule
              "Path: path overlay")] 
     public GenerationProcedure generationProcedure = GenerationProcedure.None;
     [Tooltip("Only place if this specified layer has a tile here (-1 ignore)")]
-    public TileLayers requireLayerFilled = TileLayers.None;
+    public TileLayers[] requireLayersFilled = new TileLayers[0];
     [Tooltip("Only place if this specified layer does not have a tile here (-1 ignore)")]
-    public TileLayers requireLayerEmpty = TileLayers.None;
+    public TileLayers[] requireLayersEmpty = new TileLayers[0];
 }
 
 public enum NoiseBlendMode
@@ -58,7 +58,9 @@ public enum GenerationProcedure
     None,
     Tree,
     Leaf,
-    Path
+    Path,
+    Water,
+    GroundEdge,
 }
 
 public enum NoiseType

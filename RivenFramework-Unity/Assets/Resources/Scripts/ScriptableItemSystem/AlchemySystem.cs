@@ -303,7 +303,7 @@ public class AlchemySystem
     private static ItemInstance ResolveToKnownItem(ScriptableItem generated)
     {
         var existing = GameInstance.Get<GI_ItemDatabase>().GetItem(generated.id);
-        if (existing != null) return new ItemInstance(existing, 1);
+        if (existing != null) return new ItemInstance(existing, existing.maxStackSize);
 
         return new ItemInstance(generated, 1);
     }

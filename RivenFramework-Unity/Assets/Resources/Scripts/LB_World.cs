@@ -45,8 +45,6 @@ public class LB_World : MonoBehaviour
     /*-----[ Mono Functions ]-----------------------------------------------------------------------------------------*/
     private void Start()
     {
-        widgetManager = FindObjectOfType<GI_WidgetManager>();
-        widgetManager.AddWidget(HUDWidgetPrefab);
     }
 
     private void Update()
@@ -59,11 +57,14 @@ public class LB_World : MonoBehaviour
         }
 
         var saveManager = GameInstance.Get<GI_SaveManager>();
-        if (saveManager.HasSave())
+        if (saveManager.HasPlayerSave())
         {
             player.transform.position = (Vector3)saveManager.LoadPlayerPosition();
-            player.playerInventory.items = saveManager.LoadPlayerInventory(10);
+            player.playerInventory.items = saveManager.LoadPlayerInventory(FindObjectOfType<Pawn_ItemInventory>().inventorySize);
         }
+        widgetManager = FindObjectOfType<GI_WidgetManager>();
+        widgetManager.AddWidget(HUDWidgetPrefab);
+        GameInstance.Get<GI_TileChunkManager>().OnSaveFileLoaded();
 
         hasLoaded = true;
     }

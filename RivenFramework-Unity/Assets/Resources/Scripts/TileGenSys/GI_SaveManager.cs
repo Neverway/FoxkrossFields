@@ -13,12 +13,62 @@ public class GI_SaveManager : MonoBehaviour
     private string SaveRoot => Path.Combine(Application.persistentDataPath, "saves", saveSlot);
     private string ChunkDir => Path.Combine(SaveRoot, "chunks");
     private string PlayerFile => Path.Combine(SaveRoot, "player.json");
+    
+    private static string GetSaveRoot(string slot) => Path.Combine(Application.persistentDataPath, "saves", slot);
 
     private void Awake()
     {
         Directory.CreateDirectory(ChunkDir);
     }
 
+    // ---------------------------------------------
+    // SAVE SLOTS
+    // ---------------------------------------------
+    /// <summary>
+    /// Creates a blank save directory for the given slot
+    /// Does nothing if the slot already exists
+    /// </summary>
+    public static void CreateNewSaveFile(string slot)
+    {
+        string chunkDir = Path.Combine(GetSaveRoot(slot), "chunks");
+        Directory.CreateDirectory(chunkDir);
+        Debug.Log($"[SaveManager] Created save slot '{slot}' at {GetSaveRoot(slot)}");
+    }
+
+    /// <summary>
+    /// Returns true if the given slot has a player save file
+    /// </summary>
+    public static bool HasSaveFile(string slot)
+    {
+        string playerFile = Path.Combine(GetSaveRoot(slot), "player.json");
+        return File.Exists(playerFile);
+    }
+
+    /// <summary>
+    /// Switches the active save slot to the given slot and recreates
+    /// the chunk directory so subsequent reads/writes target it
+    /// </summary>
+    public void LoadSaveFile(string slot)
+    {
+        saveSlot = slot;
+        Directory.CreateDirectory(ChunkDir);
+        //GameInstance.Get<GI_TileChunkManager>().OnSaveFileLoaded();
+        Debug.Log($"[SaveManager] Loaded save slot '{slot}'");
+    }
+    
+    public void UnloadSaveFile()
+    {
+        var inv = FindObjectOfType<Pawn_ItemInventory>();
+        SavePlayer(FindObjectOfType<TDPawn_Player>().transform.position, inv.items, inv.gold);
+        GameInstance.Get<GI_TileChunkManager>().OnSaveFileUnloaded();
+        saveSlot = null;
+        Debug.Log("[SaveManager] Save file unloaded");
+    }
+
+    
+    // ---------------------------------------------
+    // CHUNK DATA
+    // ---------------------------------------------
     public void SaveChunk(ChunkData data)
     {
         string path = ChunkPath(data.chunkCoord);
@@ -45,12 +95,12 @@ public class GI_SaveManager : MonoBehaviour
         }
     }
 
-    private string ChunkPath(Vector2Int coord)
-    {
-        return Path.Combine(ChunkDir, $"chunk_{coord.x}_{coord.y}.json");
-    }
+    private string ChunkPath(Vector2Int coord) => Path.Combine(ChunkDir, $"chunk_{coord.x}_{coord.y}.json");
 
-    public void SavePlayer(Vector3 position, List<ItemInstance> inventory)
+    // ---------------------------------------------
+    // PLAYER DATA
+    // ---------------------------------------------
+    public void SavePlayer(Vector3 position, List<ItemInstance> inventory, int gold = 0)
     {
         var inventorySaveData = new List<InventoryItemSaveData>();
         foreach (var itemInstance in inventory)
@@ -80,7 +130,14 @@ public class GI_SaveManager : MonoBehaviour
 
             inventorySaveData.Add(entry);
         }
-        var data = new PlayerSaveData { posX = position.x, posY = position.y, inventory = inventorySaveData };
+
+        var data = new PlayerSaveData
+        {
+            posX = position.x,
+            posY = position.y,
+            gold = gold,
+            inventory = inventorySaveData
+        };
         File.WriteAllText(PlayerFile, JsonUtility.ToJson(data));
     }
 
@@ -104,6 +161,7 @@ public class GI_SaveManager : MonoBehaviour
         {
             var entry = data.inventory[i];
             if (entry == null) continue;
+
             var asset = registry.GetItem(entry.id);
             if (asset != null)
             {
@@ -131,16 +189,24 @@ public class GI_SaveManager : MonoBehaviour
         }
         return result;
     }
-
-    public bool HasSave()
+    
+    public int LoadPlayerGold()
     {
-        return File.Exists(PlayerFile);
+        if (!File.Exists(PlayerFile)) return 0;
+        var data = JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(PlayerFile));
+        return data.gold;
     }
 
+    public bool HasPlayerSave() => File.Exists(PlayerFile);
+
+    // ---------------------------------------------
+    // DATA CLASSES
+    // ---------------------------------------------
     [Serializable]
     private class PlayerSaveData
     {
         public float posX, posY;
+        public int gold;
         public List<InventoryItemSaveData> inventory;
     }
     

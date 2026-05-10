@@ -27,9 +27,10 @@ public class WorldObject_Plant : MonoBehaviour, IInteractable, ITileObjectReceiv
         debugStats.text = $"[{worldX},{worldY}] stage{growthStage}/{plantData.stages.Length-1} timer{growthTimer:F2}";
     }
 
-    private void AdvanceStage()
+    private void AdvanceStage(int targetStage = -1)
     {
-        growthStage++;
+        if (targetStage < 0) growthStage++;
+        else growthStage = targetStage;
         if (growthStage >= plantData.stages.Length) return;
 
         string newTileId = plantData.stages[growthStage].tileID;
@@ -44,12 +45,13 @@ public class WorldObject_Plant : MonoBehaviour, IInteractable, ITileObjectReceiv
         chunkManager.UpdatePlantTileID(cell, newTileId);
     }
 
-    public void ReceiveData(TileObjectData data)
+    public void ReceiveData(TileObjectData data, float elapsedSeconds = 0f)
     {
         worldX = data.worldX;
         worldY = data.worldY;
         growthTimer = data.growthTimer;
         growthStage = data.growthStage;
+        if (elapsedSeconds > 0f) FastForwardGrowth(elapsedSeconds);
     }
 
     public TileObjectData ProvideData()
@@ -57,6 +59,7 @@ public class WorldObject_Plant : MonoBehaviour, IInteractable, ITileObjectReceiv
         TileObjectData objectData = new TileObjectData
         {
             tileID = plantData != null ? plantData.stages[growthStage].tileID : "",
+            prefabTileID = plantData != null ? plantData.stages[0].tileID : "",
             worldX = worldX,
             worldY = worldY,
             growthTimer = growthTimer,
@@ -68,5 +71,27 @@ public class WorldObject_Plant : MonoBehaviour, IInteractable, ITileObjectReceiv
 
     public void OnInteract(TDPawn_Player interactor)
     {
+    }
+    
+    private void FastForwardGrowth(float seconds)
+    {
+        if (plantData == null) return;
+        float remaining = seconds;
+        while (growthStage < plantData.stages.Length - 1 && remaining > 0f)
+        {
+            float timeLeftInStage = plantData.stages[growthStage].duration - growthTimer;
+            if (remaining >= timeLeftInStage)
+            {
+                remaining -= timeLeftInStage;
+                growthTimer = 0f;
+                growthStage++;
+            }
+            else
+            {
+                growthTimer += remaining;
+                remaining = 0f;
+            }
+        }
+        if (growthStage > 0) AdvanceStage(growthStage);
     }
 }

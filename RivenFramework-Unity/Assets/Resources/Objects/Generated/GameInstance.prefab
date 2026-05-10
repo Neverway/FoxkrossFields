@@ -159,7 +159,7 @@ MonoBehaviour:
   performingSpecialMarkup: 0
   markupStartIndex: 0
   chatterAudioSource: {fileID: 5663611723246624689}
-  defaultVoice: {fileID: 11400000, guid: 6fed3e39c6b64b0c9a0ba12e4d70d3fd, type: 2}
+  defaultVoice: {fileID: 0}
   currentTextChatter: {fileID: 0}
   stopChatterClip: 1
   chatterFrequency: 4
@@ -1015,6 +1015,7 @@ MonoBehaviour:
     tileMaterialType: 0
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: grass
     tile: {fileID: 11400000, guid: 653d9f4822452a2bb8985c05460281c3, type: 2}
     tileLayer: 0
@@ -1022,6 +1023,7 @@ MonoBehaviour:
     tileMaterialType: 1
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: grass_path
     tile: {fileID: 11400000, guid: 689a615658cdb4327837ef42150ffed6, type: 2}
     tileLayer: 1
@@ -1029,6 +1031,7 @@ MonoBehaviour:
     tileMaterialType: 1
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: dirt
     tile: {fileID: 11400000, guid: f76c8caa63b87365095eabc0097090f0, type: 2}
     tileLayer: 0
@@ -1036,6 +1039,7 @@ MonoBehaviour:
     tileMaterialType: 1
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: dirt_path
     tile: {fileID: 11400000, guid: 482e2d7902b8163de9234880cca25229, type: 2}
     tileLayer: 1
@@ -1043,20 +1047,26 @@ MonoBehaviour:
     tileMaterialType: 1
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: tree
     tile: {fileID: 11400000, guid: 601619d717b1b4ce88a62ea276fb3ac0, type: 2}
     tileLayer: 3
-    tileDurability: 3
+    tileDurability: 4
     tileMaterialType: 3
-    drops: []
+    drops:
+    - chanceToDrop: 1
+      items:
+      - {fileID: 11400000, guid: a2d91e2e4c131463c99ce2483f76ab95, type: 2}
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: water
     tile: {fileID: 11400000, guid: e77d75ea1b638e065b3cace8f39873fc, type: 2}
-    tileLayer: 2
+    tileLayer: 4
     tileDurability: 0
     tileMaterialType: 7
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: leaves
     tile: {fileID: 11400000, guid: d50400d1ca9cb06478e6fdeca1afd2da, type: 2}
     tileLayer: 4
@@ -1064,47 +1074,57 @@ MonoBehaviour:
     tileMaterialType: 5
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: rock
-    tile: {fileID: 11400000, guid: db72764bfd7d1281fb94f74fe2033d7f, type: 2}
+    tile: {fileID: 11400000, guid: a8bbb6d508fbe318f869cdea52f84f0b, type: 2}
     tileLayer: 2
-    tileDurability: 2
+    tileDurability: 4
     tileMaterialType: 2
     drops:
     - chanceToDrop: 1
       items:
-      - {fileID: 0}
+      - {fileID: 11400000, guid: e267f873e8c7d481990bae100e58d803, type: 2}
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: sticks
-    tile: {fileID: 11400000, guid: e99ce9d51d01c3f0783e4201516c09a2, type: 2}
+    tile: {fileID: 11400000, guid: 1507af74fd341d1a69b92fe5d00b8c80, type: 2}
     tileLayer: 2
     tileDurability: 1
     tileMaterialType: 3
     drops:
     - chanceToDrop: 0.5
       items:
-      - {fileID: 0}
+      - {fileID: 11400000, guid: 660efa118a450eef3a1e05ed4008d2e0, type: 2}
     - chanceToDrop: 0.2
       items:
-      - {fileID: 0}
-      - {fileID: 0}
+      - {fileID: 11400000, guid: 660efa118a450eef3a1e05ed4008d2e0, type: 2}
+      - {fileID: 11400000, guid: 660efa118a450eef3a1e05ed4008d2e0, type: 2}
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: short_grass
     tile: {fileID: 11400000, guid: 612772ac1606b7c9fa27bcd27a27af94, type: 2}
     tileLayer: 2
     tileDurability: 1
     tileMaterialType: 5
     drops:
+    - chanceToDrop: 0.5
+      items:
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
     - chanceToDrop: 0.2
       items:
-      - {fileID: 0}
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: bush
-    tile: {fileID: 11400000, guid: f31b45a0b988300f9bf6485677f684dc, type: 2}
+    tile: {fileID: 11400000, guid: 133567a12cd4ba1f0a1610f0d8167712, type: 2}
     tileLayer: 2
     tileDurability: 1
     tileMaterialType: 5
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   - tileID: vines
     tile: {fileID: 11400000, guid: 4712dde6d551c7873a28a41bd8b20e9e, type: 2}
     tileLayer: 2
@@ -1112,23 +1132,97 @@ MonoBehaviour:
     tileMaterialType: 5
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
+  - tileID: farmland
+    tile: {fileID: 11400000, guid: 37fecda2f9a0fdeaa8ac4220b57b6630, type: 2}
+    tileLayer: 1
+    tileDurability: 1
+    tileMaterialType: 1
+    drops: []
+    associatedPrefab: {fileID: 0}
+    prefabSourceID: 
+  - tileID: altertable
+    tile: {fileID: 11400000, guid: 3def142deddb36581ae324a49d176b14, type: 2}
+    tileLayer: 3
+    tileDurability: 5
+    tileMaterialType: 3
+    drops:
+    - chanceToDrop: 1
+      items:
+      - {fileID: 11400000, guid: 0ca0e667646fa54b7b7b0694ab91a511, type: 2}
+    associatedPrefab: {fileID: 1021917603942606055, guid: 5440a7039af80005fba144aa48d881e1,
+      type: 3}
+    prefabSourceID: 
+  - tileID: pumpkin_seeds
+    tile: {fileID: 11400000, guid: 86009c3d5b3b9cc528fcaf6ee4738c78, type: 2}
+    tileLayer: 2
+    tileDurability: 1
+    tileMaterialType: 5
+    drops:
+    - chanceToDrop: 1
+      items:
+      - {fileID: 11400000, guid: 63b007d36003439eab1067f105ed2f84, type: 2}
+    - chanceToDrop: 1
+      items:
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+    - chanceToDrop: 0.25
+      items:
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+    associatedPrefab: {fileID: 3465352896393806921, guid: 7ddfdb0c75b79058bb18302be273624a,
+      type: 3}
+    prefabSourceID: 
   - tileID: pumpkin_sprout
-    tile: {fileID: 11400000, guid: e99ce9d51d01c3f0783e4201516c09a2, type: 2}
+    tile: {fileID: 11400000, guid: ff99442615bad39c084bd1738e1ae4e1, type: 2}
     tileLayer: 2
     tileDurability: 1
     tileMaterialType: 5
     drops:
     - chanceToDrop: 0.5
       items:
-      - {fileID: 0}
-    associatedPrefab: {fileID: 0}
-  - tileID: farmland
-    tile: {fileID: 11400000, guid: c8ad0b10aed755f4ab7044e38c56cbab, type: 2}
-    tileLayer: 1
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+    associatedPrefab: {fileID: 3465352896393806921, guid: 7ddfdb0c75b79058bb18302be273624a,
+      type: 3}
+    prefabSourceID: 
+  - tileID: pumpkin_plant
+    tile: {fileID: 11400000, guid: 45cf7fa43b5500eb5a5112bc587f44ab, type: 2}
+    tileLayer: 2
     tileDurability: 1
-    tileMaterialType: 1
+    tileMaterialType: 5
+    drops:
+    - chanceToDrop: 0.5
+      items:
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+    associatedPrefab: {fileID: 3465352896393806921, guid: 7ddfdb0c75b79058bb18302be273624a,
+      type: 3}
+    prefabSourceID: 
+  - tileID: pumpkin_grown
+    tile: {fileID: 11400000, guid: 826956d9612b9af48898697ad15d2861, type: 2}
+    tileLayer: 2
+    tileDurability: 1
+    tileMaterialType: 5
+    drops:
+    - chanceToDrop: 1
+      items:
+      - {fileID: 11400000, guid: 63b007d36003439eab1067f105ed2f84, type: 2}
+    - chanceToDrop: 1
+      items:
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+    - chanceToDrop: 0.25
+      items:
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+      - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
+    associatedPrefab: {fileID: 3465352896393806921, guid: 7ddfdb0c75b79058bb18302be273624a,
+      type: 3}
+    prefabSourceID: 
+  - tileID: ground_edge
+    tile: {fileID: 11400000, guid: 82449595a9ba807bca270c8737bdf1ea, type: 2}
+    tileLayer: 6
+    tileDurability: 9999
+    tileMaterialType: 0
     drops: []
     associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   tileGrid: {fileID: 0}
 --- !u!114 &6717124914261965946
 MonoBehaviour:
@@ -1157,8 +1251,22 @@ MonoBehaviour:
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 1
     generationProcedure: 0
-    requireLayerFilled: -1
-    requireLayerEmpty: -1
+    requireLayersFilled: 
+    requireLayersEmpty: 
+  - ruleName: GroundEdge
+    generationRuleDisabled: 1
+    targetLayer: 6
+    tileIDs:
+    - ground_edge
+    noiseType: 3
+    noiseScale: 1.5
+    threshold: 0.8
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    generationProcedure: 5
+    requireLayersFilled: 
+    requireLayersEmpty: 
   - ruleName: Path
     generationRuleDisabled: 0
     targetLayer: 1
@@ -1172,26 +1280,8 @@ MonoBehaviour:
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
     generationProcedure: 3
-    requireLayerFilled: 0
-    requireLayerEmpty: -1
-  - ruleName: Junk
-    generationRuleDisabled: 0
-    targetLayer: 2
-    tileIDs:
-    - rock
-    - sticks
-    - short_grass
-    - bush
-    - vines
-    noiseType: 3
-    noiseScale: 1
-    threshold: 0.5
-    blendMode: 0
-    noiseOffset: {x: 0, y: 0}
-    tileSelectionMode: 0
-    generationProcedure: 0
-    requireLayerFilled: -1
-    requireLayerEmpty: -1
+    requireLayersFilled: 00000000
+    requireLayersEmpty: 03000000
   - ruleName: Trees
     generationRuleDisabled: 0
     targetLayer: 3
@@ -1204,8 +1294,8 @@ MonoBehaviour:
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
     generationProcedure: 1
-    requireLayerFilled: -1
-    requireLayerEmpty: 2
+    requireLayersFilled: 
+    requireLayersEmpty: 03000000
   - ruleName: Leaves
     generationRuleDisabled: 0
     targetLayer: 5
@@ -1218,14 +1308,55 @@ MonoBehaviour:
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
     generationProcedure: 2
-    requireLayerFilled: -1
-    requireLayerEmpty: -1
+    requireLayersFilled: 
+    requireLayersEmpty: 
+  - ruleName: Water
+    generationRuleDisabled: 0
+    targetLayer: 4
+    tileIDs:
+    - water
+    noiseType: 3
+    noiseScale: 1.5
+    threshold: 0.8
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    generationProcedure: 4
+    requireLayersFilled: 
+    requireLayersEmpty: 
+  - ruleName: Junk
+    generationRuleDisabled: 0
+    targetLayer: 2
+    tileIDs:
+    - rock
+    - sticks
+    - short_grass
+    - bush
+    - vines
+    noiseType: 3
+    noiseScale: 1.5
+    threshold: 0.8
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    generationProcedure: 0
+    requireLayersFilled: 
+    requireLayersEmpty: 0300000004000000
   treeTileID: tree
   leafTileID: leaves
   treeNoiseScale: 0.15
   treeThreshold: 0.3
   pathNoiseScale: 0.08
   pathThreshold: 0.5
+  waterTileID: water
+  groundEdgeTileID: ground_edge
+  waterNoiseScale: 0.06
+  waterThreshold: 0.8
+  riverNoiseScale: 0.01
+  riverThreshold: 0.52
+  riverBandwidth: 0.03
+  riverWarpScale: 0.06
+  riverWarpStrength: 4
 --- !u!114 &1140813127721084818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,7 +1384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb81b98fce98c85e8db227dc9e9c288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveSlot: slot_0
+  saveSlot: slot_1
 --- !u!114 &6741664602644886109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,11 +1398,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
+  - {fileID: 11400000, guid: 0ca0e667646fa54b7b7b0694ab91a511, type: 2}
+  - {fileID: 11400000, guid: 4e572f5c08501267b8d9c20b6f9fbe06, type: 2}
+  - {fileID: 11400000, guid: e028ca807547b29ada280895587c6211, type: 2}
+  - {fileID: 11400000, guid: ba937c3e167c4fa57a6d1033c0d6c367, type: 2}
+  - {fileID: 11400000, guid: 0206dd22ef618ef46b7a0f0835c0c013, type: 2}
+  - {fileID: 11400000, guid: 62f920bafbf958db4b334954ff3e76f6, type: 2}
+  - {fileID: 11400000, guid: 434f7073b17b3685bb715507db9eae4a, type: 2}
+  - {fileID: 11400000, guid: adf249f4d7d79d3ebb09232dce4ac527, type: 2}
+  - {fileID: 11400000, guid: 1243bb90acf964afe8953a132a2ba0fd, type: 2}
+  - {fileID: 11400000, guid: 029b30dd4e4035ba28ffb1d81015b839, type: 2}
+  - {fileID: 11400000, guid: 28993280ecc350f1db2784d9bb7e048d, type: 2}
+  - {fileID: 11400000, guid: 03138e66bd50a7786b9f0a5e7b681490, type: 2}
+  - {fileID: 11400000, guid: 43a751ce41f23b2349cb91043e448ced, type: 2}
+  - {fileID: 11400000, guid: b157df80cdd3f32d78636ed8e9007c69, type: 2}
+  - {fileID: 11400000, guid: 7ce36e293eb0ed65cac7c3e3b94f2660, type: 2}
+  - {fileID: 11400000, guid: 2a08c8f17082879db93aedf72fa81dc5, type: 2}
+  - {fileID: 11400000, guid: 22aaeb2442ccc5351ade422457c5be61, type: 2}
   - {fileID: 11400000, guid: ab03568bfaac96adcbdf542b245b91da, type: 2}
+  - {fileID: 11400000, guid: 8ed983a8f6fc25e32b8ab76805f86a3c, type: 2}
+  - {fileID: 11400000, guid: 9153a5a83ecefb09990c3d0bb8d0057b, type: 2}
+  - {fileID: 11400000, guid: 0742338d3ab1a3455b8d1ec869b3f502, type: 2}
+  - {fileID: 11400000, guid: 7716c908de8965832a6aee4d55193059, type: 2}
+  - {fileID: 11400000, guid: c84e000a08dd2cc23972074c36dde4b7, type: 2}
+  - {fileID: 11400000, guid: 13de99f46ef6ebf07a0a6beeabbcb7d1, type: 2}
+  - {fileID: 11400000, guid: bda464504134d3fa5942bb8b7140933d, type: 2}
+  - {fileID: 11400000, guid: 6f988658fe059a1b48af25c3e1b32c7f, type: 2}
   - {fileID: 11400000, guid: ed7a3a7ae56ff922b97d51d9b159d9d2, type: 2}
   - {fileID: 11400000, guid: e267f873e8c7d481990bae100e58d803, type: 2}
+  - {fileID: 11400000, guid: 7a09ff4337111e35087392bd735bbb19, type: 2}
   - {fileID: 11400000, guid: 660efa118a450eef3a1e05ed4008d2e0, type: 2}
   - {fileID: 11400000, guid: a2d91e2e4c131463c99ce2483f76ab95, type: 2}
+  - {fileID: 11400000, guid: 80f9147f996185adda0d65dec031b22a, type: 2}
+  - {fileID: 11400000, guid: 950bd77823d8a9dd689890425b213a42, type: 2}
+  - {fileID: 11400000, guid: 0bcf688caffcdac0fbf54f15e0f3ffde, type: 2}
+  - {fileID: 11400000, guid: 0c956f9974076bd8aaebd477d36b7920, type: 2}
+  - {fileID: 11400000, guid: 63b007d36003439eab1067f105ed2f84, type: 2}
 --- !u!114 &4537035659013517636
 MonoBehaviour:
   m_ObjectHideFlags: 0

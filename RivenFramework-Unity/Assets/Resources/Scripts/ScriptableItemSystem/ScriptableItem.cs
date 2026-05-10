@@ -17,8 +17,8 @@ public class ScriptableItem : ScriptableObject
     public GameObject associatedGameObject;
     [Tooltip("How many of this item can be held in the same inventory slot")]
     public int maxStackSize;
-    [Tooltip("How many of this item are in this slot")]
-    public int currentStackSize;
+
+    public int sellAmount;
     [Tooltip("The details about this item")]
     [TextArea] public string description;
     [Tooltip("If false, this is considered a key item and cannot be dropped")]

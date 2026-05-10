@@ -55,12 +55,20 @@ public class TDPawn_Player : TDPawn
             widgetManager = GameInstance.Get<GI_WidgetManager>();
             if (!widgetManager) return;
         }
-        isPaused = widgetManager.GetExistingWidget("WB_Pause") || widgetManager.GetExistingWidget("WB_Altertable");
+        isPaused = widgetManager.GetExistingWidget("WB_Pause") || widgetManager.GetExistingWidget("WB_Altertable") || widgetManager.GetExistingWidget(InventoryWidget.name) || widgetManager.GetExistingWidget("WB_Shop");
         
         // Pause Game
         if (inputActions.Menu.WasPressedThisFrame())
         {
             widgetManager.ToggleWidget("WB_Pause");
+        }
+        if (inputActions.Select.WasPressedThisFrame())
+        {
+            var widget = widgetManager.GetExistingWidget(InventoryWidget.name); if (widget) Destroy(widget);
+            else widgetManager.AddWidget(InventoryWidget);
+            
+            widget = widgetManager.GetExistingWidget("WB_Altertable"); if (widget) Destroy(widget);
+            widget = widgetManager.GetExistingWidget("WB_Shop"); if (widget) Destroy(widget);
         }
         
         // Lock mouse when unpaused, unlock when paused

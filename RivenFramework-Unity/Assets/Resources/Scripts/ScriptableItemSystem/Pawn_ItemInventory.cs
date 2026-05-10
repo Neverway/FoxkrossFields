@@ -14,12 +14,14 @@ public class Pawn_ItemInventory : MonoBehaviour
     public TDPawn_Player owner;
     public float holdTimer = 0f;
     public int inventorySize = 10;
+    public int hotbarSize = 10;
+    public int gold = 0;
 
     private void Start()
     {
         owner = GetComponent<TDPawn_Player>();
         for (int i = 0; i < inventorySize; i++) items.Add(null);
-        if (!GameInstance.Get<GI_SaveManager>().HasSave())
+        if (!GameInstance.Get<GI_SaveManager>().HasPlayerSave())
         {
             foreach (var item in startingItems)
             {
@@ -144,7 +146,7 @@ public class Pawn_ItemInventory : MonoBehaviour
     /// </summary>
     public void NextItem()
     {
-        if (currentItemIndex >= items.Count-1) currentItemIndex = 0;
+        if (currentItemIndex >= hotbarSize-1) currentItemIndex = 0;
         else currentItemIndex++;
     }
 
@@ -155,7 +157,7 @@ public class Pawn_ItemInventory : MonoBehaviour
     {
         if (currentItemIndex <= 0)
         {
-            currentItemIndex = items.Count-1;
+            currentItemIndex = hotbarSize-1;
         }
         else
         {

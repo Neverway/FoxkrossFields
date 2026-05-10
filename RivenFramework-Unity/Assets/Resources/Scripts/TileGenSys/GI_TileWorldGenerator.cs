@@ -23,7 +23,21 @@ public class GI_TileWorldGenerator : MonoBehaviour
     public float pathNoiseScale = 0.12f;
     public float pathThreshold = 0.55f;
     
-    private Vector2 pathOffset, treeOffset;
+    [Header("Water Settings")]
+    public string waterTileID = "water";
+    public string groundEdgeTileID = "ground_edge";
+    public float waterNoiseScale = 0.08f;
+    public float waterThreshold = 0.72f;
+    
+    [Header("River Settings")]
+    public float riverNoiseScale = 0.03f;
+
+    public float riverThreshold = 0.52f;
+    public float riverBandwidth = 0.04f;
+    public float riverWarpScale = 0.06f;
+    public float riverWarpStrength = 6f;
+    
+    private Vector2 pathOffset, treeOffset, waterOffset, riverOffset, riverWarpOffset;
 
 
     public void Awake()
@@ -34,6 +48,9 @@ public class GI_TileWorldGenerator : MonoBehaviour
         foreach (var rule in generationRules) rule.noiseOffset = NextVector2RNGOffset(rng);
         pathOffset = NextVector2RNGOffset(rng);
         treeOffset = NextVector2RNGOffset(rng);
+        waterOffset = NextVector2RNGOffset(rng);
+        riverOffset = NextVector2RNGOffset(rng);
+        riverWarpOffset = NextVector2RNGOffset(rng);
     }
 
     private static Vector2 NextVector2RNGOffset(System.Random rng)
@@ -75,6 +92,12 @@ public class GI_TileWorldGenerator : MonoBehaviour
                 case GenerationProcedure.Path: 
                     ApplyPathRule(data, worldX, worldY, layerX, layerY, rule); 
                     continue;
+                case GenerationProcedure.Water: 
+                    ApplyWaterRule(data, worldX, worldY, layerX, layerY, rule); 
+                    continue;
+                case GenerationProcedure.GroundEdge: 
+                    ApplyGroundEdgeRule(data, worldX, worldY, layerX, layerY, rule); 
+                    continue;
             }
 
             float noise = SampleNoise(rule.noiseType, worldX, worldY, rule.noiseOffset, rule.noiseScale);
@@ -100,19 +123,16 @@ public class GI_TileWorldGenerator : MonoBehaviour
 
     private bool PassesConditions(ChunkData data, int layerX, int layerY, TileGenerationRule rule)
     {
-        int layerFilled = (int)rule.requireLayerFilled;
-        if (rule.requireLayerFilled == TileLayers.None) layerFilled = -1;
-        int layerEmpty = (int)rule.requireLayerEmpty;
-        if (rule.requireLayerEmpty == TileLayers.None) layerEmpty = -1;
-        
-        if (rule.requireLayerFilled >= 0 && string.IsNullOrEmpty(data.GetTile(layerFilled, layerX, layerY)))
+        foreach (var layer in rule.requireLayersFilled)
         {
-            return false;
+            if (layer == TileLayers.None) continue;
+            if (string.IsNullOrEmpty(data.GetTile((int)layer, layerX, layerY))) return false;
         }
 
-        if (rule.requireLayerEmpty >= 0 && !string.IsNullOrEmpty(data.GetTile(layerEmpty, layerX, layerY)))
+        foreach (var layer in rule.requireLayersEmpty)
         {
-            return false;
+            if (layer == TileLayers.None) continue;
+            if (!string.IsNullOrEmpty(data.GetTile((int)layer, layerX, layerY))) return false;
         }
         return true;
     }
@@ -130,6 +150,7 @@ public class GI_TileWorldGenerator : MonoBehaviour
     // Procedures for trees and paths and things
     private void ApplyTreeRule(ChunkData data, int worldX, int worldY, int layerX, int layerY, TileGenerationRule rule)
     {
+        if (IsWater(worldX, worldY)) return;
         if (IsTrunk(worldX, worldY)) WriteTile(data, layerX, layerY, (int)rule.targetLayer, treeTileID, rule.blendMode);
     }
 
@@ -140,6 +161,7 @@ public class GI_TileWorldGenerator : MonoBehaviour
 
     private void ApplyPathRule(ChunkData data, int worldX, int worldY, int layerX, int layerY, TileGenerationRule rule)
     {
+        if (IsWater(worldX, worldY)) return;
         float pNoise = Mathf.PerlinNoise((worldX + pathOffset.x) * pathNoiseScale, (worldY + pathOffset.y) * pathNoiseScale);
         if (pNoise <= pathThreshold) return;
         if (!PassesConditions(data, layerX, layerY, rule)) return;
@@ -149,9 +171,54 @@ public class GI_TileWorldGenerator : MonoBehaviour
         string tileID = rule.tileIDs.Length >= 2 ? (ground == rule.tileIDs[0] ? rule.tileIDs[0] : rule.tileIDs[1]) : rule.tileIDs[0];
         WriteTile(data, layerX, layerY, (int)rule.targetLayer, tileID, rule.blendMode);
     }
+    
+    private void ApplyWaterRule(ChunkData data, int worldX, int worldY, int layerX, int layerY, TileGenerationRule rule)
+    {
+        if (!IsWater(worldX, worldY)) return;
+        if (!PassesConditions(data, layerX, layerY, rule)) return;
+        string tileID = rule.tileIDs.Length > 0 ? rule.tileIDs[0] : waterTileID;
+        WriteTile(data, layerX, layerY, (int)rule.targetLayer, tileID, rule.blendMode);
+    }
+
+    private void ApplyGroundEdgeRule(ChunkData data, int worldX, int worldY, int layerX, int layerY, TileGenerationRule rule)
+    {
+        if (!IsWater(worldX, worldY)) return;
+        bool nextToLand = false;
+        for (int dx = -1; dx <= 1 && !nextToLand; dx++)
+        {
+            for (int dy = -1; dy <= 1 && !nextToLand; dy++)
+            {
+                if (dx != 0 || dy != 0)
+                {
+                    if (!IsWater(worldX + dx, worldY + dy)) nextToLand = true;
+                }
+            }
+        }
+        if (!nextToLand) return;
+        if (!PassesConditions(data, layerX, layerY, rule)) return;
+        string tileID = rule.tileIDs.Length > 0 ? rule.tileIDs[0] : groundEdgeTileID;
+        WriteTile(data, layerX, layerY, (int)rule.targetLayer, tileID, rule.blendMode);
+    }
+
+    public bool IsWater(int worldX, int worldY)
+    {
+        float noise = Mathf.PerlinNoise((worldX + waterOffset.x) * waterNoiseScale, (worldY + waterOffset.y) * waterNoiseScale);
+        return noise > waterThreshold || IsRiver(worldX, worldY);
+    }
+
+    public bool IsRiver(int worldX, int worldY)
+    {
+        float warpX = Mathf.PerlinNoise((worldX + riverWarpOffset.x) * riverWarpScale, (worldY + riverWarpOffset.y) * riverWarpScale);
+        float warpY = Mathf.PerlinNoise((worldX + riverWarpOffset.y) * riverWarpScale, (worldY + riverWarpOffset.x) * riverWarpScale);
+        float sx = worldX + (warpX - 0.5f) * riverWarpStrength;
+        float sy = worldY + (warpY - 0.5f) * riverWarpStrength;
+        float noise = Mathf.PerlinNoise((sx + riverOffset.x) * riverNoiseScale, (sy + riverOffset.y) * riverNoiseScale);
+        return Mathf.Abs(noise - riverThreshold) < riverBandwidth;
+    }
 
     public bool IsTrunk(int worldX, int worldY, float cachedPathNoise = -1f)
     {
+        if (IsWater(worldX, worldY)) return false;
         float pNoise = cachedPathNoise >= 0 ? cachedPathNoise : Mathf.PerlinNoise((worldX + pathOffset.x) * pathNoiseScale, (worldY + pathOffset.y) * pathNoiseScale);
         if (pNoise > pathThreshold) return false;
         float tNoise = Mathf.PerlinNoise((worldX + treeOffset.x) * treeNoiseScale, (worldY + treeOffset.y) * treeNoiseScale);

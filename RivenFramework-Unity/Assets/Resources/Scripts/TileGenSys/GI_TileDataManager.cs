@@ -13,8 +13,15 @@ public class GI_TileDataManager : MonoBehaviour
 
     public void Update()
     {
-        if (tileGrid == null) tileGrid = FindObjectOfType<Grid>();
-        else if (tilemapCache == null) RebuildTilemapCache();
+        if (!tileGrid)
+        {
+            tileGrid = FindObjectOfType<Grid>();
+            tilemapCache = null;
+        }
+        else if (tilemapCache == null || (tilemapCache.Length > 0 && !tilemapCache[0]))
+        {
+            RebuildTilemapCache();
+        }
     }
 
     private void Awake()
@@ -61,6 +68,15 @@ public class GI_TileDataManager : MonoBehaviour
         if (_tileLayer < 0 || _tileLayer >= tilemapCache.Length) return null;
         return tilemapCache[_tileLayer];
     }
+
+    public GameObject GetPrefabForTile(string tileID)
+    {
+        var data = GetTileDataFromID(tileID);
+        if (data.associatedPrefab != null) return data.associatedPrefab;
+        if (!string.IsNullOrEmpty(data.prefabSourceID))
+            return GetTileDataFromID(data.prefabSourceID).associatedPrefab;
+        return null;
+    }
     
     public int GetTilemapCount()
     {
@@ -79,6 +95,7 @@ public struct TileData
     public TileMaterialType tileMaterialType;
     public ScriptableItemLootTable[] drops;
     public GameObject associatedPrefab;
+    public string prefabSourceID;
 }
 
 public enum TileMaterialType
@@ -102,5 +119,6 @@ public enum TileLayers
     ObjectsSolid = 3,
     Fluids = 4,
     Overlay = 5,
+    GroundEdges = 6,
     None = -1
 }

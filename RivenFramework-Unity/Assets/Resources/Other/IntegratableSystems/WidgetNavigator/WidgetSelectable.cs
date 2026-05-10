@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class WidgetSelectable : MonoBehaviour
 {
@@ -54,6 +55,8 @@ public class WidgetSelectable : MonoBehaviour
     {
         if (disableInteraction) return;
         OnInteracted?.Invoke();
+        Button button = GetComponent<Button>();
+        if (button) button.onClick.Invoke();
     }
 
     public virtual void SetSelected(bool _isSelected)
@@ -73,6 +76,7 @@ public class WidgetSelectable : MonoBehaviour
         if (_isNegative) OnNavigationAdjacentNegative?.Invoke();
         else OnNavigationAdjacentPositive?.Invoke();
     }
+    
 
 
     #endregion

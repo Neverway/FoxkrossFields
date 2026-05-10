@@ -28,7 +28,7 @@ public class WB_HUD_ItemWheel : MonoBehaviour
             return;
         }
         
-        for (int i = 0; i < itemInventory.items.Count; i++)
+        for (int i = 0; i < slotIcons.Length; i++)
         {
             if (itemInventory.items[i] != null)
             {

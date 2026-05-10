@@ -20,6 +20,7 @@ public class ItemInstance
     public string displayName => asset.displayName;
     public Sprite icon => asset.icon;
     public int maxStackSize => asset.maxStackSize;
+    public int sellAmount => asset.sellAmount;
     public bool isDiscardable => asset.isDiscardable;
     
     public void OnItemUsePrimary(TDPawn_Player owner) => asset.OnItemUsePrimary(owner);

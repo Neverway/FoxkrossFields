@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9176aefc3d4fd4bd7eedb7ad19f922, type: 3}
   m_Name: SI_pumpkin_seeds
   m_EditorClassIdentifier: 
-  id: pumpkin_sprout
+  id: pumpkin_seeds
   displayName: Pumpkin Seeds
-  icon: {fileID: 7415934210313720836, guid: dc05cb70f4b255a5ca742ae7665792bc, type: 3}
+  icon: {fileID: -1226455938, guid: 5e39047b8fa06ad50b07daf51b7c462f, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 100
-  currentStackSize: 1
+  sellAmount: 1
   description: 
   isDiscardable: 1
   material: 0

@@ -22,6 +22,7 @@ public class GI_TileChunkManager : MonoBehaviour
 
     private Queue<Vector2Int> chunkLoadQueue = new();
     private bool isLoadingChunk = false;
+    private bool isReady = false;
 
     private void Start()
     {
@@ -40,6 +41,10 @@ public class GI_TileChunkManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(updateInterval);
+            if (!isReady)
+            {
+                continue;
+            }
             if (!playerTransform)
             {
                 var player = FindObjectOfType<TDPawn_Player>();
@@ -272,8 +277,10 @@ public class GI_TileChunkManager : MonoBehaviour
 
     private void SpawnTileObjects(ChunkData data)
     {
+        Debug.Log($"[ChunkManager] SpawnTileObjects: {data.tileObjects.Count} objects in chunk {data.chunkCoord}");
         foreach (var objData in data.tileObjects)
         {
+            Debug.Log($"[ChunkManager] Trying to spawn: tileID={objData.tileID} prefabTileID={objData.prefabTileID} at {objData.worldX},{objData.worldY}");
             var worldCell = new Vector3Int(objData.worldX, objData.worldY, 0);
             SpawnTileObject(objData, worldCell);
         }
@@ -282,17 +289,21 @@ public class GI_TileChunkManager : MonoBehaviour
     private void SpawnTileObject(TileObjectData objData, Vector3Int worldCell)
     {
         var key = new Vector2Int(worldCell.x, worldCell.y);
-        if (liveObjects.ContainsKey(key)) return;
+        if (liveObjects.ContainsKey(key)) { Debug.Log($"[ChunkManager] Skipped {key} - already live"); return; }
 
-        var tileData = tileDataManager.GetTileDataFromID(objData.tileID);
-        if (tileData.associatedPrefab == null) return;
+        string lookupID = !string.IsNullOrEmpty(objData.prefabTileID) ? objData.prefabTileID : objData.tileID;
+        var prefab = tileDataManager.GetPrefabForTile(lookupID);
+        Debug.Log($"[ChunkManager] Prefab for '{lookupID}': {(prefab == null ? "NULL" : prefab.name)}");
+        if (prefab == null) return;
 
         var worldPos = tileDataManager.tileGrid.CellToWorld(worldCell) + tileDataManager.tileGrid.cellSize * 0.5f;
-        var tileObject = Instantiate(tileData.associatedPrefab, worldPos, Quaternion.identity);
-
+        var tileObject = Instantiate(prefab, worldPos, Quaternion.identity);
         var receiver = tileObject.GetComponent<ITileObjectReceiver>();
-        receiver?.ReceiveData(objData);
-
+        if (receiver != null)
+        {
+            float elapsed = objData.unloadTimestamp > 0 ? (float)TimeSpan.FromTicks(DateTime.UtcNow.Ticks - objData.unloadTimestamp).TotalSeconds : 0f;
+            receiver.ReceiveData(objData, elapsed);
+        }
         liveObjects[key] = tileObject;
     }
     
@@ -313,7 +324,12 @@ public class GI_TileChunkManager : MonoBehaviour
                 if (provider == null) continue;
 
                 var savedData = provider.ProvideData();
-                if (savedData != null) data.SetTileObject(savedData);
+                if (savedData != null)
+                {
+                    savedData.unloadTimestamp = DateTime.UtcNow.Ticks;
+                    data.SetTileObject(savedData);
+                    data.isDirty = true;
+                }
             }
         }
     }
@@ -337,12 +353,13 @@ public class GI_TileChunkManager : MonoBehaviour
 
     public void TrySpawnTileObject(Vector3Int worldCell, string tileID)
     {
-        var tileData = tileDataManager.GetTileDataFromID(tileID);
-        if (tileData.associatedPrefab == null) return;
+        var prefab = tileDataManager.GetPrefabForTile(tileID);
+        if (prefab == null) return;
 
         var objData = new TileObjectData
         {
             tileID = tileID,
+            prefabTileID = tileID,
             worldX = worldCell.x,
             worldY = worldCell.y
         };
@@ -373,6 +390,26 @@ public class GI_TileChunkManager : MonoBehaviour
         var key = new Vector2Int(worldCell.x, worldCell.y);
         liveObjects.TryGetValue(key, out var liveObject);
         return liveObject;
+    }
+    
+    public void OnSaveFileLoaded()
+    {
+        Debug.Log("FileLoaded");
+        isReady = true;
+        playerTransform = null;
+        StartCoroutine(ChunkUpdateLoop());
+    }
+    
+    public void OnSaveFileUnloaded()
+    {
+        Debug.Log("FileUnloaded");
+        isReady = false;
+        lastPlayerChunk = new Vector2Int(int.MaxValue, 0);
+        chunkLoadQueue.Clear();
+        isLoadingChunk = false;
+        StopAllCoroutines();
+    
+        foreach (var coord in new List<Vector2Int>(loadedChunks.Keys)) UnloadChunk(coord);
     }
 
 }

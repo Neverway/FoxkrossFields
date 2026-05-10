@@ -53,6 +53,7 @@
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/WB_NetPlayerlist_PlayerEntry.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/Volumes/PhysicsVolume/PhysicsVolume.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Extensions/TransformData.cs" />
+     <Compile Include="Assets/Resources/Scripts/ScriptableItemSystem/Items/WorldObjects/MysteriousMerchant.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/UI/SabreToolbarOverlay.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/Volumes/PhysicsVolume/PhysicsVolumeForceMode.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Pair.cs" />
@@ -155,6 +156,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/CSGBuildContext.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/UnrealGold/T3dImporter.cs" />
      <Compile Include="Assets/_REMOVE_/Integratables/_Depreciated/UI_Image_EntityItems.cs" />
+     <Compile Include="Assets/Resources/Widgets/WB_Inventory.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/ResizeHandlePair.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/UI/GridManager.cs" />
      <Compile Include="Assets/Resources/Scripts/Integratable/GameObject_ProceduralSway.cs" />
@@ -242,6 +244,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Geometry/BrushFactory.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/BuildMetrics.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/ModifierSystem/ModifierSystem/ApplyModifiersOnEnable.cs" />
+     <Compile Include="Assets/Resources/Widgets/WB_ItemStats.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/Assorted/Prop_Respawner.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Geometry/AdjacencyHelper.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/ShapeEditor/ISelectable.cs" />
@@ -318,6 +321,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Tools/Utilities/Vertex Weld Ops/VertexWeldToleranceOperation.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/ShapeEditor/Decomposition/BayazitDecomposer.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Extensions/EnumHelper.cs" />
+     <Compile Include="Assets/Resources/Widgets/WB_Shop.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/Volumes/TriggerVolume/TriggerVolume.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/CSG/BrushChunk.cs" />
      <Compile Include="Assets/RivenFramework-Revamp/__ERRYNEI/SOEventSystem/SOEvent.cs" />
@@ -332,6 +336,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/BuildEngine/Optimizer.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/NetTransform.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Core/MeshExtensions.cs" />
+     <Compile Include="Assets/Resources/Widgets/WB_FileSelect.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/ValveMapFormat2006/VmfSolid.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Importers/UnrealGold/T3dVector3.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/NyNetBridge/NetConnect1.0/WB_VoteKick.cs" />
@@ -459,6 +464,7 @@
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
      <Folder Include="Assets/RivenFramework-Revamp/_Resources_/LocalizationFiles/OLD" />
      <Folder Include="Assets/RivenFramework-Revamp/__ERRYNEI" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Tiles/OtherTiles/OtherTiles" />
      <Folder Include="Assets/Packages/Xelu_Prompts/Others/Amazon Luna" />
      <Folder Include="Assets/Resources/Other" />
      <Folder Include="Assets/Packages/SabreCSG-master/Example Materials/Textures/Planks" />
@@ -484,6 +490,7 @@
      <None Include="Assets/Resources/Materials/Shaders/PostProcessing/ColorQuantizationFilter.shader" />
      <Folder Include="Assets/Resources/Sprites/Characters" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Core/BuildEngine" />
+     <Folder Include="Assets/Resources/Sprites/Tilesets/Tiles/OtherTiles" />
      <Folder Include="Assets/Packages/SabreCSG-master/Example Materials" />
      <Folder Include="Assets/Resources/Sprites/Tilesets/Dev/DevShadows" />
      <Folder Include="Assets/Packages/BzKovSoft" />

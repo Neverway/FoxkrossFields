@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: pumpkin
   displayName: Pumpkin
-  icon: {fileID: 1841614369, guid: 2441afc1a47705fd7b8d3be5bab3a771, type: 3}
+  icon: {fileID: 1271362955, guid: 3cdeb4ddc10d3ebe284a3a0ab57b3465, type: 3}
   associatedGameObject: {fileID: 0}
   maxStackSize: 100
-  currentStackSize: 1
+  sellAmount: 5
   description: 
   isDiscardable: 1
   material: 0
