@@ -667,6 +667,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameInstance
       objectReference: {fileID: 0}
+    - target: {fileID: 5327597042671669389, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: tileDatabase.Array.data[22].tile
+      value: 
+      objectReference: {fileID: 11400000, guid: adeb7dec1796a833fa807b83c5d2d2b0,
+        type: 2}
+    - target: {fileID: 5327597042671669389, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: tileDatabase.Array.data[22].tileID
+      value: cave_entrance_warp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327597042671669389, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: tileDatabase.Array.data[22].associatedPrefab
+      value: 
+      objectReference: {fileID: 4548757658673433183, guid: 455e90f7521cd6c478536ff23cd5d508,
+        type: 3}
+    - target: {fileID: 5327597042671669389, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
+        type: 3}
+      propertyPath: tileDatabase.Array.data[23].associatedPrefab
+      value: 
+      objectReference: {fileID: 4548757658673433183, guid: 455e90f7521cd6c478536ff23cd5d508,
+        type: 3}
     - target: {fileID: 8250020033609799064, guid: 49441bef8d2256233a0f4f3fed7dfb2f,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -88,6 +88,7 @@ public class WB_FileSelect : MonoBehaviour
     public void DeleteSelectedFile()
     {
         saveManager.DeleteSaveFile(saveManager.saveSlot);
+        Start();
     }
 
     public void CloseWidget()

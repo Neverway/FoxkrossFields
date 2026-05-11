@@ -191,7 +191,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: FXLight
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8974773041608455095, guid: 6eaa804f787a93fe7b99f2159ecaf200, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1134847039480085226, guid: 6eaa804f787a93fe7b99f2159ecaf200,

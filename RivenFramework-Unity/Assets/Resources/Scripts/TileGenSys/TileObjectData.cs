@@ -11,6 +11,9 @@ public class TileObjectData
     public int worldX, worldY;
     public long unloadTimestamp;
     
+    public string warpTargetEnvironment;
+    public int warpTargetX, warpTargetY;
+    
     public int altertableTier = 2;
 
     public float growthTimer = 0f;

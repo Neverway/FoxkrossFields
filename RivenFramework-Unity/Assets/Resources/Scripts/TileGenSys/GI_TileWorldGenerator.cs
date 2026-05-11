@@ -37,7 +37,14 @@ public class GI_TileWorldGenerator : MonoBehaviour
     public float riverWarpScale = 0.06f;
     public float riverWarpStrength = 6f;
     
-    private Vector2 pathOffset, treeOffset, waterOffset, riverOffset, riverWarpOffset;
+    [Header("Cave Entrance Settings")]
+    public float caveEntranceCellSize = 40f;
+    public float caveEntranceJitter = 0.8f;
+    public float caveEntranceNoiseScale = 0.04f;
+    public float caveEntranceThreshold = 0.82f;
+    public StructureTemplate caveEntranceTemplate;
+    
+    private Vector2 pathOffset, treeOffset, waterOffset, riverOffset, riverWarpOffset, caveEntranceOffset;
 
 
     public void Awake()
@@ -51,6 +58,7 @@ public class GI_TileWorldGenerator : MonoBehaviour
         waterOffset = NextVector2RNGOffset(rng);
         riverOffset = NextVector2RNGOffset(rng);
         riverWarpOffset = NextVector2RNGOffset(rng);
+        caveEntranceOffset = NextVector2RNGOffset(rng);
     }
 
     private static Vector2 NextVector2RNGOffset(System.Random rng)
@@ -58,7 +66,7 @@ public class GI_TileWorldGenerator : MonoBehaviour
         return new Vector2(rng.Next(-10000, 10000), rng.Next(-10000, 10000));
     } 
 
-    public ChunkData GenerateChunk(Vector2Int chunkCoord, int chunkSize)
+    public ChunkData GenerateChunk(Vector2Int chunkCoord, int chunkSize, string environmentID = "AutumnForest")
     {
         var data = new ChunkData(chunkCoord, chunkSize);
 
@@ -68,18 +76,22 @@ public class GI_TileWorldGenerator : MonoBehaviour
             {
                 int worldX = chunkCoord.x * chunkSize + x;
                 int worldY = chunkCoord.y * chunkSize + y;
-                ApplyRules(data, worldX, worldY, x, y);
+                ApplyRules(data, worldX, worldY, x, y, environmentID);
             }
         }
+
+        if (environmentID == "AutumnForest") GenerateCaveEntrances(data, chunkCoord, chunkSize);
+        else if (environmentID == "AutumnCaves") GenerateCaveExits(data, chunkCoord, chunkSize);
 
         return data;
     }
 
-    private void ApplyRules(ChunkData data, int worldX, int worldY, int layerX, int layerY)
+    private void ApplyRules(ChunkData data, int worldX, int worldY, int layerX, int layerY, string environmentID)
     {
         foreach (var rule in generationRules)
         {
             if (rule.generationRuleDisabled) continue;
+            if (!string.IsNullOrEmpty(rule.environmentFilter) && rule.environmentFilter != environmentID) continue;
             
             switch (rule.generationProcedure)
             {
@@ -241,6 +253,133 @@ public class GI_TileWorldGenerator : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void GenerateCaveEntrances(ChunkData data, Vector2Int chunkCoord, int chunkSize)
+    {
+        int chunkWorldMin_X = chunkCoord.x * chunkSize;
+        int chunkWorldMin_Y = chunkCoord.y * chunkSize;
+        int chunkWorldMax_X = chunkWorldMin_X + chunkSize;
+        int chunkWorldMax_Y = chunkWorldMin_Y + chunkSize;
+
+        int structureReach = caveEntranceTemplate != null
+            ? Mathf.CeilToInt(GetStructureRadius(caveEntranceTemplate))
+            : chunkSize;
+
+        int cellMinX = Mathf.FloorToInt((chunkWorldMin_X - structureReach) / caveEntranceCellSize);
+        int cellMinY = Mathf.FloorToInt((chunkWorldMin_Y - structureReach) / caveEntranceCellSize);
+        int cellMaxX = Mathf.FloorToInt((chunkWorldMax_X + structureReach) / caveEntranceCellSize);
+        int cellMaxY = Mathf.FloorToInt((chunkWorldMax_Y + structureReach) / caveEntranceCellSize);
+
+        for (int cellX = cellMinX; cellX <= cellMaxX; cellX++)
+        {
+            for (int cellY = cellMinY; cellY <= cellMaxY; cellY++)
+            {
+                var rng = new System.Random(seed ^ (cellX * 73856093) ^ (cellY * 19349663));
+                float jitterX = (float)(rng.NextDouble() - 0.5) * caveEntranceCellSize * caveEntranceJitter;
+                float jitterY = (float)(rng.NextDouble() - 0.5) * caveEntranceCellSize * caveEntranceJitter;
+
+                int worldX = Mathf.RoundToInt(cellX * caveEntranceCellSize + caveEntranceCellSize * 0.5f + jitterX);
+                int worldY = Mathf.RoundToInt(cellY * caveEntranceCellSize + caveEntranceCellSize * 0.5f + jitterY);
+
+                float noise = Mathf.PerlinNoise(
+                    (worldX + caveEntranceOffset.x) * caveEntranceNoiseScale,
+                    (worldY + caveEntranceOffset.y) * caveEntranceNoiseScale);
+
+                if (noise < caveEntranceThreshold) continue;
+                if (IsWater(worldX, worldY)) continue;
+
+                PlaceStructure(data, caveEntranceTemplate, worldX, worldY, chunkCoord, chunkSize);
+            }
+        }
+    }
+
+    private float GetStructureRadius(StructureTemplate structure)
+    {
+        float maxDist = 0f;
+        foreach (var tile in structure.tiles)
+            maxDist = Mathf.Max(maxDist, Mathf.Max(Mathf.Abs(tile.dx), Mathf.Abs(tile.dy)));
+        return maxDist;
+    }
+
+    
+    private void PlaceStructure(ChunkData data, StructureTemplate structure, int worldCX, int worldCY, Vector2Int chunkCoord, int chunkSize)
+    {
+        foreach (var tile in structure.tiles)
+        {
+            int worldX = worldCX + tile.dx;
+            int worldY = worldCY + tile.dy;
+
+            int localX = worldX - chunkCoord.x * chunkSize;
+            int localY = worldY - chunkCoord.y * chunkSize;
+
+            if (localX < 0 || localX >= chunkSize || localY < 0 || localY >= chunkSize) continue;
+
+            if (tile.isWarp)
+            {
+                var envManager = GameInstance.Get<GI_EnvironmentManager>();
+                var caveEnv = envManager?.GetEnvironment(tile.warpTargetEnvironment);
+                Vector2Int caveCoord = caveEnv != null
+                    ? envManager.FromGlobalCoords(new Vector2Int(worldX, worldY), caveEnv)
+                    : new Vector2Int(worldX, worldY);
+
+                data.SetTileObject(new TileObjectData
+                {
+                    tileID = tile.tileID,
+                    prefabTileID = tile.tileID,
+                    worldX = worldX,
+                    worldY = worldY,
+                    warpTargetEnvironment = tile.warpTargetEnvironment,
+                    warpTargetX = caveCoord.x,
+                    warpTargetY = caveCoord.y
+                });
+            }
+            else
+            {
+                data.SetTile(tile.layer, localX, localY, tile.tileID);
+            }
+        }
+    }
+
+    private void SafeSetTile(ChunkData data, int localX, int localY, int chunkSize, int layer, string tileID)
+    {
+        if (localX < 0 || localX >= chunkSize || localY < 0 || localY >= chunkSize) return;
+        data.SetTile(layer, localX, localY, tileID);
+    }
+    
+    
+    private void GenerateCaveExits(ChunkData data, Vector2Int chunkCoord, int chunkSize)
+    {
+        var envManager = GameInstance.Get<GI_EnvironmentManager>();
+        var caveEnv = envManager?.GetEnvironment("AutumnCaves");
+        if (caveEnv == null) return;
+
+        int caveCenterX = chunkCoord.x * chunkSize + chunkSize / 2;
+        int caveCenterY = chunkCoord.y * chunkSize + chunkSize / 2;
+
+        Vector2Int forestCoord = envManager.ToGlobalCoords(new Vector2Int(caveCenterX, caveCenterY));
+        float noise = Mathf.PerlinNoise(
+            (forestCoord.x + caveEntranceOffset.x) * caveEntranceNoiseScale,
+            (forestCoord.y + caveEntranceOffset.y) * caveEntranceNoiseScale);
+
+        if (noise < caveEntranceThreshold) return;
+
+        int localX = chunkSize / 2;
+        int localY = chunkSize / 2;
+
+        data.SetTile((int)TileLayers.Objects, localX, localY, "cave_exit");
+
+        var exitData = new TileObjectData
+        {
+            tileID = "cave_exit",
+            prefabTileID = "cave_exit",
+            worldX = caveCenterX,
+            worldY = caveCenterY,
+            warpTargetEnvironment = "AutumnForest",
+            warpTargetX = forestCoord.x,
+            warpTargetY = forestCoord.y
+        };
+        data.SetTileObject(exitData);
     }
     
     

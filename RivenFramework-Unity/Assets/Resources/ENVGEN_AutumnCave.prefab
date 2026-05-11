@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4136128398401178592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1901773510331813919}
+  - component: {fileID: 8406388177099402364}
+  m_Layer: 0
+  m_Name: ENVGEN_AutumnCave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1901773510331813919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4136128398401178592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -81.29992, y: 11.830152, z: 0.23267303}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8406388177099402364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4136128398401178592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba0da0f8b2bf252abbd03f98fc29d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 1997
+  generationRules:
+  - ruleName: Ground
+    generationRuleDisabled: 0
+    targetLayer: 0
+    tileIDs:
+    - dirt
+    - dirt
+    noiseType: 0
+    noiseScale: 0.04
+    threshold: 0.5
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 1
+    environmentFilter: 
+    generationProcedure: 0
+    requireLayersFilled: 
+    requireLayersEmpty: 
+  - ruleName: Path
+    generationRuleDisabled: 0
+    targetLayer: 1
+    tileIDs:
+    - dirt_path
+    - dirt_path
+    noiseType: 0
+    noiseScale: 0.08
+    threshold: 0.5
+    blendMode: 1
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 3
+    requireLayersFilled: 00000000
+    requireLayersEmpty: 03000000
+  - ruleName: Cave Walls
+    generationRuleDisabled: 0
+    targetLayer: 1
+    tileIDs:
+    - cliff
+    - cliff
+    noiseType: 0
+    noiseScale: 0.08
+    threshold: 0.5
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 6
+    requireLayersFilled: 00000000
+    requireLayersEmpty: 03000000
+  - ruleName: Death Pits
+    generationRuleDisabled: 0
+    targetLayer: 0
+    tileIDs:
+    - void
+    - void
+    noiseType: 0
+    noiseScale: 0.08
+    threshold: 0.5
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 7
+    requireLayersFilled: 
+    requireLayersEmpty: 03000000
+  treeTileID: tree
+  leafTileID: leaves
+  treeNoiseScale: 0.15
+  treeThreshold: 0.3
+  pathNoiseScale: 0.08
+  pathThreshold: 0.5
+  waterTileID: water
+  groundEdgeTileID: ground_edge
+  waterNoiseScale: 0.03
+  waterThreshold: 0.8
+  riverNoiseScale: 0.01
+  riverThreshold: 0.52
+  riverBandwidth: 0.02
+  riverWarpScale: 0.06
+  riverWarpStrength: 4
+  caveEntranceCellSize: 40
+  caveEntranceJitter: 0.8
+  caveEntranceNoiseScale: 0.04
+  caveEntranceThreshold: 0.2
+  caveEntranceTemplate: {fileID: 11400000, guid: 5c803b7c1d4e6334886e180b39b11a63,
+    type: 2}

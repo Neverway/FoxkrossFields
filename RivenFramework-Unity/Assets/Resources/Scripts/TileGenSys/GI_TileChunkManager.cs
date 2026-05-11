@@ -108,7 +108,7 @@ public class GI_TileChunkManager : MonoBehaviour
 
     private void LoadChunk(Vector2Int coord)
     {
-        ChunkData data = saveManager.LoadChunk(coord) ?? generator.GenerateChunk(coord, chunkSize);
+        ChunkData data = saveManager.LoadChunk(coord) ?? GenerateChunkForEnvironment(coord);
 
         loadedChunks[coord] = data;
         ApplyChunkToTilemap(data);
@@ -178,6 +178,13 @@ public class GI_TileChunkManager : MonoBehaviour
             }
             tilemap.SetTiles(positions, nullTiles);
         }
+    }
+
+    private ChunkData GenerateChunkForEnvironment(Vector2Int coord)
+    {
+        var envManager = GameInstance.Get<GI_EnvironmentManager>();
+        // TODO Need to swap the level generator based on the environment
+        return generator.GenerateChunk(coord, chunkSize, envManager?.activeEnvironment?.environmentID ?? "AutumnForest");
     }
 
     public void MarkTileDirty(Vector3Int worldCell, int layer, string newTileId)

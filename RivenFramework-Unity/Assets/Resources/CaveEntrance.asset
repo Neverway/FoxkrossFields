@@ -1,0 +1,292 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91ad72e1543c8b2182223de4c20e1e6, type: 3}
+  m_Name: CaveEntrance
+  m_EditorClassIdentifier: 
+  id: CaveEntrance
+  tiles:
+  - dx: 2
+    dy: 1
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 2
+    dy: 0
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -2
+    dy: 1
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -2
+    dy: 0
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -3
+    dy: 1
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -3
+    dy: 0
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -3
+    dy: 2
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -2
+    dy: 2
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 2
+    dy: 2
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 3
+    dy: 2
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 3
+    dy: 1
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 3
+    dy: 0
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -3
+    dy: 2
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -2
+    dy: 2
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -1
+    dy: 2
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 0
+    dy: 2
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 1
+    dy: 2
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 2
+    dy: 2
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 3
+    dy: 2
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 3
+    dy: 3
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 3
+    dy: 4
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 2
+    dy: 4
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 1
+    dy: 4
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 0
+    dy: 4
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -1
+    dy: 4
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -2
+    dy: 4
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -3
+    dy: 4
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -3
+    dy: 3
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -2
+    dy: 3
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -1
+    dy: 3
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 0
+    dy: 3
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 1
+    dy: 3
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 2
+    dy: 3
+    tileID: cliff_top
+    layer: 5
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 1
+    dy: 2
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 0
+    dy: 2
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -1
+    dy: 2
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -1
+    dy: 0
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -1
+    dy: 1
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 1
+    dy: 1
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 1
+    dy: 0
+    tileID: cliff
+    layer: 3
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -1
+    dy: 1
+    tileID: cave_entrance_warp
+    layer: 1
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 0
+    dy: 1
+    tileID: cave_entrance_warp
+    layer: 1
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: 1
+    dy: 1
+    tileID: cave_entrance_warp
+    layer: 1
+    isWarp: 0
+    warpTargetEnvironment: 
+  - dx: -1
+    dy: 1
+    tileID: cave_entrance_warp
+    layer: 2
+    isWarp: 1
+    warpTargetEnvironment: AutumnCaves
+  - dx: 0
+    dy: 1
+    tileID: cave_entrance_warp
+    layer: 2
+    isWarp: 1
+    warpTargetEnvironment: AutumnCaves
+  - dx: 1
+    dy: 1
+    tileID: cave_entrance_warp
+    layer: 2
+    isWarp: 1
+    warpTargetEnvironment: AutumnCaves

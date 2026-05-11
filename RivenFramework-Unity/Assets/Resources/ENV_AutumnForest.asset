@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1aca5aca1040bbab4fccb8770268ce, type: 3}
+  m_Name: ENV_AutumnForest
+  m_EditorClassIdentifier: 
+  environmentID: AutumnForest
+  environmentRelativeScale: 1
+  generatorPrefab: {fileID: 7530386109239944719, guid: c1d85382287af20da81ccc146ef0825f,
+    type: 3}
+  isStartingEnvironment: 1

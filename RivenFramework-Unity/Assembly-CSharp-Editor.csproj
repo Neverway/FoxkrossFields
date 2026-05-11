@@ -71,6 +71,7 @@
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/Editor/HollowBoxBrushInspector.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/TextboxSystem/Editor/Char_PortraitEmotionReferenceDrawer.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/Editor/ShapeEditorWindow.cs" />
+     <Compile Include="Assets/Resources/Scripts/TileGenSys/editor/StructureTemplateEditor.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/CoreAttributes/Editor/BoxDrawer.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/Editor/TrimBrushInspector.cs" />
      <Compile Include="Assets/Resources/Other/IntegratableSystems/ErryLib/CoreAttributes/Editor/StringAsGUIDAttributePropertyDrawer.cs" />
@@ -85,6 +86,7 @@
      <Compile Include="Assets/RivenFramework/Scripts/Editor/ToolFrameworkManagerProps.cs" />
      <Compile Include="Assets/Packages/SabreCSG-master/Scripts/Brushes/CompoundBrushes/Editor/CurvedStairBrushInspector.cs" />
      <Folder Include="Assets/Packages/SabreCSG-master/Scripts/Editor/Inspectors" />
+     <Folder Include="Assets/Resources/Scripts/TileGenSys/editor" />
      <Folder Include="Assets/RivenFramework-Revamp/__ERRYNEI/Editor" />
      <Folder Include="Assets/Resources/Scripts/Integratable/Editor" />
      <Folder Include="Assets/Resources/Other/IntegratableSystems/ErryLib/CoreAttributes/Editor" />

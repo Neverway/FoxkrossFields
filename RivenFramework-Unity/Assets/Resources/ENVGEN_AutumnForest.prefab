@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4459398485073402377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5985910195882271230}
+  - component: {fileID: 7530386109239944719}
+  m_Layer: 0
+  m_Name: ENVGEN_AutumnForest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5985910195882271230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459398485073402377}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -81.29992, y: 11.830152, z: 0.23267303}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7530386109239944719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459398485073402377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba0da0f8b2bf252abbd03f98fc29d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 1997
+  generationRules:
+  - ruleName: Ground
+    generationRuleDisabled: 0
+    targetLayer: 0
+    tileIDs:
+    - grass
+    - grass
+    noiseType: 0
+    noiseScale: 0.04
+    threshold: 0.5
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 1
+    environmentFilter: 
+    generationProcedure: 0
+    requireLayersFilled: 
+    requireLayersEmpty: 
+  - ruleName: GroundEdge
+    generationRuleDisabled: 1
+    targetLayer: 6
+    tileIDs:
+    - ground_edge
+    noiseType: 3
+    noiseScale: 1.5
+    threshold: 0.8
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 5
+    requireLayersFilled: 
+    requireLayersEmpty: 
+  - ruleName: Path
+    generationRuleDisabled: 0
+    targetLayer: 1
+    tileIDs:
+    - grass_path
+    - grass_path
+    noiseType: 0
+    noiseScale: 0.08
+    threshold: 0.5
+    blendMode: 1
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 3
+    requireLayersFilled: 00000000
+    requireLayersEmpty: 03000000
+  - ruleName: Trees
+    generationRuleDisabled: 0
+    targetLayer: 3
+    tileIDs:
+    - tree
+    noiseType: 0
+    noiseScale: 0.15
+    threshold: 0.6
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 1
+    requireLayersFilled: 
+    requireLayersEmpty: 03000000
+  - ruleName: Leaves
+    generationRuleDisabled: 0
+    targetLayer: 5
+    tileIDs:
+    - leaves
+    noiseType: 1
+    noiseScale: 0.15
+    threshold: 0.6
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 2
+    requireLayersFilled: 
+    requireLayersEmpty: 
+  - ruleName: Water
+    generationRuleDisabled: 0
+    targetLayer: 4
+    tileIDs:
+    - water
+    noiseType: 3
+    noiseScale: 1.5
+    threshold: 0.8
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 4
+    requireLayersFilled: 
+    requireLayersEmpty: 
+  - ruleName: Junk
+    generationRuleDisabled: 0
+    targetLayer: 2
+    tileIDs:
+    - rock
+    - sticks
+    - short_grass
+    - bush
+    - vines
+    noiseType: 3
+    noiseScale: 1.5
+    threshold: 0.8
+    blendMode: 0
+    noiseOffset: {x: 0, y: 0}
+    tileSelectionMode: 0
+    environmentFilter: 
+    generationProcedure: 0
+    requireLayersFilled: 
+    requireLayersEmpty: 0300000004000000
+  treeTileID: tree
+  leafTileID: leaves
+  treeNoiseScale: 0.15
+  treeThreshold: 0.3
+  pathNoiseScale: 0.08
+  pathThreshold: 0.5
+  waterTileID: water
+  groundEdgeTileID: ground_edge
+  waterNoiseScale: 0.03
+  waterThreshold: 0.8
+  riverNoiseScale: 0.01
+  riverThreshold: 0.52
+  riverBandwidth: 0.02
+  riverWarpScale: 0.06
+  riverWarpStrength: 4
+  caveEntranceCellSize: 40
+  caveEntranceJitter: 0.8
+  caveEntranceNoiseScale: 0.04
+  caveEntranceThreshold: 0.2
+  caveEntranceTemplate: {fileID: 11400000, guid: 5c803b7c1d4e6334886e180b39b11a63,
+    type: 2}

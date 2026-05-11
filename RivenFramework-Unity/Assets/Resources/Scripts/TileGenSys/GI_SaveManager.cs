@@ -13,14 +13,16 @@ public class GI_SaveManager : MonoBehaviour
     public string saveSlot;
 
     private string SaveRoot => Path.Combine(Application.persistentDataPath, "saves", saveSlot);
-    private string ChunkDir => Path.Combine(SaveRoot, "chunks");
+    private string ChunkDir => Path.Combine(SaveRoot, ActiveEnvironmentID, "chunks");
     private string PlayerFile => Path.Combine(SaveRoot, "player.json");
+
+    private string ActiveEnvironmentID => GameInstance.Get<GI_EnvironmentManager>()?.activeEnvironment?.environmentID ?? "AutumnForest";
     
     private static string GetSaveRoot(string slot) => Path.Combine(Application.persistentDataPath, "saves", slot);
 
     private void Awake()
     {
-        Directory.CreateDirectory(ChunkDir);
+        Directory.CreateDirectory(Path.Combine(SaveRoot, "AutumnForest", "chunks"));
     }
 
     // ---------------------------------------------
@@ -53,9 +55,9 @@ public class GI_SaveManager : MonoBehaviour
     public void LoadSaveFile(string slot)
     {
         saveSlot = slot;
-        Directory.CreateDirectory(ChunkDir);
+        Directory.CreateDirectory(Path.Combine(SaveRoot, "AutumnForest", "chunks"));
+        Directory.CreateDirectory(Path.Combine(SaveRoot, "AutumnCaves", "chunks"));
         sessionStartTime = Time.realtimeSinceStartup;
-        //GameInstance.Get<GI_TileChunkManager>().OnSaveFileLoaded();
         Debug.Log($"[SaveManager] Loaded save slot '{slot}'");
     }
     
@@ -74,8 +76,9 @@ public class GI_SaveManager : MonoBehaviour
 
     public void DeleteSaveFile(string slot)
     {
-        string playerFile = Path.Combine(GetSaveRoot(slot));
-        File.Delete(playerFile);
+        string saveRoot = GetSaveRoot(slot);
+        if (Directory.Exists(saveRoot)) Directory.Delete(saveRoot, recursive: true);
+        if (saveSlot == slot) saveSlot = null;
     }
     
     public static (string displayName, string playtime, string lastLogin, float rawPlaytime) LoadFileInfo(string slot)
@@ -104,6 +107,12 @@ public class GI_SaveManager : MonoBehaviour
         {
             return ("", "", "", 0f);
         }
+    }
+
+    public void EnsureEnvironmentDirExists(string environmentID)
+    {
+        string dir = GetChunkDir(environmentID);
+        Directory.CreateDirectory(dir);
     }
 
     
@@ -137,6 +146,8 @@ public class GI_SaveManager : MonoBehaviour
     }
 
     private string ChunkPath(Vector2Int coord) => Path.Combine(ChunkDir, $"chunk_{coord.x}_{coord.y}.json");
+
+    public string GetChunkDir(string environmentID) => Path.Combine(SaveRoot, environmentID, "chunks");
 
     // ---------------------------------------------
     // PLAYER DATA

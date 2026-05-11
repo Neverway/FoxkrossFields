@@ -31,6 +31,7 @@ GameObject:
   - component: {fileID: 6741664602644886109}
   - component: {fileID: 4537035659013517636}
   - component: {fileID: 3059152785630636206}
+  - component: {fileID: 5546405636470653059}
   m_Layer: 0
   m_Name: GameInstance
   m_TagString: Untagged
@@ -1224,6 +1225,38 @@ MonoBehaviour:
     drops: []
     associatedPrefab: {fileID: 0}
     prefabSourceID: 
+  - tileID: cliff_top
+    tile: {fileID: 11400000, guid: 2f4bf53b2fd13af2c8082e759cf4c4b8, type: 2}
+    tileLayer: 5
+    tileDurability: 9999
+    tileMaterialType: 1
+    drops: []
+    associatedPrefab: {fileID: 0}
+    prefabSourceID: 
+  - tileID: cliff
+    tile: {fileID: 11400000, guid: b9698b1810dcac5f887a243240c6eb00, type: 2}
+    tileLayer: 3
+    tileDurability: 9999
+    tileMaterialType: 1
+    drops: []
+    associatedPrefab: {fileID: 0}
+    prefabSourceID: 
+  - tileID: cave_entrance_warp
+    tile: {fileID: 11400000, guid: adeb7dec1796a833fa807b83c5d2d2b0, type: 2}
+    tileLayer: 5
+    tileDurability: 9999
+    tileMaterialType: 0
+    drops: []
+    associatedPrefab: {fileID: 0}
+    prefabSourceID: 
+  - tileID: cave_exit
+    tile: {fileID: 11400000, guid: 72ee22b78e206b18687bf1c739a969ea, type: 2}
+    tileLayer: 5
+    tileDurability: 9999
+    tileMaterialType: 0
+    drops: []
+    associatedPrefab: {fileID: 0}
+    prefabSourceID: 
   tileGrid: {fileID: 0}
 --- !u!114 &6717124914261965946
 MonoBehaviour:
@@ -1251,6 +1284,7 @@ MonoBehaviour:
     blendMode: 0
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 1
+    environmentFilter: 
     generationProcedure: 0
     requireLayersFilled: 
     requireLayersEmpty: 
@@ -1265,6 +1299,7 @@ MonoBehaviour:
     blendMode: 0
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
+    environmentFilter: 
     generationProcedure: 5
     requireLayersFilled: 
     requireLayersEmpty: 
@@ -1280,6 +1315,7 @@ MonoBehaviour:
     blendMode: 1
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
+    environmentFilter: 
     generationProcedure: 3
     requireLayersFilled: 00000000
     requireLayersEmpty: 03000000
@@ -1294,6 +1330,7 @@ MonoBehaviour:
     blendMode: 0
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
+    environmentFilter: 
     generationProcedure: 1
     requireLayersFilled: 
     requireLayersEmpty: 03000000
@@ -1308,6 +1345,7 @@ MonoBehaviour:
     blendMode: 0
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
+    environmentFilter: 
     generationProcedure: 2
     requireLayersFilled: 
     requireLayersEmpty: 
@@ -1322,6 +1360,7 @@ MonoBehaviour:
     blendMode: 0
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
+    environmentFilter: 
     generationProcedure: 4
     requireLayersFilled: 
     requireLayersEmpty: 
@@ -1340,6 +1379,7 @@ MonoBehaviour:
     blendMode: 0
     noiseOffset: {x: 0, y: 0}
     tileSelectionMode: 0
+    environmentFilter: 
     generationProcedure: 0
     requireLayersFilled: 
     requireLayersEmpty: 0300000004000000
@@ -1358,6 +1398,12 @@ MonoBehaviour:
   riverBandwidth: 0.02
   riverWarpScale: 0.06
   riverWarpStrength: 4
+  caveEntranceCellSize: 40
+  caveEntranceJitter: 0.8
+  caveEntranceNoiseScale: 0.04
+  caveEntranceThreshold: 0.2
+  caveEntranceTemplate: {fileID: 11400000, guid: 5c803b7c1d4e6334886e180b39b11a63,
+    type: 2}
 --- !u!114 &1140813127721084818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1475,3 +1521,21 @@ MonoBehaviour:
   dayLightColor: {r: 1, g: 1, b: 1, a: 1}
   nightLightColor: {r: 0.35256332, g: 0.3419811, b: 0.5, a: 1}
   cycleTimer: 0
+--- !u!114 &5546405636470653059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298151654670827244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2740808ab476b84c0b4e314a054e9a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  environments:
+  - {fileID: 11400000, guid: 9a987c6b92ea42c90988c9ff043a225d, type: 2}
+  - {fileID: 11400000, guid: 8405e883d84850ec186645e180a55790, type: 2}
+  startingEnvironment: {fileID: 11400000, guid: 9a987c6b92ea42c90988c9ff043a225d,
+    type: 2}
+  activeEnvironment: {fileID: 0}

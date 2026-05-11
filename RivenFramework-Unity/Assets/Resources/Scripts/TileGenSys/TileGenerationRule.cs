@@ -28,6 +28,8 @@ public class TileGenerationRule
     [Tooltip("Override: randomly pick a tile from tileIDs to place \n" +
              "TwoTile: tileID at index 0 will be placed below threshold, tileID at index 1 will be placed above threshold")]
     public TileSelectionMode tileSelectionMode = TileSelectionMode.Override;
+    [Tooltip("Leave empty to run in all environments, other wise set this to only allow this operation to run in this environment")]
+    public string environmentFilter = "";
 
     [Header("Conditions")] 
     [Tooltip("None: use the regular noise placement method \n" +
@@ -61,6 +63,8 @@ public enum GenerationProcedure
     Path,
     Water,
     GroundEdge,
+    CaveWall,
+    DeathPit,
 }
 
 public enum NoiseType
